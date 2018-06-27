@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   modalities: Modalities,
   selectedElement: ActiveElementReducer,
   selectedDocumentData: SelectDocumentReducer,
-  subfiguresData: SelectFigureReducer,
+  selectedFigureData: SelectFigureReducer,
 });
 
 export default rootReducer;

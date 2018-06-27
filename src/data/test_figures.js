@@ -46,7 +46,7 @@ export default
     {
       id: '16403219.pdf_3_1',
       title: 'Figure 1.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 6,
       is_compound: true,
@@ -56,7 +56,7 @@ export default
     {
       id: '16403219.pdf_4_1',
       title: 'Figure 2.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 9,
       is_compound: true,
@@ -66,7 +66,7 @@ export default
     {
       id: '16403219.pdf_6_1',
       title: 'Figure 3.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 5,
       is_compound: true,
@@ -76,7 +76,7 @@ export default
     {
       id: '16403219.pdf_3_7',
       title: 'Figure 4.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 6,
       is_compound: true,
@@ -86,7 +86,7 @@ export default
     {
       id: '16403219.pdf_9_1',
       title: 'Figure 5.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -96,7 +96,7 @@ export default
     {
       id: '19329994.pdf_16_1',
       title: 'Figure 1.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -106,7 +106,7 @@ export default
     {
       id: '19329994.pdf_19_1',
       title: 'Figure 2.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -116,7 +116,7 @@ export default
     {
       id: '19329994.pdf_21_1',
       title: 'Figure 3.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -126,7 +126,7 @@ export default
     {
       id: '19329994.pdf_24_1',
       title: 'Figure 4.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -136,7 +136,7 @@ export default
     {
       id: '19329994.pdf_26_1',
       title: 'Figure 5.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -146,7 +146,7 @@ export default
     {
       id: '19329994.pdf_27_1',
       title: 'Figure 6.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -156,7 +156,7 @@ export default
     {
       id: '19329994.pdf_29_1',
       title: 'Figure 7.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -166,7 +166,7 @@ export default
     {
       id: '19329994.pdf_30_1',
       title: 'Figure 8.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -176,7 +176,7 @@ export default
     {
       id: '19329994.pdf_32_1',
       title: 'Figure 9.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -186,7 +186,7 @@ export default
     {
       id: '19329994.pdf_33_1',
       title: 'Figure 10.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -196,7 +196,7 @@ export default
     {
       id: '19329994.pdf_34_1',
       title: 'Figure 11.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -206,7 +206,7 @@ export default
     {
       id: '23949442.pdf_4_1',
       title: 'Figure 1.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -216,7 +216,7 @@ export default
     {
       id: '23949442.pdf_5_1',
       title: 'Figure 2.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -226,7 +226,7 @@ export default
     {
       id: '23949442.pdf_6_1',
       title: 'Figure 3.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -236,7 +236,7 @@ export default
     {
       id: '23949442.pdf_7_1',
       title: 'Figure 4.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -246,7 +246,7 @@ export default
     {
       id: '23949442.pdf_8_1',
       title: 'Figure 5.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -256,7 +256,7 @@ export default
     {
       id: '23949442.pdf_9_1',
       title: 'Figure 6.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -266,7 +266,7 @@ export default
     {
       id: '24130878.pdf_4_1',
       title: 'Figure 1.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -276,7 +276,7 @@ export default
     {
       id: '24130878.pdf_5_1',
       title: 'Figure 2.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -286,7 +286,7 @@ export default
     {
       id: '24130878.pdf_6_1',
       title: 'Figure 3.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -296,7 +296,7 @@ export default
     {
       id: '24130878.pdf_7_1',
       title: 'Figure 4.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -306,7 +306,7 @@ export default
     {
       id: '24130878.pdf_9_1',
       title: 'Figure 5.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,
@@ -316,7 +316,7 @@ export default
     {
       id: '24130878.pdf_10_1',
       title: 'Figure 6.',
-      caption: '',
+      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet lacus urna, nec dignissim lacus venenatis a. Donec sollicitudin dolor eu metus feugiat, et sodales ex facilisis. Fusce pulvinar neque eget ipsum vulputate lobortis. Proin vitae risus vel ipsum condimentum ullamcorper. Curabitur bibendum metus a felis sollicitudin ultricies id ut dolor. Integer neque quam, vehicula luctus diam ac, porttitor efficitur magna. Pellentesque commodo lorem et nisi facilisis ultrices.',
       state: 'to-review',
       number_subfigures: 3,
       is_compound: true,

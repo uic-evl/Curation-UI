@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable arrow-body-style */
+/* eslint-disable no-debugger */
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { Grid, Cell } from 'react-md';
 import { connect } from 'react-redux';
@@ -8,25 +11,37 @@ import { bindActionCreators } from 'redux';
 import { selectSubfigure } from 'actions/index';
 
 class SubfigureCarrousel extends Component {
-  renderList() {
-    const style = {
-      'height': '60px',
-      'width': '100%',
-    };
+  applyStyle(subfigure) {
+    const { selectedSubfigure } = this.props;
 
+    if (selectedSubfigure.id === subfigure.id) {
+      return 'carousel selected';
+    }
+    return 'carousel';
+  }
+
+  renderList() {
     const { subfigures, selectSubfigure } = this.props;
 
-    if (!subfigures) {
-      return (<Cell />);
+    if (!subfigures || subfigures.length === 0) {
+      const emptyCarrouselImage = '/dist/images/empty_carrousel.png';
+      const arr = Array.from(Array(12).keys());
+      return arr.map((elem) => {
+        return (
+          <Cell size={1} key={elem}>
+            <img src={emptyCarrouselImage} className="carousel" alt="empty" />
+          </Cell>
+        );
+      });
     }
 
     return subfigures.map((subfigure) => {
       const url = `/dist/images/subfigures/${subfigure.id}`;
       return (
-        <Cell size={2}>
+        <Cell size={1} key={subfigure.id}>
           <img
             src={url}
-            style={style}
+            className={this.applyStyle(subfigure)}
             onClick={() => selectSubfigure(subfigure)}
             alt="temp"
           />
@@ -37,7 +52,7 @@ class SubfigureCarrousel extends Component {
 
   render() {
     return (
-      <div>
+      <div className="carousel">
         <Grid>
           {this.renderList()}
         </Grid>
@@ -47,12 +62,13 @@ class SubfigureCarrousel extends Component {
 }
 
 function mapStateToProps(state) {
-  if (!state.subfiguresData) {
+  if (!state.selectedFigureData) {
     return { subfigures: [] };
   }
 
   return {
-    subfigures: state.subfiguresData.subfigures,
+    subfigures: state.selectedFigureData.subfigures,
+    selectedSubfigure: state.selectedFigureData.selectedSubfigure,
   };
 }
 

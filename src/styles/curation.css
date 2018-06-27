@@ -1,0 +1,8 @@
+.carousel {
+  height: 80px;
+  width: 100%;
+}
+
+.selected-carousel {
+  border: 5px solid black;
+}

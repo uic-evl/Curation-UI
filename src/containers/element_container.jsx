@@ -19,13 +19,13 @@ class ElementContainer extends Component {
 
   render() {
     return (
-      <Grid>
-        <Cell size={2}>
+      <Grid className="md-grid--no-spacing">
+        <Cell size={2} className="md-grid--no-spacing">
           <DocumentList />
         </Cell>
-        <Cell size={10}>
+        <Cell size={10} className="md-grid--no-spacing">
           <DocumentTitle />
-          <Grid>
+          <Grid className="md-grid--no-spacing">
             <Cell size={2}>
               <FigureList />
             </Cell>

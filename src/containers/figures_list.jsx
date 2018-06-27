@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable no-debugger */
 import React, { Component } from 'react';
 import {
   Media,
   Card,
-  CardTitle,
   CardText,
   Button,
   CardActions,
@@ -14,6 +14,17 @@ import { bindActionCreators } from 'redux';
 import { selectFigure } from 'actions/index';
 
 class FiguresList extends Component {
+  applyStyle(figureToShow) {
+    const { figure } = this.props;
+
+    if (figure) {
+      if (figure.id === figureToShow.id) {
+        return 'selected';
+      }
+    }
+    return '';
+  }
+
   renderList() {
     const styleCard = {
       marginBottom: '5px',
@@ -26,9 +37,8 @@ class FiguresList extends Component {
 
       return (
         <Card className="md-cell md-cell--12 md-cell--12-tablet" key={figure.id} style={styleCard}>
-          <CardTitle title={figure.title} />
-          <Media>
-            <img src={imageUrl} alt="random" />
+          <Media aspectRatio="1-1">
+            <img src={imageUrl} alt="random" className={this.applyStyle(figure)} />
           </Media>
           <CardActions expander>
             <Button flat onClick={() => selectFigure(figure)}>
@@ -47,7 +57,7 @@ class FiguresList extends Component {
 
   render() {
     const styleTest = {
-      height: '85vh',
+      height: '77vh',
       overflow: 'scroll',
     };
 
@@ -60,15 +70,20 @@ class FiguresList extends Component {
 }
 
 function mapStateToProps(state) {
-  if (!state.selectedDocumentData) {
-    return {
-      figures: [],
-    };
+  const props = {
+    figures: [],
+    figure: null,
+  };
+
+  if (state.selectedDocumentData) {
+    props.figures = state.selectedDocumentData.figures;
   }
 
-  return {
-    figures: state.selectedDocumentData.figures,
-  };
+  if (state.selectedFigureData) {
+    props.figure = state.selectedFigureData.figure;
+  }
+
+  return props;
 }
 
 function mapDispatchToProps(dispatch) {

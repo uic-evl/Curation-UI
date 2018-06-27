@@ -40,6 +40,7 @@ export function selectFigure(figure) {
   return {
     type: SELECT_FIGURE,
     payload: {
+      figure,
       subfigures,
       selectedSubfigure,
     },

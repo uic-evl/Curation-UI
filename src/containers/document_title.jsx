@@ -1,23 +1,21 @@
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-closing-bracket-location */
+/* eslint-disable react/jsx-one-expression-per-line */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Toolbar } from 'react-md';
 
 class DocumentTitle extends Component {
   render() {
     const { document } = this.props;
 
     return (
-      <div>
-        <h3>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={document.url}>
-            { document.title }
-          </a>
-        </h3>
+      <div className="md-grid md-grid--no-spacing figure-header">
+        <Toolbar
+          className="md-cell--12"
+          title={<a href={document.url}>{document.title}</a>}
+        />
       </div>
     );
   }

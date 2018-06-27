@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
   Grid,
@@ -9,6 +10,12 @@ import {
   TextField,
   Paper,
   Divider,
+  Button,
+  DataTable,
+  TableHeader,
+  TableRow,
+  TableColumn,
+  TableBody,
 } from 'react-md';
 import { connect } from 'react-redux';
 
@@ -17,7 +24,7 @@ import SubfigureCarrousel from './subfigure_carousel';
 class SubfigureDetails2 extends Component {
   render() {
     const style = {
-      'height': '100%',
+      'height': '300px',
       'width': '100%',
     };
 
@@ -27,16 +34,8 @@ class SubfigureDetails2 extends Component {
         <SubfigureCarrousel />
 
         <Paper zDepth="5">
-          <div>
-            <h3>
-              {subfigure.title}
-            </h3>
-            <span>
-              1/3
-            </span>
-          </div>
           <Grid>
-            <Cell size={6}>
+            <Cell size={5}>
               <div>
                 <img
                   src={`/dist/images/subfigures/${subfigure.id}`}
@@ -50,31 +49,43 @@ class SubfigureDetails2 extends Component {
                 </p>
               </div>
             </Cell>
-            <Cell size={6}>
-              <div>
-                <h4>
-                  Textual Context
-                </h4>
-                <p />
-              </div>
+            <Cell size={4}>
+              <DataTable plain selectable={false}>
+                <TableHeader>
+                  <TableRow>
+                    <TableColumn>Textual Context</TableColumn>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow key={1}>
+                    <TableColumn>Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.</TableColumn>
+                  </TableRow>
+                  <TableRow key={2}>
+                    <TableColumn>
+                    Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.
+                    </TableColumn>
+                  </TableRow>
+                </TableBody>
+              </DataTable>
+            </Cell>
+            <Cell size={3}>
+              <SelectField
+                id="modality-select-field"
+                label="Modality"
+                className="md-cell"
+                menuItems={modalities}
+              />
+              <TextField
+                id="subfigure_comments"
+                label="Comments"
+                rows={4}
+                maxRows={4}
+                className="md-cell md-cell--12"
+              />
+              <Button flat primary swapTheming>Save</Button>
             </Cell>
           </Grid>
           <Divider />
-          <div>
-            <SelectField
-              id="modality-select-field"
-              label="Modality"
-              className="md-cell"
-              menuItems={modalities}
-            />
-            <TextField
-              id="subfigure_comments"
-              label="Comments"
-              rows={3}
-              maxRows={6}
-              className="md-cell md-cell--12"
-            />
-          </div>
         </Paper>
       </div>
     );
@@ -82,7 +93,7 @@ class SubfigureDetails2 extends Component {
 }
 
 function mapStateToProps(state) {
-  if (!state.subfiguresData) {
+  if (!state.selectedFigureData) {
     return {
       subfigure: {
         id: 'sample.png',
@@ -92,7 +103,7 @@ function mapStateToProps(state) {
   }
 
   return {
-    subfigure: state.subfiguresData.selectedSubfigure,
+    subfigure: state.selectedFigureData.selectedSubfigure,
     modalities: state.modalities,
   };
 }

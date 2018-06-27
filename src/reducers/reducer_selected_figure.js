@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { SELECT_FIGURE, SELECT_SUBFIGURE } from 'actions/action_types';
 
 export default function (state = null, action) {
@@ -6,6 +7,7 @@ export default function (state = null, action) {
       return action.payload;
     case SELECT_SUBFIGURE:
       return {
+        figure: state.figure,
         subfigures: state.subfigures,
         selectedSubfigure: action.payload,
       };
