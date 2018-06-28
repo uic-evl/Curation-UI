@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/jsx-one-expression-per-line */
-import _ from 'lodash';
+/* eslint-disable no-debugger */
 import React, { Component } from 'react';
 import {
   List,
@@ -16,13 +16,20 @@ import { selectDocument } from 'actions/index';
 
 class DocumentList extends Component {
   renderList() {
-    const { documents, selectDocument } = this.props;
+    const { documents, selectDocument, selectedDocument } = this.props;
+
     return documents.map((document) => {
+      let active = false;
+      if (selectedDocument.id === document.id) {
+        active = true;
+      }
+
       return (
         <ListItem
           key={document.id}
           leftAvatar={<Avatar suffix="blue" icon={<FontIcon>insert_drive_file</FontIcon>} />}
           primaryText={document.title}
+          active={active}
           onClick={() => selectDocument(document)}
         />
       );
@@ -47,13 +54,23 @@ class DocumentList extends Component {
 }
 
 function mapStateToProps(state) {
-  if (!state.selectedElement) {
-    return { documents: [] };
+  const props = {
+    documents: [],
+    selectedDocument: {
+      id: '-1',
+    },
+  };
+
+
+  if (state.selectedElement) {
+    props.documents = state.selectedElement.documents;
   }
 
-  return {
-    documents: _.filter(state.documents, { 'pid': `${state.selectedElement.id}` }),
-  };
+  if (state.selectedDocumentData) {
+    props.selectedDocument = state.selectedDocumentData.document;
+  }
+
+  return props;
 }
 
 function mapDispatchToProps(dispatch) {

@@ -13,6 +13,7 @@ class DocumentTitle extends Component {
     return (
       <div className="md-grid md-grid--no-spacing figure-header">
         <Toolbar
+          themed
           className="md-cell--12"
           title={<a href={document.url}>{document.title}</a>}
         />

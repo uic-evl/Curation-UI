@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable no-debugger */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Cell } from 'react-md';
@@ -8,6 +9,7 @@ import SubFigureDetails2 from 'containers/subfigure_details_2';
 import DocumentTitle from 'containers/document_title';
 import DocumentList from 'containers/document_list';
 import SimilarImagesList from 'components/similar_images_list';
+import ElementTitle from 'components/element_title';
 
 import { fetchElement } from 'actions';
 
@@ -18,9 +20,12 @@ class ElementContainer extends Component {
   }
 
   render() {
+    const { element } = this.props;
+
     return (
       <Grid className="md-grid--no-spacing">
         <Cell size={2} className="md-grid--no-spacing">
+          {ElementTitle(element)}
           <DocumentList />
         </Cell>
         <Cell size={10} className="md-grid--no-spacing">
@@ -43,9 +48,16 @@ class ElementContainer extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {
+  const props = {
     id: ownProps.match.params.id,
+    element: null,
   };
+
+  if (state.selectedElement) {
+    props.element = state.selectedElement.element;
+  }
+
+  return props;
 }
 
 export default connect(mapStateToProps, { fetchElement })(ElementContainer);

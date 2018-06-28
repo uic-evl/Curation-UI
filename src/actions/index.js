@@ -1,4 +1,5 @@
 /* eslint-disable prefer-destructuring */
+/* eslint-disable no-debugger */
 import _ from 'lodash';
 import {
   FETCH_ELEMENT,
@@ -6,14 +7,20 @@ import {
   SELECT_FIGURE,
   SELECT_SUBFIGURE,
 } from 'actions/action_types';
+import TEST_DOCUMENTS from 'data/test_documents';
 import TEST_FIGURES from 'data/test_figures';
 import TEST_SUBFIGURES from 'data/test_subfigures';
+import TEST_ELEMENTS from 'data/test_elements';
 
 export function fetchElement(id) {
+  const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });
+  const documents = _.filter(TEST_DOCUMENTS, { 'pid': `${id}` });
+
   return {
     type: FETCH_ELEMENT,
     payload: {
-      id,
+      element,
+      documents,
     },
   };
 }

@@ -12,6 +12,11 @@ export default
       is_compound: true,
       path: '15350224.pdf_3_1.jpg',
       document_id: '15350224',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+        '(A) Crystal structures of the Smad2/Smad4 (left) and Smad3/Smad4 (right) complexes. The Smad2 subunits are in red. The Smad3 subunits are in green. The Smad4 subunits in both complexes are in cyan. The L3 loops are in yellow. The phosphoserine side chains are in stick presentation.',
+      ],
     },
     {
       id: '15350224.pdf_5_1',
@@ -22,6 +27,10 @@ export default
       is_compound: true,
       path: '15350224.pdf_5_1.jpg',
       document_id: '15350224',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '15350224.pdf_7_1',
@@ -32,6 +41,10 @@ export default
       is_compound: true,
       path: '15350224.pdf_7_1.jpg',
       document_id: '15350224',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '15350224.pdf_8_1',
@@ -42,6 +55,10 @@ export default
       is_compound: true,
       path: '15350224.pdf_8_1.jpg',
       document_id: '15350224',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '16403219.pdf_3_1',
@@ -52,6 +69,10 @@ export default
       is_compound: true,
       path: '16403219.pdf_3_1.jpg',
       document_id: '16403219',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '16403219.pdf_4_1',
@@ -62,6 +83,10 @@ export default
       is_compound: true,
       path: '16403219.pdf_4_1.jpg',
       document_id: '16403219',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '16403219.pdf_6_1',
@@ -72,6 +97,10 @@ export default
       is_compound: true,
       path: '16403219.pdf_6_1.jpg',
       document_id: '16403219',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '16403219.pdf_3_7',
@@ -82,6 +111,10 @@ export default
       is_compound: true,
       path: '16403219.pdf_7_1.jpg',
       document_id: '16403219',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '16403219.pdf_9_1',
@@ -92,6 +125,10 @@ export default
       is_compound: true,
       path: '16403219.pdf_9_1.jpg',
       document_id: '16403219',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_16_1',
@@ -102,6 +139,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_16_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_19_1',
@@ -112,6 +153,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_19_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_21_1',
@@ -122,6 +167,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_21_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_24_1',
@@ -132,6 +181,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_24_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_26_1',
@@ -142,6 +195,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_26_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_27_1',
@@ -152,6 +209,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_27_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_29_1',
@@ -162,6 +223,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_29_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_30_1',
@@ -172,6 +237,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_30_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_32_1',
@@ -182,6 +251,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_32_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_33_1',
@@ -192,6 +265,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_33_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '19329994.pdf_34_1',
@@ -202,6 +279,10 @@ export default
       is_compound: true,
       path: '19329994.pdf_34_1.jpg',
       document_id: '19329994',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '23949442.pdf_4_1',
@@ -212,6 +293,10 @@ export default
       is_compound: true,
       path: '23949442.pdf_4_1.jpg',
       document_id: '23949442',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '23949442.pdf_5_1',
@@ -222,6 +307,10 @@ export default
       is_compound: true,
       path: '23949442.pdf_5_1.jpg',
       document_id: '23949442',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '23949442.pdf_6_1',
@@ -232,6 +321,10 @@ export default
       is_compound: true,
       path: '23949442.pdf_6_1.jpg',
       document_id: '23949442',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '23949442.pdf_7_1',
@@ -242,6 +335,10 @@ export default
       is_compound: true,
       path: '23949442.pdf_7_1.jpg',
       document_id: '23949442',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '23949442.pdf_8_1',
@@ -252,6 +349,10 @@ export default
       is_compound: true,
       path: '23949442.pdf_8_1.jpg',
       document_id: '23949442',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '23949442.pdf_9_1',
@@ -262,6 +363,10 @@ export default
       is_compound: true,
       path: '23949442.pdf_9_1.jpg',
       document_id: '23949442',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '24130878.pdf_4_1',
@@ -272,6 +377,10 @@ export default
       is_compound: true,
       path: '24130878.pdf_4_1.jpg',
       document_id: '24130878',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '24130878.pdf_5_1',
@@ -282,6 +391,10 @@ export default
       is_compound: true,
       path: '24130878.pdf_5_1.jpg',
       document_id: '24130878',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '24130878.pdf_6_1',
@@ -292,6 +405,10 @@ export default
       is_compound: true,
       path: '24130878.pdf_6_1.jpg',
       document_id: '24130878',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '24130878.pdf_7_1',
@@ -302,6 +419,10 @@ export default
       is_compound: true,
       path: '24130878.pdf_7_1.jpg',
       document_id: '24130878',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '24130878.pdf_9_1',
@@ -312,6 +433,10 @@ export default
       is_compound: true,
       path: '24130878.pdf_9_1.jpg',
       document_id: '24130878',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
     {
       id: '24130878.pdf_10_1',
@@ -322,5 +447,9 @@ export default
       is_compound: true,
       path: '24130878.pdf_10_1.jpg',
       document_id: '24130878',
+      textual_context: [
+        'Maecenas in mi malesuada, dignissim dolor et, varius urna. Morbi ut augue metus. Fusce leo lorem, facilisis vel metus iaculis, tempus faucibus lectus. Maecenas nec tortor in purus scelerisque commodo sed eget eros. Etiam iaculis quis lorem sit amet porta. Sed facilisis odio vel odio tincidunt posuere. Sed pharetra tortor nec nibh porta interdum. Vivamus ac diam sed urna mattis imperdiet eget sit amet lacus. Mauris congue magna at nisl convallis cursus.',
+        'Quisque vel erat sit amet purus tempus pharetra. Nullam scelerisque semper sem, a iaculis sem sollicitudin malesuada. Donec vel interdum libero. Donec tortor enim, lacinia ut lacinia nec, sollicitudin vitae lectus. Etiam finibus pharetra massa, id mollis tortor elementum vel. Vestibulum ante felis, cursus nec malesuada vel, posuere ac velit. Cras pretium, turpis quis varius mollis, tellus libero facilisis risus, eu ullamcorper massa ligula at nisl. Praesent eu urna quis eros cursus dignissim. Curabitur ex magna, vestibulum quis nisi in, placerat convallis ex.',
+      ],
     },
   ];

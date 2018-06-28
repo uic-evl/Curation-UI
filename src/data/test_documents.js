@@ -1,4 +1,5 @@
-export const test_documents =
+/* eslint-disable */
+export default
   [
     {
       id: '15350224',
