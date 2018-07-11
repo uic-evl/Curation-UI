@@ -5,6 +5,7 @@ import Modalities from 'reducers/reducer_modalities';
 import ActiveElementReducer from 'reducers/reducer_active_element';
 import SelectDocumentReducer from 'reducers/reducer_selected_document';
 import SelectFigureReducer from 'reducers/reducer_selected_figure';
+import FetchTrainingImages from 'reducers/reducer_training';
 
 const rootReducer = combineReducers({
   documents: DocumentsReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   selectedElement: ActiveElementReducer,
   selectedDocumentData: SelectDocumentReducer,
   selectedFigureData: SelectFigureReducer,
+  microscopyImages: FetchTrainingImages,
 });
 
 export default rootReducer;

@@ -6,11 +6,13 @@ import {
   SELECT_DOCUMENT,
   SELECT_FIGURE,
   SELECT_SUBFIGURE,
+  FETCH_IMAGE_TO_TRAIN,
 } from 'actions/action_types';
 import TEST_DOCUMENTS from 'data/test_documents';
 import TEST_FIGURES from 'data/test_figures';
 import TEST_SUBFIGURES from 'data/test_subfigures';
 import TEST_ELEMENTS from 'data/test_elements';
+import TRAINING_IMAGES from 'data/microscopy_images';
 
 export function fetchElement(id) {
   const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });
@@ -58,5 +60,13 @@ export function selectSubfigure(subfigure) {
   return {
     type: SELECT_SUBFIGURE,
     payload: subfigure,
+  };
+}
+
+export function fetchTrainingImages() {
+  const trainingImages = _.slice(TRAINING_IMAGES, 0, 8);
+  return {
+    type: FETCH_IMAGE_TO_TRAIN,
+    payload: trainingImages,
   };
 }

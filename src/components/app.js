@@ -6,6 +6,7 @@ import { NavigationDrawer, SVGIcon } from 'react-md';
 import { Route, Switch } from 'react-router-dom';
 
 import ElementContainer from '../containers/element_container';
+import TrainingContainer from '../containers/training_container';
 import inboxListItems from '../constants/inboxListItems';
 import menu from '../icons/menu.svg';
 import arrowBack from '../icons/arrow_back.svg';
@@ -80,6 +81,7 @@ export default class App extends Component {
 
         <Switch>
           <Route path="/document/:id" component={ElementContainer} />
+          <Route path="/training" component={TrainingContainer} />
           <Route path="/" component={ElementContainer} />
         </Switch>
       </NavigationDrawer>
