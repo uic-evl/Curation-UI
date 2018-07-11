@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-import { SELECT_FIGURE, SELECT_SUBFIGURE } from 'actions/action_types';
+import { SELECT_FIGURE, SELECT_SUBFIGURE } from 'client/actions/action_types';
 
 export default function (state = null, action) {
   switch (action.type) {

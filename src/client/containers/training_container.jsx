@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Cell } from 'react-md';
 
-import { fetchTrainingImages } from 'actions';
+import { fetchTrainingImages } from 'client/actions';
 
-import TrainingCards from 'containers/training_cards';
+import TrainingCards from 'client/containers/training_cards';
 
 class TrainingContainer extends Component {
   componentDidMount() {

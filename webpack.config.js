@@ -7,7 +7,7 @@ const output_path = 'dist';
 
 module.exports = {
   mode: 'development',
-  entry: ['./src/index.jsx'],
+  entry: ['./src/client/index.jsx'],
   output: {
     path: path.resolve(__dirname, output_path),
     publicPath: '/dist/',

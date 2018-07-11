@@ -11,7 +11,7 @@ import {
 } from 'react-md';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectFigure } from 'actions/index';
+import { selectFigure } from 'client/actions/index';
 
 class FiguresList extends Component {
   applyStyle(figureToShow) {

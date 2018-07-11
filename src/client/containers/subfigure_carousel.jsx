@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { Grid, Cell } from 'react-md';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectSubfigure } from 'actions/index';
+import { selectSubfigure } from 'client/actions/index';
 
 class SubfigureCarrousel extends Component {
   applyStyle(subfigure) {

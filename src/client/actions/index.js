@@ -7,12 +7,12 @@ import {
   SELECT_FIGURE,
   SELECT_SUBFIGURE,
   FETCH_IMAGE_TO_TRAIN,
-} from 'actions/action_types';
-import TEST_DOCUMENTS from 'data/test_documents';
-import TEST_FIGURES from 'data/test_figures';
-import TEST_SUBFIGURES from 'data/test_subfigures';
-import TEST_ELEMENTS from 'data/test_elements';
-import TRAINING_IMAGES from 'data/microscopy_images';
+} from 'client/actions/action_types';
+import TEST_DOCUMENTS from 'client/data/test_documents';
+import TEST_FIGURES from 'client/data/test_figures';
+import TEST_SUBFIGURES from 'client/data/test_subfigures';
+import TEST_ELEMENTS from 'client/data/test_elements';
+import TRAINING_IMAGES from 'client/data/microscopy_images';
 
 export function fetchElement(id) {
   const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });

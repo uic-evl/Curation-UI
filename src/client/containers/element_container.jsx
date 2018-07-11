@@ -4,14 +4,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Cell } from 'react-md';
 
-import FigureList from 'containers/figures_list';
-import SubFigureDetails2 from 'containers/subfigure_details_2';
-import DocumentTitle from 'containers/document_title';
-import DocumentList from 'containers/document_list';
-import SimilarImagesList from 'components/similar_images_list';
-import ElementTitle from 'components/element_title';
+import FigureList from 'client/containers/figures_list';
+import SubFigureDetails2 from 'client/containers/subfigure_details_2';
+import DocumentTitle from 'client/containers/document_title';
+import DocumentList from 'client/containers/document_list';
+import SimilarImagesList from 'client/components/similar_images_list';
+import ElementTitle from 'client/components/element_title';
 
-import { fetchElement } from 'actions';
+import { fetchElement } from 'client/actions';
 
 class ElementContainer extends Component {
   componentDidMount() {

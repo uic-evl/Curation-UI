@@ -12,7 +12,7 @@ import {
 } from 'react-md';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectDocument } from 'actions/index';
+import { selectDocument } from 'client/actions/index';
 
 class DocumentList extends Component {
   renderList() {

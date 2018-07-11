@@ -1,8 +1,8 @@
-import { SELECT_DOCUMENT } from 'actions/action_types';
+import { FETCH_ELEMENT } from 'client/actions/action_types';
 
 export default function (state = null, action) {
   switch (action.type) {
-    case SELECT_DOCUMENT:
+    case FETCH_ELEMENT:
       return action.payload;
     default:
       return state;

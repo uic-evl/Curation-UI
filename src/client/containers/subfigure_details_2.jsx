@@ -24,7 +24,7 @@ import {
 } from 'react-md';
 import { connect } from 'react-redux';
 
-import SubfigureCarrousel from './subfigure_carousel';
+import SubfigureCarrousel from 'client/containers/subfigure_carousel';
 
 class SubfigureDetails2 extends Component {
   constructor(props) {

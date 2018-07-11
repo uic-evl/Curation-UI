@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { FontIcon, List, ListItem, Paper, Card, CardTitle, Media, CardText, Divider, SelectField, TextField } from 'react-md';
 import { connect } from 'react-redux';
-import QuickNav from '../components/quick_nav';
+import QuickNav from 'client/components/quick_nav';
 
 class SubfigureDetails extends Component {
 
