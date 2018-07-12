@@ -33,7 +33,7 @@ class FiguresList extends Component {
     const { figures, selectFigure } = this.props;
 
     return figures.map((figure) => {
-      const imageUrl = `/dist/images/${figure.path}`;
+      const imageUrl = `/images/${figure.path}`;
 
       return (
         <Card className="md-cell md-cell--12 md-cell--12-tablet" key={figure.id} style={styleCard}>

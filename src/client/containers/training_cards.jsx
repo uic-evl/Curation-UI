@@ -21,7 +21,7 @@ class TrainingCards extends Component {
     }
 
     return images.map((image) => {
-      const url = `/dist/images/Microscopy/${image.name}`;
+      const url = `/images/Microscopy/${image.name}`;
       return (
         <Card className="cards__example md-cell md-cell--3 md-cell--3-tablet" key={image.name}>
           <CardTitle

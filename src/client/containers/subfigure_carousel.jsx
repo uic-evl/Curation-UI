@@ -24,7 +24,7 @@ class SubfigureCarrousel extends Component {
     const { subfigures, selectSubfigure } = this.props;
 
     if (!subfigures || subfigures.length === 0) {
-      const emptyCarrouselImage = '/dist/images/empty_carrousel.png';
+      const emptyCarrouselImage = '/images/empty_carrousel.png';
       const arr = Array.from(Array(12).keys());
       return arr.map((elem) => {
         return (
@@ -36,7 +36,7 @@ class SubfigureCarrousel extends Component {
     }
 
     return subfigures.map((subfigure) => {
-      const url = `/dist/images/subfigures/${subfigure.id}`;
+      const url = `/images/subfigures/${subfigure.id}`;
       return (
         <Cell size={1} key={subfigure.id}>
           <img

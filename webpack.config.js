@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackTemplate = require('html-webpack-template');
 const autoprefixer = require('autoprefixer');
 const output_path = 'dist';
 
@@ -10,8 +12,8 @@ module.exports = {
   entry: ['./src/client/index.jsx'],
   output: {
     path: path.resolve(__dirname, output_path),
-    publicPath: '/dist/',
-    filename: 'bundle.js'
+    publicPath: '/',
+    filename: 'index_bundle.js'
   },
   devServer: {
     historyApiFallback: true
@@ -104,6 +106,18 @@ module.exports = {
       // both options are optional
       filename: "[name].css",
       chunkFilename: "[id].css"
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      title: 'Curation UI',
+      inject: false,
+      template: HtmlWebpackTemplate,
+      appMountId: 'container',
+      mobile: true,
+      links: [
+        'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CMaterial+Icons',
+        'https://unpkg.com/react-md@1.4.1/dist/react-md.deep_purple-deep_orange.min.css'
+      ],
     })
   ]
 };

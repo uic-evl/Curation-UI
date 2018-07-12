@@ -75,7 +75,7 @@ class SubfigureDetails2 extends Component {
             <Cell size={5}>
               <div>
                 <img
-                  src={`/dist/images/subfigures/${subfigure.id}`}
+                  src={`/images/subfigures/${subfigure.id}`}
                   alt="random"
                   style={style}
                 />
