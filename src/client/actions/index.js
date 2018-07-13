@@ -1,6 +1,7 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-debugger */
 import _ from 'lodash';
+import axios from 'axios';
 import {
   FETCH_ELEMENT,
   SELECT_DOCUMENT,
@@ -12,7 +13,8 @@ import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
 import TEST_SUBFIGURES from 'client/data/test_subfigures';
 import TEST_ELEMENTS from 'client/data/test_elements';
-import TRAINING_IMAGES from 'client/data/microscopy_images';
+
+const API_URL = 'http://localhost:3050/';
 
 export function fetchElement(id) {
   const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });
@@ -64,9 +66,11 @@ export function selectSubfigure(subfigure) {
 }
 
 export function fetchTrainingImages() {
-  const trainingImages = _.slice(TRAINING_IMAGES, 0, 8);
+  const url = `${API_URL}getTrainingData`;
+  const request = axios.get(url);
+
   return {
     type: FETCH_IMAGE_TO_TRAIN,
-    payload: trainingImages,
+    payload: request,
   };
 }
