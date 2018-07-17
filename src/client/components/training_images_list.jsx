@@ -4,9 +4,8 @@
 /* eslint-disable no-debugger */
 import React, { Component } from 'react';
 import { List, ListItem, Subheader } from 'react-md';
-import { connect } from 'react-redux';
 
-class MicroscopyImagesList extends Component {
+class TrainingImageList extends Component {
   renderList() {
     const { images } = this.props;
 
@@ -41,12 +40,4 @@ class MicroscopyImagesList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const props = {
-    images: state.microscopyImages,
-  };
-
-  return props;
-}
-
-export default connect(mapStateToProps, null)(MicroscopyImagesList);
+export default TrainingImageList;

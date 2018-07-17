@@ -8,13 +8,15 @@ import {
   SELECT_FIGURE,
   SELECT_SUBFIGURE,
   FETCH_IMAGE_TO_TRAIN,
+  FETCH_MODALITIES,
+  UPDATE_TRAINING_IMAGE,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
 import TEST_SUBFIGURES from 'client/data/test_subfigures';
 import TEST_ELEMENTS from 'client/data/test_elements';
 
-const API_URL = 'http://localhost:3050/';
+const API_URL = 'http://localhost:3050/api/';
 
 export function fetchElement(id) {
   const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });
@@ -66,11 +68,31 @@ export function selectSubfigure(subfigure) {
 }
 
 export function fetchTrainingImages() {
-  const url = `${API_URL}getTrainingData`;
+  const url = `${API_URL}training`;
   const request = axios.get(url);
 
   return {
     type: FETCH_IMAGE_TO_TRAIN,
+    payload: request,
+  };
+}
+
+export function fetchModalities() {
+  const url = `${API_URL}modalities`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_MODALITIES,
+    payload: request,
+  };
+}
+
+export function updateTrainingImage(id, values, callback) {
+  const request = axios.patch(`${API_URL}training/${id}`, values)
+    .then(() => callback());
+
+  return {
+    type: UPDATE_TRAINING_IMAGE,
     payload: request,
   };
 }

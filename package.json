@@ -42,15 +42,17 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-eslint": "^8.2.5",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "lodash": "^4.17.10",
-    "mongodb": "^3.0.8",
+    "mongodb": "^2.2.35",
     "mongoose": "^5.2.3",
     "normalize.css": "^8.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-md": "^1.4.1",
     "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-promise": "^0.6.0"
