@@ -9,6 +9,8 @@ const schema = new mongoose.Schema({
     observations: { type: String },
     state: { type: String },
     last_update: { type: Date },
+    is_compound: { type: Boolean },
+    shared_modality: { type: Boolean },
 });
 
 const TrainingImage = mongoose.model('training', schema, 'training');

@@ -40,7 +40,9 @@ app.get('/api/training', (req, res) => {
 
 app.patch('/api/training/:id', (req, res) => {
   const id = req.params.id;
-  const body = _.pick(req.body, ['modality1', 'modality2', 'modality3', 'modality4']);
+  const body = _.pick(req.body, ['modality1', 'modality2', 'modality3', 'modality4', 'observations']);
+  body.is_compound = req.body.isCompound;
+  body.shared_modality = req.body.sharedModality;
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();

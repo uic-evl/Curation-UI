@@ -40,18 +40,37 @@ class UpdateTrainingImage extends Component {
       disabledModality2: true,
       disabledModality3: true,
       disabledModality4: true,
+      isCompound: false,
+      sharedModality: false,
+      disabledSharedModality: true,
+      observations: '',
     };
 
+    this.onChangeCompound = this.onChangeCompound.bind(this);
     this.onChangeModality1 = this.onChangeModality1.bind(this);
     this.onChangeModality2 = this.onChangeModality2.bind(this);
     this.onChangeModality3 = this.onChangeModality3.bind(this);
     this.onChangeModality4 = this.onChangeModality4.bind(this);
+    this.onChangeObservations = this.onChangeObservations.bind(this);
+    this.onChangeSharedModality = this.onChangeSharedModality.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
   componentDidMount() {
     const { fetchModalities } = this.props;
     fetchModalities();
+  }
+
+  onChangeCompound(checked) {
+    let disabled = true;
+    if (checked) {
+      disabled = false;
+    }
+
+    this.setState({
+      disabledSharedModality: disabled,
+      isCompound: checked,
+    });
   }
 
   onChangeModality1(value) {
@@ -71,6 +90,7 @@ class UpdateTrainingImage extends Component {
     this.setState({
       modality1: value,
       modalities2,
+      modality2: '',
       modalities3: [],
       modality3: '',
       modalities4: [],
@@ -80,6 +100,8 @@ class UpdateTrainingImage extends Component {
       disabledModality3: true,
       disabledModality4: true,
     });
+
+    console.log(this.state.modality2);
   }
 
   onChangeModality2(value) {
@@ -140,9 +162,17 @@ class UpdateTrainingImage extends Component {
     });
   }
 
+  onChangeObservations(value) {
+    this.setState({ observations: value });
+  }
+
+  onChangeSharedModality(value) {
+    this.setState({ sharedModality: value });
+  }
+
   onSave() {
     const { image } = this.props;
-    const values = _.pick(this.state, ['modality1', 'modality2', 'modality3', 'modality4']);
+    const values = _.pick(this.state, ['modality1', 'modality2', 'modality3', 'modality4', 'observations', 'isCompound', 'sharedModality']);
     updateTrainingImage(image._id, values, () => {
       const { fetchTrainingImages } = this.props;
       fetchTrainingImages();
@@ -175,6 +205,10 @@ class UpdateTrainingImage extends Component {
       disabledModality2: true,
       disabledModality3: true,
       disabledModality4: true,
+      disabledSharedModality: true,
+      sharedModality: false,
+      isCompound: false,
+      observations: '',
     });
   }
 
@@ -203,7 +237,7 @@ class UpdateTrainingImage extends Component {
             </Media>
           </div>
           <div className="md-cell--4">
-            <Paper class="md-grid md-grid--no-spacing">
+            <Paper className="md-grid md-grid--no-spacing">
               <div className="md-grid md-cell md-cell--12">
                 <SelectField
                   id="modality1-select-field"
@@ -212,7 +246,6 @@ class UpdateTrainingImage extends Component {
                   menuItems={modalities1}
                   onChange={this.onChangeModality1}
                   value={this.state.modality1}
-                  defaultValue="Experimental"
                 />
                 <TextField
                   id="modality1"
@@ -229,16 +262,20 @@ class UpdateTrainingImage extends Component {
                   label="Modality"
                   className="md-cell md-cell--6"
                   menuItems={this.state.modalities2}
+                  value={this.state.modality2}
                   onChange={this.onChangeModality2}
                   disabled={this.state.disabledModality2}
+                  defaultValue=""
                 />
                 <SelectField
                   id="modality3-select-field"
                   label="Sub-Modality"
                   className="md-cell md-cell--6"
+                  value={this.state.modality3}
                   menuItems={this.state.modalities3}
                   onChange={this.onChangeModality3}
                   disabled={this.state.disabledModality3}
+                  defaultValue=""
                 />
               </div>
               <div className="md-grid md-cell md-cell--12">
@@ -247,8 +284,10 @@ class UpdateTrainingImage extends Component {
                   label="Sub-sub-Modality"
                   className="md-cell md-cell--6"
                   menuItems={this.state.modalities4}
+                  value={this.state.modality4}
                   onChange={this.onChangeModality4}
                   disabled={this.state.disabledModality4}
+                  defaultValue=""
                 />
                 <div className="md-grid md-cell md-cell--6">
                   <SelectionControl
@@ -257,6 +296,8 @@ class UpdateTrainingImage extends Component {
                     label="Is Compound?"
                     name="lights"
                     className="md-cell--12"
+                    checked={this.state.isCompound}
+                    onChange={this.onChangeCompound}
                   />
                   <SelectionControl
                     id="sub-figure-same"
@@ -264,7 +305,9 @@ class UpdateTrainingImage extends Component {
                     label="Sub-figures share modality"
                     name="lights"
                     className="md-cell--12"
-                    defaultChecked
+                    checked={this.state.sharedModality}
+                    disabled={this.state.disabledSharedModality}
+                    onChange={this.onChangeSharedModality}
                   />
                 </div>
               </div>
@@ -275,6 +318,8 @@ class UpdateTrainingImage extends Component {
                   lineDirection="center"
                   className="md-cell md-cell-12"
                   rows={2}
+                  value={this.state.observations}
+                  onChange={this.onChangeObservations}
                 />
               </div>
               <div className="md-grid md-cell md-cell--12">
