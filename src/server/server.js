@@ -46,8 +46,6 @@ app.patch('/api/training/:id', (req, res) => {
   body.needs_cropping = req.body.needsCropping;
   body.other_modality1 = req.body.newModality1;
 
-  console.log(body);
-
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
