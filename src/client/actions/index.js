@@ -67,8 +67,8 @@ export function selectSubfigure(subfigure) {
   };
 }
 
-export function fetchTrainingImages() {
-  const url = `${API_URL}training`;
+export function fetchTrainingImages(currHistory) {
+  const url = `${API_URL}training/${currHistory}`;
   const request = axios.get(url);
 
   return {

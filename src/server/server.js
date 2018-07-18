@@ -30,12 +30,24 @@ app.get('/api/modalities', (req, res) => {
   })
 });
 
-app.get('/api/training', (req, res) => {
-  TrainingImage.findOne({state: 'to review'}).then(images => {
-    res.send(images);
-  }, e => {
-    res.status(404).send(e);
-  })
+app.get('/api/training/:previous', (req, res) => {
+  const previous = req.params.previous;
+  if (previous == undefined || previous == null || previous == 0) {
+    TrainingImage.findOne({state: 'to review'}).then(image => {
+      res.send(image);
+    }, e => {
+      res.status(404).send(e);
+    })
+  } else {
+    TrainingImage.find({ $or: [{state: 'reviewed'}, {state: 'skipped'}]}).sort({last_update: -1}).then(images => {
+      if (previous - 1 < images.length)
+        res.send(images[previous - 1]);
+      else
+        res.send(null);
+    }, e => {
+      res.status(404).send(e);
+    })
+  }
 });
 
 app.patch('/api/training/:id', (req, res) => {

@@ -3,6 +3,8 @@
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-unused-vars */
+/* eslint-disable arrow-body-style */
+/* eslint-disable no-useless-return */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Cell } from 'react-md';
@@ -13,11 +15,15 @@ import { fetchTrainingImages } from 'client/actions';
 class TrainingContainer extends Component {
   componentDidMount() {
     const { fetchTrainingImages } = this.props;
-    fetchTrainingImages();
+    fetchTrainingImages(0);
   }
 
   render() {
     const { trainingImages, currentImage } = this.props;
+
+    if (!currentImage) {
+      return (<div />);
+    }
 
     return (
       <Grid className="md-grid--no-spacing">

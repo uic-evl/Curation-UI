@@ -9,6 +9,9 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-boolean-value */
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/no-did-update-set-state */
+/* eslint-disable prefer-destructuring */
 import _ from 'lodash';
 import React, { Component } from 'react';
 
@@ -30,6 +33,8 @@ class UpdateTrainingImage extends Component {
     super(props);
 
     this.state = {
+      loadPrevious: false,
+      currHistory: 0,
       modality1: '',
       modalities2: [],
       modality2: '',
@@ -58,12 +63,39 @@ class UpdateTrainingImage extends Component {
     this.onChangeNeedsCropping = this.onChangeNeedsCropping.bind(this);
     this.onChangeObservations = this.onChangeObservations.bind(this);
     this.onChangeSharedModality = this.onChangeSharedModality.bind(this);
+    this.onPrevious = this.onPrevious.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
   componentDidMount() {
     const { fetchModalities } = this.props;
     fetchModalities();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps && prevProps.image.name !== this.props.image.name) {
+      console.log(this.props.image);
+
+      let modalities2 = [];
+      let disabledModality2 = true;
+      if (this.props.image.modality1 !== '') {
+        const updatesModality1 = this.changeModality1(this.props.image.modality1);
+        modalities2 = updatesModality1.modalities2;
+        disabledModality2 = updatesModality1.disabledModality2;
+      }
+
+      this.setState({
+        modality1: this.props.image.modality1,
+        modality2: this.props.image.modality2,
+        modalities2,
+        observations: this.props.image.observations,
+        needsCropping: this.props.image.needs_cropping,
+        newModality1: this.props.image.other_modality1,
+        sharedModality: this.props.image.shared_modality,
+        isCompound: this.props.image.is_compound,
+        disabledModality2,
+      });
+    }
   }
 
   onChangeCompound(checked) {
@@ -105,8 +137,6 @@ class UpdateTrainingImage extends Component {
       disabledModality3: true,
       disabledModality4: true,
     });
-
-    console.log(this.state.modality2);
   }
 
   onChangeModality2(value) {
@@ -181,6 +211,16 @@ class UpdateTrainingImage extends Component {
     this.setState({ needsCropping: value });
   }
 
+  onPrevious() {
+    this.setState({
+      currHistory: this.state.currHistory + 1,
+    }, () => {
+      this.resetForm();
+      const { fetchTrainingImages } = this.props;
+      fetchTrainingImages(this.state.currHistory);
+    });
+  }
+
   onSave() {
     const { image } = this.props;
     let values = null;
@@ -203,15 +243,39 @@ class UpdateTrainingImage extends Component {
           'sharedModality', 'newModality1', 'needsCropping']);
     }
 
+    // let currHistory = this.state.currHistory;
+    this.setState({ currHistory: 0 });
+
     if (this.validate()) {
       updateTrainingImage(image._id, values, () => {
         const { fetchTrainingImages } = this.props;
-        fetchTrainingImages();
+        fetchTrainingImages(0);
         this.resetForm();
       });
     } else {
       console.log('invalid');
     }
+  }
+
+  changeModality1(newModality1) {
+    const { modalities } = this.props;
+    let modalities2 = _.reject(modalities, (o) => { return o.modality2 === ''; });
+    modalities2 = _.filter(modalities2, { 'modality1': newModality1 });
+
+    let disabledModality2 = true;
+    if (modalities2.length > 0) {
+      modalities2 = [...new Set(modalities2.map(item => item.modality2))];
+      modalities2 = this.parseForSelectField(modalities2);
+      disabledModality2 = false;
+    }
+
+    const disabledModality1 = !(newModality1 === 'Other');
+
+    return {
+      modalities2,
+      disabledModality1,
+      disabledModality2,
+    };
   }
 
   parseForSelectField(items) {
@@ -393,7 +457,8 @@ class UpdateTrainingImage extends Component {
                 />
               </div>
               <div className="md-grid md-cell md-cell--12">
-                <Button flat primary swapTheming onClick={this.onSave}>Next</Button>
+                <Button flat primary swapTheming onClick={this.onPrevious}>Previous</Button>
+                <Button flat primary swapTheming onClick={this.onSave}>Next To Review</Button>
               </div>
             </Paper>
           </div>
