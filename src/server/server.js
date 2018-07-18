@@ -43,13 +43,22 @@ app.patch('/api/training/:id', (req, res) => {
   const body = _.pick(req.body, ['modality1', 'modality2', 'modality3', 'modality4', 'observations']);
   body.is_compound = req.body.isCompound;
   body.shared_modality = req.body.sharedModality;
+  body.needs_cropping = req.body.needsCropping;
+  body.other_modality1 = req.body.newModality1;
+
+  console.log(body);
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
 
   body.last_update = Date.now();
-  body.state = "reviewed";
+  if (body.modality1 === '') {
+    body.state = 'skipped';
+  } else {
+    body.state = "reviewed";    
+  }
+  
   TrainingImage.findByIdAndUpdate(id, {$set: body}, {new: true}, (err, image) => {
     if (err) {
       return res.status(500).send(err);

@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from 'client/components/app';
 import reducers from 'client/reducers';
 
+import 'client/styles/_globals.scss';
 import 'client/styles/carousel.css';
 import 'client/styles/curation.css';
 import 'client/styles/figure_list.css';

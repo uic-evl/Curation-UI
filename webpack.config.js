@@ -116,7 +116,7 @@ module.exports = {
       mobile: true,
       links: [
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CMaterial+Icons',
-        'https://unpkg.com/react-md@1.4.1/dist/react-md.deep_purple-deep_orange.min.css'
+        'https://unpkg.com/react-md@1.4.1/dist/react-md.blue_grey-blue.min.css'
       ],
     })
   ]

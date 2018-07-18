@@ -8,6 +8,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable react/jsx-boolean-value */
 import _ from 'lodash';
 import React, { Component } from 'react';
 
@@ -36,6 +37,7 @@ class UpdateTrainingImage extends Component {
       modality3: '',
       modalities4: [],
       modality4: '',
+      newModality1: '',
       disabledModality1: true,
       disabledModality2: true,
       disabledModality3: true,
@@ -44,6 +46,7 @@ class UpdateTrainingImage extends Component {
       sharedModality: false,
       disabledSharedModality: true,
       observations: '',
+      needsCropping: false,
     };
 
     this.onChangeCompound = this.onChangeCompound.bind(this);
@@ -51,6 +54,8 @@ class UpdateTrainingImage extends Component {
     this.onChangeModality2 = this.onChangeModality2.bind(this);
     this.onChangeModality3 = this.onChangeModality3.bind(this);
     this.onChangeModality4 = this.onChangeModality4.bind(this);
+    this.onChangeNewModality = this.onChangeNewModality.bind(this);
+    this.onChangeNeedsCropping = this.onChangeNeedsCropping.bind(this);
     this.onChangeObservations = this.onChangeObservations.bind(this);
     this.onChangeSharedModality = this.onChangeSharedModality.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -157,9 +162,11 @@ class UpdateTrainingImage extends Component {
   }
 
   onChangeModality4(value) {
-    this.setState({
-      modality4: value,
-    });
+    this.setState({ modality4: value });
+  }
+
+  onChangeNewModality(value) {
+    this.setState({ newModality1: value });
   }
 
   onChangeObservations(value) {
@@ -170,14 +177,41 @@ class UpdateTrainingImage extends Component {
     this.setState({ sharedModality: value });
   }
 
+  onChangeNeedsCropping(value) {
+    this.setState({ needsCropping: value });
+  }
+
   onSave() {
     const { image } = this.props;
-    const values = _.pick(this.state, ['modality1', 'modality2', 'modality3', 'modality4', 'observations', 'isCompound', 'sharedModality']);
-    updateTrainingImage(image._id, values, () => {
-      const { fetchTrainingImages } = this.props;
-      fetchTrainingImages();
-      this.resetForm();
-    });
+    let values = null;
+
+    if (this.state.modality1 === '') {
+      // Skip this image and get a new one
+      values = {
+        state: 'skipped',
+        modality1: '',
+        modality2: '',
+        modality3: '',
+        modality4: '',
+        observations: '',
+        isCompound: false,
+        sharedModality: false,
+      };
+    } else {
+      values = _.pick(this.state,
+        ['modality1', 'modality2', 'modality3', 'modality4', 'observations', 'isCompound',
+          'sharedModality', 'newModality1', 'needsCropping']);
+    }
+
+    if (this.validate()) {
+      updateTrainingImage(image._id, values, () => {
+        const { fetchTrainingImages } = this.props;
+        fetchTrainingImages();
+        this.resetForm();
+      });
+    } else {
+      console.log('invalid');
+    }
   }
 
   parseForSelectField(items) {
@@ -209,7 +243,24 @@ class UpdateTrainingImage extends Component {
       sharedModality: false,
       isCompound: false,
       observations: '',
+      needsCropping: false,
     });
+  }
+
+  validate() {
+    if (this.state.modality1 === 'Other') {
+      if (this.state.newModality1 === '') {
+        return false;
+      }
+      return true;
+    }
+    if (this.state.modalities2.length > 0 && this.state.modality2 === '') {
+      return false;
+    }
+    if (this.state.modalities3.length > 0 && this.state.modality3 === '') {
+      return false;
+    }
+    return true;
   }
 
   render() {
@@ -246,6 +297,8 @@ class UpdateTrainingImage extends Component {
                   menuItems={modalities1}
                   onChange={this.onChangeModality1}
                   value={this.state.modality1}
+                  required={true}
+                  errorText="Mandatory field"
                 />
                 <TextField
                   id="modality1"
@@ -254,6 +307,10 @@ class UpdateTrainingImage extends Component {
                   placeholder="Enter new modality"
                   className="md-cell md-cell-6"
                   disabled={this.state.disabledModality1}
+                  required={!this.state.disabledModality1}
+                  value={this.state.newModality1}
+                  onChange={this.onChangeNewModality}
+                  errorText="Mandatory field"
                 />
               </div>
               <div className="md-grid md-cell md-cell--12">
@@ -266,6 +323,8 @@ class UpdateTrainingImage extends Component {
                   onChange={this.onChangeModality2}
                   disabled={this.state.disabledModality2}
                   defaultValue=""
+                  required={!this.state.disabledModality2}
+                  errorText="Mandatory field"
                 />
                 <SelectField
                   id="modality3-select-field"
@@ -276,6 +335,8 @@ class UpdateTrainingImage extends Component {
                   onChange={this.onChangeModality3}
                   disabled={this.state.disabledModality3}
                   defaultValue=""
+                  required={!this.state.disabledModality3}
+                  errorText="Mandatory field"
                 />
               </div>
               <div className="md-grid md-cell md-cell--12">
@@ -289,10 +350,12 @@ class UpdateTrainingImage extends Component {
                   disabled={this.state.disabledModality4}
                   defaultValue=""
                 />
+              </div>
+              <div className="md-grid md-cell md-cell--12">
                 <div className="md-grid md-cell md-cell--6">
                   <SelectionControl
                     id="is-compound"
-                    type="switch"
+                    type="checkbox"
                     label="Is Compound?"
                     name="lights"
                     className="md-cell--12"
@@ -301,7 +364,7 @@ class UpdateTrainingImage extends Component {
                   />
                   <SelectionControl
                     id="sub-figure-same"
-                    type="switch"
+                    type="checkbox"
                     label="Sub-figures share modality"
                     name="lights"
                     className="md-cell--12"
@@ -309,22 +372,28 @@ class UpdateTrainingImage extends Component {
                     disabled={this.state.disabledSharedModality}
                     onChange={this.onChangeSharedModality}
                   />
+                  <SelectionControl
+                    id="figure-cropping"
+                    type="checkbox"
+                    label="Figure needs cropping"
+                    name="lights"
+                    className="md-cell--12"
+                    checked={this.state.needsCropping}
+                    onChange={this.onChangeNeedsCropping}
+                  />
                 </div>
-              </div>
-              <div className="md-grid md-cell md-cell--12">
                 <TextField
                   id="observations"
                   label="Observations"
                   lineDirection="center"
-                  className="md-cell md-cell-12"
-                  rows={2}
+                  className="md-cell md-cell-6"
+                  rows={3}
                   value={this.state.observations}
                   onChange={this.onChangeObservations}
                 />
               </div>
               <div className="md-grid md-cell md-cell--12">
-                <Button flat primary swapTheming onClick={this.onSave}>Save</Button>
-                <Button flat secondary swapTheming>Skip</Button>
+                <Button flat primary swapTheming onClick={this.onSave}>Next</Button>
               </div>
             </Paper>
           </div>

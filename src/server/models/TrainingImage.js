@@ -6,11 +6,13 @@ const schema = new mongoose.Schema({
     modality2: { type: String },
     modality3: { type: String },
     modality4: { type: String },
+    other_modality1: { type: String },
     observations: { type: String },
     state: { type: String },
     last_update: { type: Date },
     is_compound: { type: Boolean },
     shared_modality: { type: Boolean },
+    needs_cropping: { type: Boolean },
 });
 
 const TrainingImage = mongoose.model('training', schema, 'training');
