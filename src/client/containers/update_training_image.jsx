@@ -374,7 +374,7 @@ class UpdateTrainingImage extends Component {
                   className="md-cell--5"
                   onClick={this.onSave}
                 >
-                  Next To Review
+                  Next
                 </Button>
               </div>
             </Paper>
