@@ -15,15 +15,15 @@ function createTrainingData(db) {
   images.forEach(image => {
     training_image = {
       'name': image.name,
-      'modality1': 'Experimental',
-      'modality2': image.modality,
+      'modality1': '',
+      'modality2': '',
       'modality3': '',
       'modality4': '',
       'other_modality1': '',
       'state': 'to review',
       'last_update': null,
       'lost_modifier': null,
-      'observations': image.observations,
+      'observations': '',
       'is_compound': false,
       'shared_modality': false,
       'needs_cropping': false,

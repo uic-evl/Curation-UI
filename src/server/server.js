@@ -38,14 +38,17 @@ app.get('/api/training/:previous', (req, res) => {
   }
 
   if (previous == undefined || previous == null || previous == 0) {
-    TrainingImage.find({state: 'to review'}).limit(2).then(images => {
+    TrainingImage.findOne({state: 'to review'}).then(images => {
       if (images) {
-        response.existsPrevious = images.length === 2;
-        response.image = images[0];
+	response.image = images;      
+	TrainingImage.findOne({ $or: [{state:'reviewed'}, {state:'skipped'}]}).sort({last_update: -1}).then(prevImage => {	
+          response.existsPrevious = (prevImage != null);
+	  res.send(response);
+	});
       } else {
         console.log("no images to label");
+	res.send(response);
       }
-      res.send(response);
     }, e => {
       res.status(404).send(e);
     })
