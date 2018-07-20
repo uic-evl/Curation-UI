@@ -30,6 +30,7 @@ app.get('/api/modalities', (req, res) => {
   })
 });
 
+// TODO return boolean if there any previous image to check, update reducers and components!!!!
 app.get('/api/training/:previous', (req, res) => {
   const previous = req.params.previous;
   if (previous == undefined || previous == null || previous == 0) {

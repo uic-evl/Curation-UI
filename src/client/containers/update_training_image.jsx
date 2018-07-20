@@ -1,8 +1,6 @@
-/* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-debugger */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/destructuring-assignment */
@@ -27,32 +25,20 @@ import {
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { fetchModalities, updateTrainingImage, fetchTrainingImages } from 'client/actions';
+import {
+  parseValuesSelectField,
+  filterModalities2,
+  filterModalities3,
+  filterModalities4,
+  getStateInitVals,
+  resetFormValues,
+} from 'client/containers/utils/training_form';
 
 class UpdateTrainingImage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      loadPrevious: false,
-      currHistory: 0,
-      modality1: '',
-      modalities2: [],
-      modality2: '',
-      modalities3: [],
-      modality3: '',
-      modalities4: [],
-      modality4: '',
-      newModality1: '',
-      disabledModality1: true,
-      disabledModality2: true,
-      disabledModality3: true,
-      disabledModality4: true,
-      isCompound: false,
-      sharedModality: false,
-      disabledSharedModality: true,
-      observations: '',
-      needsCropping: false,
-    };
+    this.state = getStateInitVals();
 
     this.onChangeCompound = this.onChangeCompound.bind(this);
     this.onChangeModality1 = this.onChangeModality1.bind(this);
@@ -72,57 +58,51 @@ class UpdateTrainingImage extends Component {
     fetchModalities();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps && prevProps.image.name !== this.props.image.name) {
-      console.log(this.props.image);
+  componentDidUpdate(prevProps) {
+    const { modalities, image } = this.props;
 
-      let modalities2 = [];
-      let disabledModality2 = true;
-      if (this.props.image.modality1 !== '') {
-        const updatesModality1 = this.changeModality1(this.props.image.modality1);
-        modalities2 = updatesModality1.modalities2;
-        disabledModality2 = updatesModality1.disabledModality2;
-      }
+    // Prevent infinity loop by only updating new images
+    if (prevProps && prevProps.image.name !== image.name) {
+      const { modality1, modality2 } = image;
+      const { modality3, modality4 } = image;
+      const { modalities2, disabledModality1, disabledModality2 } = filterModalities2(modalities, modality1);
+      const { modalities3, disabledModality3 } = filterModalities3(modalities, modality1, modality2);
+      const { modalities4, disabledModality4 } = filterModalities4(modalities, modality1, modality2, modality3);
+
+      const disabledSharedModality = !image.is_compound;
 
       this.setState({
-        modality1: this.props.image.modality1,
-        modality2: this.props.image.modality2,
+        modality1,
+        modality2,
+        modality3,
+        modality4,
         modalities2,
-        observations: this.props.image.observations,
-        needsCropping: this.props.image.needs_cropping,
-        newModality1: this.props.image.other_modality1,
-        sharedModality: this.props.image.shared_modality,
-        isCompound: this.props.image.is_compound,
+        modalities3,
+        modalities4,
+        observations: image.observations,
+        needsCropping: image.needs_cropping,
+        newModality1: image.other_modality1,
+        sharedModality: image.shared_modality,
+        isCompound: image.is_compound,
+        disabledModality1,
         disabledModality2,
+        disabledModality3,
+        disabledModality4,
+        disabledSharedModality,
       });
     }
   }
 
   onChangeCompound(checked) {
-    let disabled = true;
-    if (checked) {
-      disabled = false;
-    }
-
     this.setState({
-      disabledSharedModality: disabled,
+      disabledSharedModality: !checked,
       isCompound: checked,
     });
   }
 
   onChangeModality1(value) {
     const { modalities } = this.props;
-    let modalities2 = _.reject(modalities, (o) => { return o.modality2 === ''; });
-    modalities2 = _.filter(modalities2, { 'modality1': value });
-
-    let disabledModality2 = true;
-    if (modalities2.length > 0) {
-      modalities2 = [...new Set(modalities2.map(item => item.modality2))];
-      modalities2 = this.parseForSelectField(modalities2);
-      disabledModality2 = false;
-    }
-
-    const disabledModality1 = !(value === 'Other');
+    const { modalities2, disabledModality1, disabledModality2 } = filterModalities2(modalities, value);
 
     this.setState({
       modality1: value,
@@ -142,19 +122,7 @@ class UpdateTrainingImage extends Component {
   onChangeModality2(value) {
     const { modalities } = this.props;
     const { modality1 } = this.state;
-
-    let modalities3 = _.reject(modalities, (o) => { return o.modality3 === ''; });
-    modalities3 = _.filter(modalities3, {
-      'modality1': modality1,
-      'modality2': value,
-    });
-
-    let disabledModality3 = true;
-    if (modalities3.length > 0) {
-      modalities3 = [...new Set(modalities3.map(item => item.modality3))];
-      modalities3 = this.parseForSelectField(modalities3);
-      disabledModality3 = false;
-    }
+    const { modalities3, disabledModality3 } = filterModalities3(modalities, modality1, value);
 
     this.setState({
       modality2: value,
@@ -169,20 +137,7 @@ class UpdateTrainingImage extends Component {
   onChangeModality3(value) {
     const { modalities } = this.props;
     const { modality1, modality2 } = this.state;
-
-    let modalities4 = _.reject(modalities, (o) => { return o.modality4 === ''; });
-    modalities4 = _.filter(modalities4, {
-      'modality1': modality1,
-      'modality2': modality2,
-      'modality3': value,
-    });
-
-    let disabledModality4 = true;
-    if (modalities4.length > 0) {
-      modalities4 = [...new Set(modalities4.map(item => item.modality4))];
-      modalities4 = this.parseForSelectField(modalities4);
-      disabledModality4 = false;
-    }
+    const { modalities4, disabledModality4 } = filterModalities4(modalities, modality1, modality2, value);
 
     this.setState({
       modality3: value,
@@ -212,11 +167,12 @@ class UpdateTrainingImage extends Component {
   }
 
   onPrevious() {
+    const { fetchTrainingImages } = this.props;
+
     this.setState({
       currHistory: this.state.currHistory + 1,
     }, () => {
-      this.resetForm();
-      const { fetchTrainingImages } = this.props;
+      this.setState(resetFormValues());
       fetchTrainingImages(this.state.currHistory);
     });
   }
@@ -243,72 +199,15 @@ class UpdateTrainingImage extends Component {
           'sharedModality', 'newModality1', 'needsCropping']);
     }
 
-    // let currHistory = this.state.currHistory;
     this.setState({ currHistory: 0 });
 
     if (this.validate()) {
       updateTrainingImage(image._id, values, () => {
         const { fetchTrainingImages } = this.props;
         fetchTrainingImages(0);
-        this.resetForm();
+        this.setState(resetFormValues());
       });
-    } else {
-      console.log('invalid');
     }
-  }
-
-  changeModality1(newModality1) {
-    const { modalities } = this.props;
-    let modalities2 = _.reject(modalities, (o) => { return o.modality2 === ''; });
-    modalities2 = _.filter(modalities2, { 'modality1': newModality1 });
-
-    let disabledModality2 = true;
-    if (modalities2.length > 0) {
-      modalities2 = [...new Set(modalities2.map(item => item.modality2))];
-      modalities2 = this.parseForSelectField(modalities2);
-      disabledModality2 = false;
-    }
-
-    const disabledModality1 = !(newModality1 === 'Other');
-
-    return {
-      modalities2,
-      disabledModality1,
-      disabledModality2,
-    };
-  }
-
-  parseForSelectField(items) {
-    const elems = [];
-    items.forEach((item) => {
-      const elem = {
-        'label': item,
-        'value': item,
-      };
-      elems.push(elem);
-    });
-
-    return elems;
-  }
-
-  resetForm() {
-    this.setState({
-      modality1: '',
-      modality2: '',
-      modality3: '',
-      modality4: '',
-      modalities2: [],
-      modalities3: [],
-      modalities4: [],
-      disabledModality2: true,
-      disabledModality3: true,
-      disabledModality4: true,
-      disabledSharedModality: true,
-      sharedModality: false,
-      isCompound: false,
-      observations: '',
-      needsCropping: false,
-    });
   }
 
   validate() {
@@ -468,20 +367,6 @@ class UpdateTrainingImage extends Component {
   }
 }
 
-function parseForSelectField(items) {
-  const elems = [];
-  items.forEach((item) => {
-    const elem = {
-      'label': item,
-      'value': item,
-    };
-    elems.push(elem);
-  });
-
-  return elems;
-}
-
-
 function mapStateToProps(state) {
   const props = {
     modalities: null,
@@ -491,7 +376,7 @@ function mapStateToProps(state) {
   if (state.dbmodalities && !props.modalities) {
     props.modalities = state.dbmodalities;
     const modalities1 = [...new Set(props.modalities.map(item => item.modality1))];
-    props.modalities1 = parseForSelectField(modalities1);
+    props.modalities1 = parseValuesSelectField(modalities1);
   }
 
   return props;
