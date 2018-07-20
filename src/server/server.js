@@ -30,19 +30,32 @@ app.get('/api/modalities', (req, res) => {
   })
 });
 
-// TODO return boolean if there any previous image to check, update reducers and components!!!!
 app.get('/api/training/:previous', (req, res) => {
   const previous = req.params.previous;
+  const response = {
+    image: null,
+    existsPrevious: false,
+  }
+
   if (previous == undefined || previous == null || previous == 0) {
-    TrainingImage.findOne({state: 'to review'}).then(image => {
-      res.send(image);
+    TrainingImage.find({state: 'to review'}).limit(2).then(images => {
+      if (images) {
+        response.existsPrevious = images.length === 2;
+        response.image = images[0];
+      } else {
+        console.log("no images to label");
+      }
+      res.send(response);
     }, e => {
       res.status(404).send(e);
     })
   } else {
     TrainingImage.find({ $or: [{state: 'reviewed'}, {state: 'skipped'}]}).sort({last_update: -1}).then(images => {
-      if (previous - 1 < images.length)
-        res.send(images[previous - 1]);
+      if (previous - 1 < images.length){
+        response.existsPrevious = previous < images.length;
+        response.image = images[previous - 1];
+        res.send(response);
+      }
       else
         res.send(null);
     }, e => {

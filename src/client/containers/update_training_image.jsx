@@ -250,7 +250,7 @@ class UpdateTrainingImage extends Component {
               <img src={imageUrl} alt="random" />
             </Media>
           </div>
-          <div className="md-cell--4">
+          <div className="md-cell--8">
             <Paper className="md-grid md-grid--no-spacing">
               <div className="md-grid md-cell md-cell--12">
                 <SelectField
@@ -356,8 +356,26 @@ class UpdateTrainingImage extends Component {
                 />
               </div>
               <div className="md-grid md-cell md-cell--12">
-                <Button flat primary swapTheming onClick={this.onPrevious}>Previous</Button>
-                <Button flat primary swapTheming onClick={this.onSave}>Next To Review</Button>
+                <Button
+                  flat
+                  primary
+                  swapTheming
+                  className="md-cell--5"
+                  onClick={this.onPrevious}
+                  disabled={!this.props.existsPrevious}
+                >
+                  Previous
+                </Button>
+                <div className="md-cell--2" />
+                <Button
+                  flat
+                  primary
+                  swapTheming
+                  className="md-cell--5"
+                  onClick={this.onSave}
+                >
+                  Next To Review
+                </Button>
               </div>
             </Paper>
           </div>

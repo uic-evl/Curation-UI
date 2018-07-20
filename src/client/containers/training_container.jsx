@@ -19,7 +19,7 @@ class TrainingContainer extends Component {
   }
 
   render() {
-    const { trainingImages, currentImage } = this.props;
+    const { trainingImages, currentImage, existsPrevious } = this.props;
 
     if (!currentImage) {
       return (<div />);
@@ -28,7 +28,7 @@ class TrainingContainer extends Component {
     return (
       <Grid className="md-grid--no-spacing">
         <Cell size={12} className="md-grid--no-spacing">
-          <UpdateTrainingImage image={currentImage} />
+          <UpdateTrainingImage image={currentImage} existsPrevious={existsPrevious} />
         </Cell>
       </Grid>
     );
@@ -43,7 +43,8 @@ function mapStateToProps(state) {
 
   if (state.trainingImages) {
     props.trainingImages = state.trainingImages;
-    props.currentImage = props.trainingImages;
+    props.currentImage = props.trainingImages.image;
+    props.existsPrevious = props.trainingImages.existsPrevious;
   }
 
   return props;
