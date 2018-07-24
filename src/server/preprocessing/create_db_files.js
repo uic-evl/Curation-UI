@@ -7,6 +7,7 @@ MongoClient.connect('mongodb://localhost:27017/curation_dev', (err, db) => {
     return console.log('Unable to connect to MongoDB server.');
   }
   console.log('Connected to MongoDB Energy server');
+  createModalities(db);
   createTrainingData(db);
 });
 
