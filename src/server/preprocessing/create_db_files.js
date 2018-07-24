@@ -15,8 +15,8 @@ function createTrainingData(db) {
   images.forEach(image => {
     training_image = {
       'name': image.name,
-      'modality1': '',
-      'modality2': '',
+      'modality1': 'Experimental',
+      'modality2': 'Microscopy',
       'modality3': '',
       'modality4': '',
       'other_modality1': '',

@@ -24,9 +24,8 @@ import {
 } from 'react-md';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { fetchModalities, updateTrainingImage, fetchTrainingImages } from 'client/actions';
+import { updateTrainingImage, fetchTrainingImages } from 'client/actions';
 import {
-  parseValuesSelectField,
   filterModalities2,
   filterModalities3,
   filterModalities4,
@@ -40,6 +39,7 @@ class UpdateTrainingImage extends Component {
 
     this.state = getStateInitVals();
 
+    this.onClean = this.onClean.bind(this);
     this.onChangeCompound = this.onChangeCompound.bind(this);
     this.onChangeModality1 = this.onChangeModality1.bind(this);
     this.onChangeModality2 = this.onChangeModality2.bind(this);
@@ -54,8 +54,34 @@ class UpdateTrainingImage extends Component {
   }
 
   componentDidMount() {
-    const { fetchModalities } = this.props;
-    fetchModalities();
+    const { modalities, image } = this.props;
+    const { modality1, modality2 } = image;
+    const { modality3, modality4 } = image;
+    const { modalities2, disabledModality1, disabledModality2 } = filterModalities2(modalities, modality1);
+    const { modalities3, disabledModality3 } = filterModalities3(modalities, modality1, modality2);
+    const { modalities4, disabledModality4 } = filterModalities4(modalities, modality1, modality2, modality3);
+
+    const disabledSharedModality = !image.is_compound;
+
+    this.setState({
+      modality1,
+      modality2,
+      modality3,
+      modality4,
+      modalities2,
+      modalities3,
+      modalities4,
+      observations: image.observations,
+      needsCropping: image.needs_cropping,
+      newModality1: image.other_modality1,
+      sharedModality: image.shared_modality,
+      isCompound: image.is_compound,
+      disabledModality1,
+      disabledModality2,
+      disabledModality3,
+      disabledModality4,
+      disabledSharedModality,
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -91,6 +117,10 @@ class UpdateTrainingImage extends Component {
         disabledSharedModality,
       });
     }
+  }
+
+  onClean() {
+    this.setState(resetFormValues());
   }
 
   onChangeCompound(checked) {
@@ -366,7 +396,13 @@ class UpdateTrainingImage extends Component {
                 >
                   Previous
                 </Button>
-                <div className="md-cell--2" />
+                <Button
+                  flat
+                  swapTheming
+                  className="md-cell--2"
+                  onClick={this.onClean}
+                >Clean Form
+                </Button>
                 <Button
                   flat
                   primary
@@ -385,19 +421,4 @@ class UpdateTrainingImage extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const props = {
-    modalities: null,
-    modalities1: [],
-  };
-
-  if (state.dbmodalities && !props.modalities) {
-    props.modalities = state.dbmodalities;
-    const modalities1 = [...new Set(props.modalities.map(item => item.modality1))];
-    props.modalities1 = parseValuesSelectField(modalities1);
-  }
-
-  return props;
-}
-
-export default withRouter(connect(mapStateToProps, { fetchModalities, updateTrainingImage, fetchTrainingImages })(UpdateTrainingImage));
+export default withRouter(connect(null, { updateTrainingImage, fetchTrainingImages })(UpdateTrainingImage));

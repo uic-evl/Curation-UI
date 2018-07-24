@@ -8,7 +8,19 @@ const modalities = [
   {
     'modality1': 'Experimental',
     'modality2': 'Gel',
-    'modality3': '',
+    'modality3': 'Western blot',
+    'modality4': '',
+  },
+  {
+    'modality1': 'Experimental',
+    'modality2': 'Gel',
+    'modality3': 'Northern blot',
+    'modality4': '',
+  },
+  {
+    'modality1': 'Experimental',
+    'modality2': 'Gel',
+    'modality3': 'RT_PCR',
     'modality4': '',
   },
   {
@@ -16,6 +28,12 @@ const modalities = [
     'modality2': 'Microscopy',
     'modality3': 'Light',
     'modality4': 'Whole Mount Embryo',
+  },
+  {
+    'modality1': 'Experimental',
+    'modality2': 'Microscopy',
+    'modality3': 'Light',
+    'modality4': 'In Situ Hybridization',
   },
   {
     'modality1': 'Experimental',
@@ -38,6 +56,17 @@ const modalities = [
     'modality3': 'Fluorescence',
     'modality4': 'Whole Mount Embryo',
   },{
+    'modality1': 'Experimental',
+    'modality2': 'Microscopy',
+    'modality3': 'Fluorescence',
+    'modality4': 'Reporter Genes and Immunohistochemistry',
+  },{
+    'modality1': 'Experimental',
+    'modality2': 'Microscopy',
+    'modality3': 'Fluorescence',
+    'modality4': 'EFIC',
+  },
+  {
     'modality1': 'Experimental',
     'modality2': 'Microscopy',
     'modality3': 'Fluorescence',
