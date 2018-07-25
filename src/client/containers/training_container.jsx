@@ -12,6 +12,7 @@ import TrainingImageList from 'client/components/training_images_list';
 import UpdateTrainingImage from 'client/containers/update_training_image';
 import { fetchModalities, fetchTrainingImages } from 'client/actions';
 import { parseValuesSelectField } from 'client/containers/utils/training_form';
+import requireAuth from 'client/components/auth/requireAuth';
 
 class TrainingContainer extends Component {
   componentDidMount() {
@@ -61,4 +62,4 @@ function mapStateToProps(state) {
   return props;
 }
 
-export default connect(mapStateToProps, { fetchModalities, fetchTrainingImages })(TrainingContainer);
+export default connect(mapStateToProps, { fetchModalities, fetchTrainingImages })(requireAuth(TrainingContainer));

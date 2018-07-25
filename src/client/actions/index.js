@@ -10,6 +10,8 @@ import {
   FETCH_IMAGE_TO_TRAIN,
   FETCH_MODALITIES,
   UPDATE_TRAINING_IMAGE,
+  AUTH_USER,
+  AUTH_ERROR,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -96,3 +98,34 @@ export function updateTrainingImage(id, values, callback) {
     payload: request,
   };
 }
+
+export const signup = (formProps, callback) => async (dispatch) => {
+  try {
+    const response = await axios.post('http://localhost:3050/signup', formProps);
+    dispatch({ type: AUTH_USER, payload: response.data.token });
+    localStorage.setItem('token', response.data.token);
+    callback();
+  } catch (e) {
+    dispatch({ type: AUTH_ERROR, payload: 'Email in use' });
+  }
+};
+
+export const signout = () => {
+  localStorage.removeItem('token');
+
+  return {
+    type: AUTH_USER,
+    payload: '',
+  };
+};
+
+export const signin = (formProps, callback) => async (dispatch) => {
+  try {
+    const response = await axios.post('http://localhost:3050/api/signin', formProps);
+    dispatch({ type: AUTH_USER, payload: response.data.token });
+    localStorage.setItem('token', response.data.token);
+    callback();
+  } catch (e) {
+    dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
+  }
+};

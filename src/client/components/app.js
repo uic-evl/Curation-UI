@@ -7,9 +7,13 @@ import { Route, Switch } from 'react-router-dom';
 
 import ElementContainer from 'client/containers/element_container';
 import TrainingContainer from 'client/containers/training_container';
+import SignIn from 'client/components/auth/SignIn';
+import SignOut from 'client/components/auth/SignOut';
+
 import inboxListItems from 'client/constants/inboxListItems';
 import menu from 'client/icons/menu.svg';
 import arrowBack from 'client/icons/arrow_back.svg';
+import SignButtons from 'client/components/auth/SignButtons';
 
 export default class App extends Component {
   constructor() {
@@ -77,11 +81,14 @@ export default class App extends Component {
         temporaryIcon={<SVGIcon use={menu.url} />}
         persistentIcon={<SVGIcon use={arrowBack.url} />}
         contentClassName="md-grid"
+        toolbarActions={<SignButtons />}
       >
 
         <Switch>
           <Route path="/document/:id" component={ElementContainer} />
           <Route path="/training" component={TrainingContainer} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signout" component={SignOut} />
           <Route path="/" component={ElementContainer} />
         </Switch>
       </NavigationDrawer>
