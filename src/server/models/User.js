@@ -3,12 +3,20 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
 const userSchema = new Schema({
+  _id: { type: Schema.ObjectId, auto: true },
   email: {
     type: String,
     unique: true,
     lowercase: true,
   },
   password: String,
+  username: {
+    type: String,
+    unique: true,
+    lowercase: true,
+  },
+  roles: { type: Array, "default": [] },
+  access: { type: Array, "default": [] },
 });
 
 /* replacing function(next) by (next) =>, loses
@@ -17,15 +25,19 @@ the reference to the context *this* */
 userSchema.pre('save', function(next) {
   const user = this;
 
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) return next(err);
-
-    bcrypt.hash(user.password, salt, null, (err, hash) => {
+  if (this.isNew) {
+    bcrypt.genSalt(10, (err, salt) => {
       if (err) return next(err);
-      user.password = hash;
-      next();
+
+      bcrypt.hash(user.password, salt, null, (err, hash) => {
+        if (err) return next(err);
+        user.password = hash;
+        next();
+      });
     });
-  });
+  } else {
+    next();
+  }
 });
 
 userSchema.methods.comparePassword = function(candidatePassword, callback) {

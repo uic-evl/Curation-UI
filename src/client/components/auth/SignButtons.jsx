@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 
 class SignButtons extends Component {
   renderLinks() {
-    const { authenticated } = this.props;
+    const { authenticated, username } = this.props;
 
     if (authenticated) {
       return (
         <div>
-          <span>Welcome!</span>
+          <span>Welcome! {username}</span>
           <Link to="/signout">Sign Out</Link>
         </div>
       );
@@ -33,10 +33,14 @@ class SignButtons extends Component {
 
 SignButtons.propTypes = {
   authenticated: PropTypes.string,
+  username: PropTypes.string,
 };
 
 function mapStateToProps(state) {
-  return { authenticated: state.auth.authenticated };
+  return {
+    authenticated: state.auth.authenticated,
+    username: state.auth.username,
+  };
 }
 
 export default connect(mapStateToProps)(SignButtons);

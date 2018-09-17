@@ -1,5 +1,7 @@
 const passport = require('passport');
 const User = require('../models/User');
+const AccessControlLists = require('../models/AccessControlList');
+const Security = require('../controllers/security');
 const config = require('../config/config');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -8,15 +10,26 @@ const LocalStrategy = require('passport-local');
 // Create local strategy: auth with email and password
 const localOptions = { usernameField: 'email' };
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
-  User.findOne({ email }, (err, user) => {
-    if (err) return done(err);
+  User.findOne({ email }, (err1, user) => {
+    if (err1) return done(err1);
     if (!user) return done(null, false);
 
-    user.comparePassword(password, (err, isMatch) => {
-      if (err) return done(err);
+    user.comparePassword(password, (err2, isMatch) => {
+      if (err2) return done(err2);
       if (!isMatch) return done(null, false);
 
-      return done(null, user);
+      // get the functionalities available based on roles
+      AccessControlLists.find({roles: {$in: user.roles }}, (err3, accesses) => {
+        if (err3) return done(err3);
+        result = [];
+
+        accesses.forEach(access => {
+          result.push(access.functionality);
+        })
+        user.access = result;
+
+        return done(null, user);
+      });
     });
   })
 });

@@ -62,4 +62,4 @@ function mapStateToProps(state) {
   return props;
 }
 
-export default connect(mapStateToProps, { fetchModalities, fetchTrainingImages })(requireAuth(TrainingContainer));
+export default connect(mapStateToProps, { fetchModalities, fetchTrainingImages })(requireAuth(TrainingContainer, 'training'));
