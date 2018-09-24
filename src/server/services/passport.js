@@ -4,6 +4,7 @@ const AccessControlLists = require('../models/AccessControlList');
 const Security = require('../controllers/security');
 const config = require('../config/config');
 const JwtStrategy = require('passport-jwt').Strategy;
+
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 

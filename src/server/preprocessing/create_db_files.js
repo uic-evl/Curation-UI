@@ -10,7 +10,8 @@ MongoClient.connect('mongodb://curator_:curator_@localhost:27017/curation', (err
   console.log('Connected to MongoDB Energy server');
   //createModalities(db);
   //createTrainingData(db);
-  createAccessControl(db);
+  //createAccessControl(db);
+  createStartingGroups(db);
 });
 
 function createTrainingData(db) {
@@ -51,4 +52,15 @@ function createAccessControl(db){
     accessCollection.save(rule);
   });
   console.log("Inserted " + accessControlList.length + " access control rules");
+}
+
+function createStartingGroups(db) {
+  let groupsCollection = db.collection('groups');
+  let udelGroup = {
+    name: 'users_udel',
+    users: ['tim', 'juan', 'liz'],
+    supervisor: 'liz',
+  }
+  groupsCollection.save(udelGroup);
+  console.log("Groups inserted");
 }

@@ -9,6 +9,7 @@ import ElementContainer from 'client/containers/element_container';
 import TrainingContainer from 'client/containers/training_container';
 import SignIn from 'client/components/auth/SignIn';
 import SignOut from 'client/components/auth/SignOut';
+import ManageTest from 'client/components/humanError/ManageTest';
 
 import inboxListItems from 'client/constants/inboxListItems';
 import menu from 'client/icons/menu.svg';
@@ -89,6 +90,7 @@ export default class App extends Component {
           <Route path="/training" component={TrainingContainer} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signout" component={SignOut} />
+          <Route path="/manageTest" component={ManageTest} />
           <Route path="/" component={ElementContainer} />
         </Switch>
       </NavigationDrawer>

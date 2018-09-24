@@ -2,7 +2,8 @@ const passport = require('passport');
 
 const Authentication = require('./controllers/authentication');
 const Labeling = require('./controllers/labeling');
-const Security = require('./controllers/security')
+const Security = require('./controllers/security');
+const HumanErrorTest = require('./controllers/humanErrorTest');
 const passportService = require('./services/passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -21,4 +22,11 @@ module.exports = function(app) {
   // Role and groups management
   app.patch('/api/addRole', Security.addRole);
   app.patch('/api/removeRole', Security.removeRole);
+  app.patch('/api/createGroup', Security.createGroup);
+  app.patch('/api/editGroup', Security.editGroup);
+  app.get('/api/getGroup/:groupName', Security.getGroup);
+
+  // Test human error in classification tasks 
+  app.patch('/api/createTest', HumanErrorTest.createTest);
+  app.get('/api/getTests', HumanErrorTest.fetchTests);
 }

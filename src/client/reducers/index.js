@@ -10,6 +10,7 @@ import SelectFigureReducer from 'client/reducers/reducer_selected_figure';
 import FetchTrainingImages from 'client/reducers/reducer_training';
 import DbModalities from 'client/reducers/reducer_db_modalities';
 import auth from 'client/reducers/auth';
+import ClassificationTest from 'client/reducers/reducer_classification_test';
 
 const rootReducer = combineReducers({
   auth,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   trainingImages: FetchTrainingImages,
   dbmodalities: DbModalities,
   form: formReducer,
+  classificationTest: ClassificationTest,
 });
 
 export default rootReducer;

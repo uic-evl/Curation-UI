@@ -1,6 +1,60 @@
 const User = require('../models/User');
+const Group = require('../models/Group');
 const config = require('../config/config');
 
+exports.getGroup = function(req, res, next) {
+  const { groupName } = req.params;
+  console.log(groupName);
+  Group.findOne({ name: groupName }).then(group => {
+    res.send(group);
+  });
+}
+
+exports.createGroup = function(req, res, next) {
+  const { name, users, supervisor } = req.body;
+
+  if (!name) {
+    return res.status(422).send({ error: 'Group name cannot be empty'});
+  }
+
+  const group = new Group({
+    name, 
+    users, 
+    supervisor,
+  });
+
+  group.save((err) => {
+    if (err) return next(err);
+    res.send({ group });
+  });
+}
+
+exports.editGroup = function(req, res, next) {
+  const { _id, name, users, supervisor } = req.body;
+
+  if (!_id || !name) {
+    return res.status(422).send({ error: 'Group name and id cannot be empty'});
+  }
+
+  Group.findById(_id, (err, existingGroup) => {
+    if (err) return next(err);
+
+    if (existingGroup) {
+      existingGroup.name = name;
+      existingGroup.users = users;
+      existingGroup.supervisor = supervisor;
+    
+      existingGroup.save((err1) => {
+        if (err1) return next(err1);
+        res.send({ existingGroup });
+      });
+    } else {
+      return res.status(422).send({ error: 'Group not found'});
+    }
+  });
+}
+
+// Add user to a role
 exports.addRole = function(req, res, next) {
   const { _id, roles } = req.body;
   

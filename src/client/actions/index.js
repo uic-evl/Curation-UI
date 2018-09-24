@@ -12,6 +12,9 @@ import {
   UPDATE_TRAINING_IMAGE,
   AUTH_USER,
   AUTH_ERROR,
+  FETCH_HUMAN_ERR_AVAILABLE_USERS,
+  CREATE_TEST,
+  FETCH_TESTS,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -129,3 +132,33 @@ export const signin = (formProps, callback) => async (dispatch) => {
     dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
   }
 };
+
+export function fetchAvailableUserTest(groupName) {
+  const url = `${API_URL}getGroup/${groupName}`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_HUMAN_ERR_AVAILABLE_USERS,
+    payload: request,
+  };
+}
+
+export function createClassificationTest(username, callback) {
+  const request = axios.patch(`${API_URL}createTest`, { curator: username })
+    .then(() => callback());
+
+  return {
+    type: CREATE_TEST,
+    payload: request,
+  };
+}
+
+export function fetchTests() {
+  const url = `${API_URL}getTests`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_TESTS,
+    payload: request,
+  };
+}
