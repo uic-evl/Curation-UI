@@ -4,6 +4,7 @@ const Authentication = require('./controllers/authentication');
 const Labeling = require('./controllers/labeling');
 const Security = require('./controllers/security');
 const HumanErrorTest = require('./controllers/humanErrorTest');
+const Tasks = require('./controllers/tasks');
 const passportService = require('./services/passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -29,4 +30,7 @@ module.exports = function(app) {
   // Test human error in classification tasks 
   app.patch('/api/createTest', HumanErrorTest.createTest);
   app.get('/api/getTests', HumanErrorTest.fetchTests);
+
+  // Tasks
+  app.get('/api/getTasks/:username', Tasks.fetchTasks);
 }

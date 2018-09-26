@@ -19,7 +19,12 @@ const createStoreWithMiddleware = applyMiddleware(reduxThunk, promise)(createSto
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers, {
-    auth: { authenticated: localStorage.getItem('token') },
+    auth: {
+      authenticated: localStorage.getItem('token'),
+      access: localStorage.getItem('access'),
+      username: localStorage.getItem('username'),
+      roles: localStorage.getItem('roles'),
+    },
   })}
   >
     <BrowserRouter>

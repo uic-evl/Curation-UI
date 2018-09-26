@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-debugger */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -18,7 +19,7 @@ export default (ChildComponent, componentName) => {
       if (!auth) {
         history.push('/signin');
       }
-      if (access.indexOf(componentName) === -1) {
+      if (!access || access.indexOf(componentName) === -1) {
         history.push('/signout');
       }
     }

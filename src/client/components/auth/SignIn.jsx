@@ -13,7 +13,8 @@ class SignIn extends Component {
     const { signin, history } = this.props;
 
     signin(formProps, () => {
-      history.push('/training/0');
+      // history.push('/training/0');
+      history.push('/inbox');
     });
   };
 

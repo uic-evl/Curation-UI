@@ -15,6 +15,7 @@ import {
   FETCH_HUMAN_ERR_AVAILABLE_USERS,
   CREATE_TEST,
   FETCH_TESTS,
+  FETCH_TASKS,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -127,6 +128,9 @@ export const signin = (formProps, callback) => async (dispatch) => {
     const response = await axios.post('http://localhost:3050/api/signin', formProps);
     dispatch({ type: AUTH_USER, payload: response.data });
     localStorage.setItem('token', response.data.token);
+    localStorage.setItem('access', response.data.access);
+    localStorage.setItem('username', response.data.username);
+    localStorage.setItem('roles', response.data.roles);
     callback();
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
@@ -159,6 +163,16 @@ export function fetchTests() {
 
   return {
     type: FETCH_TESTS,
+    payload: request,
+  };
+}
+
+export function fetchTasks(username) {
+  const url = `${API_URL}getTasks/${username}`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_TASKS,
     payload: request,
   };
 }

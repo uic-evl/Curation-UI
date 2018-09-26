@@ -1,8 +1,19 @@
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-debugger */
 /* eslint-disable no-console */
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable arrow-body-style */
 import React, { Component } from 'react';
-import { SelectField, Button } from 'react-md';
+import prettyDate from 'pretty-date';
+import {
+  SelectField,
+  Button,
+  DataTable,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableColumn,
+} from 'react-md';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchAvailableUserTest, createClassificationTest, fetchTests } from 'client/actions';
@@ -30,44 +41,90 @@ class ManageTest extends Component {
 
   onClickCreateTest() {
     const { user } = this.state;
-    const { createClassificationTest } = this.props;
+    const { createClassificationTest, fetchTests } = this.props;
     createClassificationTest(user, () => {
-      console.log('test!');
+      fetchTests();
     });
   }
 
-  render() {
-    const { users, tests } = this.props;
+  renderCreationOptions() {
+    const { users } = this.props;
     const { user } = this.state;
 
-    if (!users || !tests) {
+    if (!users) {
       return (<div />);
     }
 
     return (
-      <div>
-        <div className="md-grid md-grid--no-spacing">
-          <div className="md-cell--3">
-            <SelectField
-              id="select-field-curator"
-              label="Curator"
-              placeholder="Placeholder"
-              className="md-cell"
-              menuItems={users}
-              onChange={this.onChangeUser}
-            />
-            <Button
-              flat
-              primary
-              type="submit"
-              className="md-cell--left"
-              onClick={this.onClickCreateTest}
-              disabled={!user}
-            >
-              {'Create Test'}
-            </Button>
-          </div>
+      <div className="md-grid md-grid--no-spacing">
+        <div className="md-cell--3">
+          <SelectField
+            id="select-field-curator"
+            label="Curator"
+            placeholder="Placeholder"
+            className="md-cell"
+            menuItems={users}
+            onChange={this.onChangeUser}
+          />
+          <Button
+            flat
+            primary
+            type="submit"
+            className="md-cell--left"
+            onClick={this.onClickCreateTest}
+            disabled={!user}
+          >
+            {'Create Test'}
+          </Button>
         </div>
+      </div>
+    );
+  }
+
+  renderTable() {
+    const { tests } = this.props;
+
+    if (!tests) {
+      return <div />;
+    }
+
+    return (
+      <DataTable plain>
+        <TableHeader>
+          <TableRow>
+            <TableColumn>Curator</TableColumn>
+            <TableColumn>Creation Date</TableColumn>
+            <TableColumn>Status</TableColumn>
+            <TableColumn>Start Date</TableColumn>
+            <TableColumn>End Date</TableColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          { this.renderTableContent(tests) }
+        </TableBody>
+      </DataTable>
+    );
+  }
+
+  renderTableContent(tests) {
+    return tests.map((test) => {
+      return (
+        <TableRow key={test.username}>
+          <TableColumn>{test.username}</TableColumn>
+          <TableColumn>{prettyDate.format(new Date(test.creationDate))}</TableColumn>
+          <TableColumn>{test.status}</TableColumn>
+          <TableColumn />
+          <TableColumn />
+        </TableRow>
+      );
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        { this.renderCreationOptions() }
+        { this.renderTable() }
       </div>
     );
   }

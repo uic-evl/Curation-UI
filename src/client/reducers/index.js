@@ -11,6 +11,7 @@ import FetchTrainingImages from 'client/reducers/reducer_training';
 import DbModalities from 'client/reducers/reducer_db_modalities';
 import auth from 'client/reducers/auth';
 import ClassificationTest from 'client/reducers/reducer_classification_test';
+import TasksReducer from 'client/reducers/reducer_tasks';
 
 const rootReducer = combineReducers({
   auth,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   dbmodalities: DbModalities,
   form: formReducer,
   classificationTest: ClassificationTest,
+  tasks: TasksReducer,
 });
 
 export default rootReducer;

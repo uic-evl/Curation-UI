@@ -8,6 +8,7 @@ export const UPDATE_TRAINING_IMAGE = 'update_training_image';
 export const FETCH_HUMAN_ERR_AVAILABLE_USERS = 'fetch_human_error_users';
 export const CREATE_TEST = 'create_test';
 export const FETCH_TESTS = 'fetch_test';
+export const FETCH_TASKS = 'fetch_tasks';
 
 export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';
