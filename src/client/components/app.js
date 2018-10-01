@@ -11,6 +11,7 @@ import SignIn from 'client/components/auth/SignIn';
 import SignOut from 'client/components/auth/SignOut';
 import ManageTest from 'client/components/humanError/ManageTest';
 import Inbox from 'client/components/inbox/Inbox';
+import ClassificationTest from 'client/components/humanError/ClassificationTest';
 
 import inboxListItems from 'client/constants/inboxListItems';
 import menu from 'client/icons/menu.svg';
@@ -92,6 +93,7 @@ export default class App extends Component {
           <Route path="/signin" component={SignIn} />
           <Route path="/signout" component={SignOut} />
           <Route path="/manageTest" component={ManageTest} />
+          <Route path="/classificationTest/:id" component={ClassificationTest} />
           <Route paht="/inbox" component={Inbox} />
           <Route path="/" component={ElementContainer} />
         </Switch>

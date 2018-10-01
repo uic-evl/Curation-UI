@@ -30,7 +30,11 @@ module.exports = function(app) {
   // Test human error in classification tasks 
   app.patch('/api/createTest', HumanErrorTest.createTest);
   app.get('/api/getTests', HumanErrorTest.fetchTests);
+  app.patch('/api/getNextTestImage', HumanErrorTest.getNext);
+  app.patch('/api/getPreviousTestImage', HumanErrorTest.getPrevious);
+  app.patch('/api/updateUserTestImage', HumanErrorTest.updateImage);
 
   // Tasks
   app.get('/api/getTasks/:username', Tasks.fetchTasks);
+  app.patch('/api/openTask', Tasks.openTask);
 }

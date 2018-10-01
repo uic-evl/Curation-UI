@@ -12,6 +12,7 @@ import DbModalities from 'client/reducers/reducer_db_modalities';
 import auth from 'client/reducers/auth';
 import ClassificationTest from 'client/reducers/reducer_classification_test';
 import TasksReducer from 'client/reducers/reducer_tasks';
+import UserTest from 'client/reducers/reducer_user_test';
 
 const rootReducer = combineReducers({
   auth,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   form: formReducer,
   classificationTest: ClassificationTest,
   tasks: TasksReducer,
+  userTest: UserTest,
 });
 
 export default rootReducer;

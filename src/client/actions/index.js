@@ -16,6 +16,8 @@ import {
   CREATE_TEST,
   FETCH_TESTS,
   FETCH_TASKS,
+  FETCH_NEXT_TEST_IMAGE,
+  UPDATE_USER_TEST_IMAGE,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -173,6 +175,30 @@ export function fetchTasks(username) {
 
   return {
     type: FETCH_TASKS,
+    payload: request,
+  };
+}
+
+export function fetchNextTestImage(taskId, username, previousId) {
+  const values = { username, taskId };
+  let service = 'getNextTestImage';
+  if (previousId) {
+    service = 'getPreviousTestImage';
+    values.previous_id = previousId;
+  }
+
+  const request = axios.patch(`${API_URL}${service}`, values);
+  return {
+    type: FETCH_NEXT_TEST_IMAGE,
+    payload: request,
+  };
+}
+
+export function updateUserTestImage(image, callback) {
+  const request = axios.patch(`${API_URL}updateUserTestImage`, { image })
+    .then(() => callback());
+  return {
+    type: UPDATE_USER_TEST_IMAGE,
     payload: request,
   };
 }
