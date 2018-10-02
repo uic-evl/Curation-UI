@@ -19,11 +19,21 @@ import { fetchTasks } from 'client/actions';
 import requireAuth from 'client/components/auth/requireAuth';
 
 class Inbox extends Component {
+  constructor(props) {
+    super(props);
+    this.onClickRow = this.onClickRow.bind(this);
+  }
+
   componentDidMount() {
     const { fetchTasks, username } = this.props;
     if (username) {
       fetchTasks(username);
     }
+  }
+
+  onClickRow(task) {
+    const { history } = this.props;
+    history.push(`${task.url}/${task._id}`);
   }
 
   renderTasks() {
@@ -33,7 +43,7 @@ class Inbox extends Component {
 
     return tasks.map((task) => {
       return (
-        <TableRow key={task._id}>
+        <TableRow key={task._id} onClick={() => this.onClickRow(task)}>
           <TableColumn>{task.type}</TableColumn>
           <TableColumn>{prettyDate.format(new Date(task.creationDate))}</TableColumn>
           <TableColumn>{task.status}</TableColumn>
@@ -70,6 +80,7 @@ Inbox.propTypes = {
   fetchTasks: PropTypes.func,
   tasks: PropTypes.arrayOf(PropTypes.object),
   username: PropTypes.string,
+  history: PropTypes.object,
 };
 
 function mapStateToProps(state) {
