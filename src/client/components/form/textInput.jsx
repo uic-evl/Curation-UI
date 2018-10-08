@@ -1,16 +1,21 @@
 import React from 'react';
 import { TextField } from 'react-md';
 
-const textInput = field => (
+/* eslint-disable react/prop-types */
+/* eslint-disable object-curly-newline */
+const textInput = ({ input, label, type, meta: { touched, error }, ...custom }) => (
   <TextField
-    id={field.input.name}
-    label={field.label}
-    lineDirection={field.lineDirection}
-    placeholder={field.placeholder || ''}
-    className={field.className}
-    value={field.input.value}
-    onChange={field.input.onChange}
-    type={field.type}
+    id={input.name}
+    label={label}
+    value={input.value}
+    {...custom}
+    lineDirection={input.lineDirection}
+    placeholder={input.placeholder || ''}
+    className={input.className}
+    onChange={input.onChange}
+    type={type}
+    error={touched && !!error}
+    errorText={error}
   />
 );
 

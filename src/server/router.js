@@ -5,6 +5,7 @@ const Labeling = require('./controllers/labeling');
 const Security = require('./controllers/security');
 const HumanErrorTest = require('./controllers/humanErrorTest');
 const Tasks = require('./controllers/tasks');
+const Mail = require('./controllers/mail');
 const passportService = require('./services/passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -14,6 +15,8 @@ module.exports = function(app) {
   // Authentication
   app.post('/api/signin', requireSignin, Authentication.signin);
   app.post('/api/signup', Authentication.signup);
+  app.patch('/api/verify/:token', Authentication.verify);
+  app.patch('/api/updatePassword', Authentication.updatePassword);
 
   // Labeling interface
   app.get('/api/modalities', Labeling.getModalities);
@@ -26,6 +29,7 @@ module.exports = function(app) {
   app.patch('/api/createGroup', Security.createGroup);
   app.patch('/api/editGroup', Security.editGroup);
   app.get('/api/getGroup/:groupName', Security.getGroup);
+  app.get('/api/welcomeTest', Mail.sendWelcome);
 
   // Test human error in classification tasks 
   app.patch('/api/createTest', HumanErrorTest.createTest);
@@ -37,4 +41,5 @@ module.exports = function(app) {
   // Tasks
   app.get('/api/getTasks/:username', Tasks.fetchTasks);
   app.patch('/api/openTask', Tasks.openTask);
+
 }

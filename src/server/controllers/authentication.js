@@ -1,5 +1,6 @@
 const jwt = require('jwt-simple');
 const validator = require('email-validator');
+const sgMail = require('@sendgrid/mail');
 
 const User = require('../models/User');
 const config = require('../config/config');
@@ -10,6 +11,23 @@ function tokenForUser(user) {
     sub: user.id,
     iat: timestamp,
   }, config.secret);
+}
+
+function sendWelcomeEmail(email, token) {
+  console.log(email);
+  console.log(token);
+  sgMail.setApiKey('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');
+
+  const url = 'http://localhost:3050/verify/' + token;
+  const msg = {
+    to: email,
+    from: 'no-reply@dev-curation.com',
+    subject: 'Welcome to the curation website',
+    text: 'Verify your account by clicking in this URL: http://localhost:3050/verify/' + token,
+    html: '<p>Hi new user!<br/>Verify your account by clicking in this URL: <a href=' + url + '>' + url + '</a></p>',
+  };
+
+  sgMail.send(msg);
 }
 
 exports.signin = function(req, res, next) {
@@ -44,9 +62,53 @@ exports.signup = function(req, res, next) {
     }
 
     const user = new User({ email, password, username });
-    user.save((err) => {
+    user.save((err, newUser) => {
       if (err) return next(err);
+      console.log('after saving user');
+      sendWelcomeEmail(newUser.email, newUser.verificationToken);
       res.json({ token: tokenForUser(user) });
     });
+  });
+}
+
+exports.verify = function(req, res, next) {
+  const token = req.params.token;
+
+  User.find({'verificationToken': token}, (err, users) => {
+    if (err) return next(err);
+
+    if (users.length > 1) {
+      res.status(404).send({'error': 'More than one user share the token'});
+    }
+
+    if (users[0].status == 'unverified') {
+      users[0].status = "verified";
+      users[0].save(err1 => {
+        if (err1) return next(err1);
+        res.send({'message': 'user updated', 'id': users[0]._id });
+      })
+    } else {
+      res.send({'message': 'redirect user', 'id': users[0]._id });
+    }
+  })
+}
+
+exports.updatePassword = function(req, res, next) {
+  const id = req.body._id;
+  const password = req.body.password;
+  
+  User.findById(id, (err, user) => {
+    if (err) return next(err);
+    if (!user) res.status(404).send({'error': 'user not found'});
+
+    user.password = password;
+    user.status = 'active';
+    user.save(err1 => {
+      if (err1) return next(err1);
+      res.json({
+        message: 'Password updated', 
+        token: tokenForUser(user) 
+      });
+    })
   });
 }

@@ -12,6 +12,8 @@ import SignOut from 'client/components/auth/SignOut';
 import ManageTest from 'client/components/humanError/ManageTest';
 import Inbox from 'client/components/inbox/Inbox';
 import ClassificationTest from 'client/components/humanError/ClassificationTest';
+import Verify from 'client/components/auth/Verify';
+import UpdatePassword from 'client/components/auth/UpdatePassword';
 
 import inboxListItems from 'client/constants/inboxListItems';
 import menu from 'client/icons/menu.svg';
@@ -94,6 +96,8 @@ export default class App extends Component {
           <Route path="/signout" component={SignOut} />
           <Route path="/manageTest" component={ManageTest} />
           <Route path="/classificationTest/:id" component={ClassificationTest} />
+          <Route path="/updatePassword/:id" component={UpdatePassword} />
+          <Route path="/verify/:token" component={Verify} />
           <Route paht="/inbox" component={Inbox} />
           <Route path="/" component={ElementContainer} />
         </Switch>

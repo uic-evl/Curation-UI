@@ -18,6 +18,8 @@ import {
   FETCH_TASKS,
   FETCH_NEXT_TEST_IMAGE,
   UPDATE_USER_TEST_IMAGE,
+  VERIFY_USER,
+  UPDATE_PASSWORD,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -199,6 +201,28 @@ export function updateUserTestImage(image, callback) {
     .then(() => callback());
   return {
     type: UPDATE_USER_TEST_IMAGE,
+    payload: request,
+  };
+}
+
+export function verifyUser(token, callback) {
+  const request = axios.patch(`${API_URL}verify/${token}`).then((response) => {
+    console.log(response);
+    callback(response.data.id);
+  });
+  return {
+    type: VERIFY_USER,
+    payload: request,
+  };
+}
+
+export function updatePassword(id, password, callback) {
+  const request = axios.patch(`${API_URL}updatePassword`, { '_id': id, 'password': password }).then((response) => {
+    callback(response.data.message);
+  });
+
+  return {
+    type: UPDATE_PASSWORD,
     payload: request,
   };
 }

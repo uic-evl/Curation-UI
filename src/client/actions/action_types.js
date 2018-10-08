@@ -12,6 +12,8 @@ export const FETCH_TASKS = 'fetch_tasks';
 export const FETCH_NEXT_TEST_IMAGE = 'fetch_next_test_image';
 export const FETCH_PREVIOUS_TEST_IMAGE = 'fetch_previous_test_image';
 export const UPDATE_USER_TEST_IMAGE = 'update_test_image';
+export const VERIFY_USER = 'verify_user';
+export const UPDATE_PASSWORD = 'update_password';
 
 export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';
