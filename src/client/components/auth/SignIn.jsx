@@ -13,7 +13,6 @@ class SignIn extends Component {
     const { signin, history } = this.props;
 
     signin(formProps, () => {
-      // history.push('/training/0');
       history.push('/inbox');
     });
   };
@@ -31,6 +30,7 @@ class SignIn extends Component {
           placeholder="Email"
           className="md-cell md-cell--12 md-cell--bottom"
           type="text"
+          required
         />
         <Field
           name="password"
@@ -39,6 +39,7 @@ class SignIn extends Component {
           lineDirection="center"
           className="md-cell md-cell--12 md-cell--bottom"
           type="password"
+          required
         />
         <div>
           {errorMessage}
@@ -58,11 +59,24 @@ SignIn.propTypes = {
   history: PropTypes.object,
 };
 
-function mapStateToProps(state) {
-  return { errorMessage: state.auth.errorMessage };
-}
+const email = (value) => {
+  const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  return value && !regex.test(value) ? 'Invalid email address' : undefined;
+};
+
+const validate = (values) => {
+  const errors = {};
+  errors.email = email(values.email);
+
+  return errors;
+};
+
+const mapStateToProps = (state) => {
+  const { errorMessage } = state.auth;
+  return { errorMessage };
+};
 
 export default compose(
   connect(mapStateToProps, { signin }),
-  reduxForm({ form: 'signin' })
+  reduxForm({ form: 'signin', validate })
 )(SignIn);

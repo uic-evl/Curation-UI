@@ -1,9 +1,10 @@
 const jwt = require('jwt-simple');
 const validator = require('email-validator');
 const sgMail = require('@sendgrid/mail');
-
 const User = require('../models/User');
 const config = require('../config/config');
+const sgKey = process.env.SENDGRID_KEY;
+const appHost = process.env.CURATION;
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
@@ -14,17 +15,15 @@ function tokenForUser(user) {
 }
 
 function sendWelcomeEmail(email, token) {
-  console.log(email);
-  console.log(token);
-  sgMail.setApiKey('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');
+  sgMail.setApiKey(sgKey);
 
-  const url = 'http://localhost:3050/verify/' + token;
+  const url = `${appHost}verify/${token}`;
   const msg = {
     to: email,
     from: 'no-reply@dev-curation.com',
     subject: 'Welcome to the curation website',
-    text: 'Verify your account by clicking in this URL: http://localhost:3050/verify/' + token,
-    html: '<p>Hi new user!<br/>Verify your account by clicking in this URL: <a href=' + url + '>' + url + '</a></p>',
+    text: `Verify your account by clicking in this URL: ${url}`,
+    html: `<p>Hi new user!<br/>Verify your account by clicking in this URL: <a href=${url}>${url}</a></p>`,
   };
 
   sgMail.send(msg);

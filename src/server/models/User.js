@@ -37,16 +37,12 @@ userSchema.pre('save', function(next) {
       bcrypt.hash(user.password, salt, null, (err, hash) => {
         if (err) return next(err);
         user.password = hash;
-        console.log('hashing password');
 
         if (this.isNew) {
           const randToken = Date.now().toString();
           bcrypt.hash(randToken, salt, null, (err, hash2) => {
             if (err) return next(err);
-            console.log(hash2);
-            console.log(hash2.split("/").join(""));
             user.verificationToken = hash2.split("/").join("");
-            console.log("hashing verification token");
             next();
           });
         } else {

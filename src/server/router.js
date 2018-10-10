@@ -5,7 +5,6 @@ const Labeling = require('./controllers/labeling');
 const Security = require('./controllers/security');
 const HumanErrorTest = require('./controllers/humanErrorTest');
 const Tasks = require('./controllers/tasks');
-const Mail = require('./controllers/mail');
 const passportService = require('./services/passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -29,7 +28,6 @@ module.exports = function(app) {
   app.patch('/api/createGroup', Security.createGroup);
   app.patch('/api/editGroup', Security.editGroup);
   app.get('/api/getGroup/:groupName', Security.getGroup);
-  app.get('/api/welcomeTest', Mail.sendWelcome);
 
   // Test human error in classification tasks 
   app.patch('/api/createTest', HumanErrorTest.createTest);
