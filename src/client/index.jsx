@@ -24,6 +24,7 @@ ReactDOM.render(
       access: localStorage.getItem('access'),
       username: localStorage.getItem('username'),
       roles: localStorage.getItem('roles'),
+      organization: localStorage.getItem('organization'),
     },
   })}
   >

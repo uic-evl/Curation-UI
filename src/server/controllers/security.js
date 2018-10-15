@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const User = require('../models/User');
 const Group = require('../models/Group');
 const config = require('../config/config');
@@ -99,3 +100,24 @@ exports.removeRole = function(req, res, next) {
     }
   });
 };
+
+exports.fetchUsersByGroup = function(req, res, next) {
+  const group = req.params.groupname;
+  
+  let result = [];
+  User.find({ 'organization': group }, (err, users) => {
+    if (err) return next(err);
+    users.forEach((user) => {
+      result.push(_.pick(user, ['username', 'email', 'status', '_id']));
+    })
+    res.send(result);
+  })
+}
+
+exports.fetchUserById = function(req, res, next) {
+  const id = req.params.id;
+  User.findById(id, (err, user) => {
+    if (err) return next(err);
+    res.send(_.pick(user, ['username', 'email', 'organization', '_id', 'status', 'roles']));
+  })
+}

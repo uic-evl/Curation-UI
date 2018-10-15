@@ -13,6 +13,7 @@ import auth from 'client/reducers/auth';
 import ClassificationTest from 'client/reducers/reducer_classification_test';
 import TasksReducer from 'client/reducers/reducer_tasks';
 import UserTest from 'client/reducers/reducer_user_test';
+import Management from 'client/reducers/reducer_management';
 
 const rootReducer = combineReducers({
   auth,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   classificationTest: ClassificationTest,
   tasks: TasksReducer,
   userTest: UserTest,
+  mgt: Management,
 });
 
 export default rootReducer;

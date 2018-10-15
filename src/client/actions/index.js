@@ -20,6 +20,9 @@ import {
   UPDATE_USER_TEST_IMAGE,
   VERIFY_USER,
   UPDATE_PASSWORD,
+  FETCH_USERS_BY_GROUP,
+  FETCH_USER_BY_ID,
+  ADD_USER_TO_ROLE,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -135,6 +138,7 @@ export const signin = (formProps, callback) => async (dispatch) => {
     localStorage.setItem('access', response.data.access);
     localStorage.setItem('username', response.data.username);
     localStorage.setItem('roles', response.data.roles);
+    localStorage.setItem('organization', response.data.organization);
     callback();
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
@@ -223,6 +227,36 @@ export function updatePassword(id, password, callback) {
 
   return {
     type: UPDATE_PASSWORD,
+    payload: request,
+  };
+}
+
+export function fetchUsersByGroup(groupName) {
+  const url = `${API_URL}fetchUsersByGroup/${groupName}`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_USERS_BY_GROUP,
+    payload: request,
+  };
+}
+
+export function fetchUserById(id) {
+  const url = `${API_URL}fetchUserById/${id}`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_USER_BY_ID,
+    payload: request,
+  };
+}
+
+export function addUserToRole(userId, role, callback) {
+  const request = axios.patch(`${API_URL}addRole`, { _id: userId, roles: [role] })
+    .then(() => callback());
+
+  return {
+    type: ADD_USER_TO_ROLE,
     payload: request,
   };
 }

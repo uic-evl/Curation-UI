@@ -28,6 +28,8 @@ module.exports = function(app) {
   app.patch('/api/createGroup', Security.createGroup);
   app.patch('/api/editGroup', Security.editGroup);
   app.get('/api/getGroup/:groupName', Security.getGroup);
+  app.get('/api/fetchUsersByGroup/:groupname', Security.fetchUsersByGroup);
+  app.get('/api/fetchUserById/:id', Security.fetchUserById);
 
   // Test human error in classification tasks 
   app.patch('/api/createTest', HumanErrorTest.createTest);

@@ -19,6 +19,7 @@ const userSchema = new Schema({
   access: { type: Array, "default": [] },
   status: String,
   verificationToken: String,
+  organization: String,
 });
 
 /* replacing function(next) by (next) =>, loses

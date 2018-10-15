@@ -15,5 +15,10 @@ export const UPDATE_USER_TEST_IMAGE = 'update_test_image';
 export const VERIFY_USER = 'verify_user';
 export const UPDATE_PASSWORD = 'update_password';
 
+// user management
+export const FETCH_USERS_BY_GROUP = 'fetch_users_by_group';
+export const FETCH_USER_BY_ID = 'fetch_user_by_id';
+export const ADD_USER_TO_ROLE = 'add_user_to_role';
+
 export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';

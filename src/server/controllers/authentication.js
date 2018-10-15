@@ -31,12 +31,14 @@ function sendWelcomeEmail(email, token) {
 
 exports.signin = function(req, res, next) {
   // If user is authenticated, give them the token
+  console.log(req.user);
   res.send({
     user_id: req.user._id,
     username: req.user.username,
     roles: req.user.roles,
     access: req.user.access,
-    token: tokenForUser(req.user) 
+    token: tokenForUser(req.user),
+    organization: req.user.organization, 
   });
 }
 
@@ -44,6 +46,7 @@ exports.signup = function(req, res, next) {
   const email = req.body.email;
   const password = req.body.password;
   const username = req.body.username;
+  const organization = req.body.organization || '';
 
   if (!email || !password || !username) {
     return res.status(422).send({ error: 'You must provide a valid username, email and password '});
@@ -60,7 +63,7 @@ exports.signup = function(req, res, next) {
       return res.status(422).send({ error: 'Email or username is in use' });
     }
 
-    const user = new User({ email, password, username });
+    const user = new User({ email, password, username, organization });
     user.save((err, newUser) => {
       if (err) return next(err);
       console.log('after saving user');

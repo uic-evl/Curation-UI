@@ -14,6 +14,7 @@ import Inbox from 'client/components/inbox/Inbox';
 import ClassificationTest from 'client/components/humanError/ClassificationTest';
 import Verify from 'client/components/auth/Verify';
 import UpdatePassword from 'client/components/auth/UpdatePassword';
+import Management from 'client/components/userManagement/Container';
 
 import inboxListItems from 'client/constants/inboxListItems';
 import menu from 'client/icons/menu.svg';
@@ -98,6 +99,7 @@ export default class App extends Component {
           <Route path="/classificationTest/:id" component={ClassificationTest} />
           <Route path="/updatePassword/:id" component={UpdatePassword} />
           <Route path="/verify/:token" component={Verify} />
+          <Route path="/management" component={Management} />
           <Route paht="/inbox" component={Inbox} />
           <Route path="/" component={ElementContainer} />
         </Switch>
