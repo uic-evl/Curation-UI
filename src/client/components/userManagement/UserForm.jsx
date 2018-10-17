@@ -51,7 +51,7 @@ class UserForm extends Component {
         baseId="userRoles"
         values={roles}
         selectValues={selectValues}
-        onClickAdd={this.onAddUserToRole}
+        onAssignClick={this.onAddUserToRole}
       />
     );
   }

@@ -11,8 +11,16 @@ exports.getGroup = function(req, res, next) {
   });
 }
 
+exports.getGroupsByOrganization = function(req, res, next) {
+  const { organization } = req.params;
+  Group.find({ organization }, (err, groups) => {
+    if (err) return next(err);
+    res.send(groups);  
+  });
+}
+
 exports.createGroup = function(req, res, next) {
-  const { name, users, supervisor } = req.body;
+  const { name, users, supervisor, organization, type } = req.body;
 
   if (!name) {
     return res.status(422).send({ error: 'Group name cannot be empty'});
@@ -22,6 +30,8 @@ exports.createGroup = function(req, res, next) {
     name, 
     users, 
     supervisor,
+    type,
+    organization,
   });
 
   group.save((err) => {

@@ -28,6 +28,7 @@ module.exports = function(app) {
   app.patch('/api/createGroup', Security.createGroup);
   app.patch('/api/editGroup', Security.editGroup);
   app.get('/api/getGroup/:groupName', Security.getGroup);
+  app.get('/api/getGroupsByOrganization/:organization', Security.getGroupsByOrganization);
   app.get('/api/fetchUsersByGroup/:groupname', Security.fetchUsersByGroup);
   app.get('/api/fetchUserById/:id', Security.fetchUserById);
 

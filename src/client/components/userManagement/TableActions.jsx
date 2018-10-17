@@ -16,20 +16,20 @@ class TableActions extends Component {
   }
 
   onAddRole() {
-    const { onAddClick } = this.props;
+    const { onAssignClick } = this.props;
     const { role } = this.state;
-    onAddClick(role);
+    onAssignClick(role);
   }
 
   onChangeRoleSelected(value) {
     this.setState({ role: value });
   }
 
-  renderAddMenu(onAddClick) {
+  renderAssignMenu(onAssignClick) {
     const { role } = this.state;
     const { selectValues } = this.props;
 
-    if (!onAddClick) return;
+    if (!onAssignClick) return;
     return (
       <span>
         <SelectField
@@ -40,14 +40,22 @@ class TableActions extends Component {
           onChange={this.onChangeRoleSelected}
           required
         />
-        <FlatOrIconButton onClick={this.onAddRole} disabled={role === ''}>Add</FlatOrIconButton>
+        <FlatOrIconButton onClick={this.onAddRole} disabled={role === ''}>Assign</FlatOrIconButton>
       </span>
+    );
+  }
+
+  renderAddButton(onAddClick) {
+    if (!onAddClick) return;
+    return (
+      <FlatOrIconButton onClick={onAddClick}>Add</FlatOrIconButton>
     );
   }
 
   render() {
     const { title, count } = this.props;
-    const { onAddClick, onEditClick, onRemoveClick } = this.props;
+    const { onAssignClick, onEditClick } = this.props;
+    const { onAddClick, onRemoveClick } = this.props;
 
     const actionEdit = (
       <Button
@@ -90,7 +98,8 @@ class TableActions extends Component {
         contextualTitle={`${count} item${count > 1 ? 's' : ''} selected`}
         actions={actions}
       >
-        {this.renderAddMenu(onAddClick)}
+        {this.renderAddButton(onAddClick)}
+        {this.renderAssignMenu(onAssignClick)}
       </TableCardHeader>
     );
   }
@@ -101,7 +110,7 @@ const TableActions = (
   {
     title,
     count,
-    onAddClick,
+    onAssignClick,
     onEditClick,
     onRemoveClick,
   }
@@ -140,8 +149,8 @@ const TableActions = (
     actions.push(actionDelete);
   }
 
-  const renderAddMenu = (onAddClick) => {
-    if (!onAddClick) return;
+  const renderAddMenu = (onAssignClick) => {
+    if (!onAssignClick) return;
     return (
       <span>
         <SelectField
@@ -150,7 +159,7 @@ const TableActions = (
           menuItems={['curator', 'lead', 'admin']}
           required
         />
-        <FlatOrIconButton onClick={onAddClick}>Add</FlatOrIconButton>
+        <FlatOrIconButton onClick={onAssignClick}>Add</FlatOrIconButton>
       </span>
     );
   };
@@ -162,7 +171,7 @@ const TableActions = (
       contextualTitle={`${count} item${count > 1 ? 's' : ''} selected`}
       actions={actions}
     >
-      {renderAddMenu(onAddClick)}
+      {renderAddMenu(onAssignClick)}
     </TableCardHeader>
   );
 };
@@ -172,9 +181,10 @@ TableActions.propTypes = {
   selectValues: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
-  onAddClick: PropTypes.func,
+  onAssignClick: PropTypes.func,
   onEditClick: PropTypes.func,
   onRemoveClick: PropTypes.func,
+  onAddClick: PropTypes.func,
 };
 
 export default TableActions;

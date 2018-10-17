@@ -20,10 +20,6 @@ import {
 import TableActions from './TableActions';
 import EditUserDialog from './EditUserDialog';
 
-const INITIAL_STATE = {
-  count: 0,
-};
-
 class UsersGrid extends Component {
   constructor(props) {
     super(props);
@@ -62,6 +58,10 @@ class UsersGrid extends Component {
     this.setState({ dialogVisible: false });
   }
 
+  addUser() {
+
+  }
+
   renderUsers() {
     const { users } = this.props;
     if (!users) return;
@@ -83,11 +83,12 @@ class UsersGrid extends Component {
       <div>
         <Card tableCard>
           <TableActions
-            title="Edit User Info"
+            title="Users"
             count={count}
-            onAddClick={null}
+            onAssignClick={null}
             onEditClick={this.showEditRowDialog}
             onRemoveClick={this.reset}
+            onAddClick={this.addUser}
           />
           <DataTable baseId="users-magenement-table" onRowToggle={this.handleRowToggle}>
             <TableHeader>

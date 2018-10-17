@@ -10,6 +10,8 @@ const userSchema = new Schema({
   },
   users: { type: Array, "default": [] },
   supervisor: { type: String, },
+  type: { type: String, lowercase: true },
+  organization: { type: String, lowercase: true },
 });
 
 const ModelClass = mongoose.model('group', userSchema);

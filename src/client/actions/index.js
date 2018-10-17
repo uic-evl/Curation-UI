@@ -23,6 +23,8 @@ import {
   FETCH_USERS_BY_GROUP,
   FETCH_USER_BY_ID,
   ADD_USER_TO_ROLE,
+  FETCH_GROUPS_BY_ORG,
+  CREATE_GROUP,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -257,6 +259,30 @@ export function addUserToRole(userId, role, callback) {
 
   return {
     type: ADD_USER_TO_ROLE,
+    payload: request,
+  };
+}
+
+export function fetchGroupsByOrganization(organization) {
+  const url = `${API_URL}getGroupsByOrganization/${organization}`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_GROUPS_BY_ORG,
+    payload: request,
+  };
+}
+
+export function createGroup(name, organization, supervisor, type, callback) {
+  const request = axios.patch(`${API_URL}createGroup`, {
+    name,
+    organization,
+    type,
+    supervisor,
+  }).then(() => callback());
+
+  return {
+    type: CREATE_GROUP,
     payload: request,
   };
 }

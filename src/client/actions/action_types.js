@@ -18,7 +18,9 @@ export const UPDATE_PASSWORD = 'update_password';
 // user management
 export const FETCH_USERS_BY_GROUP = 'fetch_users_by_group';
 export const FETCH_USER_BY_ID = 'fetch_user_by_id';
+export const FETCH_GROUPS_BY_ORG = 'fetch_groups_by_org';
 export const ADD_USER_TO_ROLE = 'add_user_to_role';
+export const CREATE_GROUP = 'crate_group';
 
 export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';

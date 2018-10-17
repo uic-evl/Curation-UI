@@ -6,31 +6,46 @@ import { connect } from 'react-redux';
 import { Grid, Cell } from 'react-md';
 import PropTypes from 'prop-types';
 import UsersGrid from 'client/components/userManagement/UsersGrid';
-import { fetchUsersByGroup } from 'client/actions';
+import GroupsGrid from 'client/components/userManagement/GroupsGrid';
+import { fetchUsersByGroup, fetchGroupsByOrganization, createGroup } from 'client/actions';
 import requireAuth from 'client/components/auth/requireAuth';
 
 class UserManagement extends Component {
   componentDidMount() {
     const { fetchUsersByGroup, organization } = this.props;
     fetchUsersByGroup(organization);
+    fetchGroupsByOrganization(organization);
   }
 
-  renderTable() {
-    const { users } = this.props;
+  renderTableUsers() {
+    const { users, organization } = this.props;
     if (!users) {
       return (<div />);
     }
 
-    return <UsersGrid users={users} />;
+    return <UsersGrid users={users} organization={organization} />;
+  }
+
+  renderTableGroups() {
+    const { groups, organization, createGroup } = this.props;
+    return <GroupsGrid groups={groups} organization={organization} create={createGroup} />;
   }
 
   render() {
     return (
-      <Grid className="md-grid--no-spacing">
-        <Cell size={8}>
-          {this.renderTable()}
-        </Cell>
-      </Grid>
+      <div>
+        <Grid className="md-grid--no-spacing">
+          <Cell size={12}>
+            {this.renderTableUsers()}
+          </Cell>
+        </Grid>
+        <br />
+        <Grid className="md-grid--no-spacing">
+          <Cell size={12}>
+            {this.renderTableGroups()}
+          </Cell>
+        </Grid>
+      </div>
     );
   }
 }
@@ -38,8 +53,10 @@ class UserManagement extends Component {
 UserManagement.propTypes = {
   fetchUsersByGroup: PropTypes.func,
   users: PropTypes.arrayOf(PropTypes.object),
+  groups: PropTypes.arrayOf(PropTypes.object),
   username: PropTypes.string,
   organization: PropTypes.string,
+  createGroup: PropTypes.func,
 };
 
 function mapStateToProps(state) {
@@ -55,9 +72,14 @@ function mapStateToProps(state) {
 
   if (state.mgt) {
     props.users = state.mgt.users;
+    props.groups = state.mgt.groups;
   }
 
   return props;
 }
 
-export default connect(mapStateToProps, { fetchUsersByGroup })(requireAuth(UserManagement, 'userManagement'));
+export default connect(mapStateToProps, {
+  fetchUsersByGroup,
+  fetchGroupsByOrganization,
+  createGroup,
+})(requireAuth(UserManagement, 'userManagement'));

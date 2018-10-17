@@ -34,8 +34,8 @@ export default class UserRolesGrid extends Component {
   }
 
   onAddUserToRole(value) {
-    const { onClickAdd } = this.props;
-    onClickAdd(value);
+    const { onAssignClick } = this.props;
+    onAssignClick(value);
   }
 
   handleRowToggle = (row, selected, count) => {
@@ -71,7 +71,7 @@ export default class UserRolesGrid extends Component {
         <TableActions
           title={title}
           count={count}
-          onAddClick={this.onAddUserToRole}
+          onAssignClick={this.onAddUserToRole}
           onRemoveClick={this.onRemoveFromRole}
           onEditClick={null}
           selectValues={selectValues}
@@ -96,5 +96,5 @@ UserRolesGrid.propTypes = {
   values: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
   baseId: PropTypes.string.isRequired,
-  onClickAdd: PropTypes.func,
+  onAssignClick: PropTypes.func,
 };
