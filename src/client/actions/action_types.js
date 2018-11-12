@@ -19,8 +19,12 @@ export const UPDATE_PASSWORD = 'update_password';
 export const FETCH_USERS_BY_GROUP = 'fetch_users_by_group';
 export const FETCH_USER_BY_ID = 'fetch_user_by_id';
 export const FETCH_GROUPS_BY_ORG = 'fetch_groups_by_org';
-export const ADD_USER_TO_ROLE = 'add_user_to_role';
 export const CREATE_GROUP = 'crate_group';
+
+export const ADD_USER_TO_ROLE = 'add_user_to_role';
+export const ADD_USER_TO_ROLE_SUCCESS = 'add_user_to_role_success';
+export const REMOVE_USER_FROM_ROLE = 'remove_user_from_role';
+export const REMOVE_USER_FROM_ROLE_SUCCESS = 'remove_user_from_role_sucess';
 
 export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';

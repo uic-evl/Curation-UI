@@ -5,6 +5,9 @@
 /* eslint-disable consistent-return */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-debugger */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-const */
+/* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -27,10 +30,24 @@ export default class UserRolesGrid extends Component {
       selectedRows: values.map(() => false),
     };
     this.onAddUserToRole = this.onAddUserToRole.bind(this);
+    this.onRemoveFromRole = this.onRemoveFromRole.bind(this);
   }
 
   onRemoveFromRole() {
-    console.log('remove');
+    const { onRemoveClick } = this.props;
+    let selectedRows = this.state.selectedRows.slice();
+    let roles = this.props.values;
+
+    let selectedRoles = [];
+    for (let i = 0; i < selectedRows.length; i++) {
+      if (selectedRows[i]) {
+        selectedRoles.push(roles[i]);
+      }
+    }
+
+    this.setState({ count: 0 }, () => {
+      onRemoveClick(selectedRoles);
+    });
   }
 
   onAddUserToRole(value) {
@@ -97,4 +114,5 @@ UserRolesGrid.propTypes = {
   title: PropTypes.string.isRequired,
   baseId: PropTypes.string.isRequired,
   onAssignClick: PropTypes.func,
+  onRemoveClick: PropTypes.func,
 };

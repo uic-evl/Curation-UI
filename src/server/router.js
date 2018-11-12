@@ -31,6 +31,7 @@ module.exports = function(app) {
   app.get('/api/getGroupsByOrganization/:organization', Security.getGroupsByOrganization);
   app.get('/api/fetchUsersByGroup/:groupname', Security.fetchUsersByGroup);
   app.get('/api/fetchUserById/:id', Security.fetchUserById);
+  app.patch('/api/removeRole', Security.removeRole);
 
   // Test human error in classification tasks 
   app.patch('/api/createTest', HumanErrorTest.createTest);

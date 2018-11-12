@@ -79,6 +79,7 @@ exports.addRole = function(req, res, next) {
       
       existingUser.save((err) => {
         if (err) return next(err);
+        existingUser = _.pick(existingUser, ['username', 'email', 'status', '_id', 'roles']);
         res.send({ user: existingUser });
       });
     } else {
@@ -103,6 +104,7 @@ exports.removeRole = function(req, res, next) {
 
       existingUser.save((err) => {
         if (err) return next(err);
+        existingUser = _.pick(existingUser, ['username', 'email', 'status', '_id', 'roles']);
         res.send({ user: existingUser });
       });
     } else {
@@ -118,7 +120,7 @@ exports.fetchUsersByGroup = function(req, res, next) {
   User.find({ 'organization': group }, (err, users) => {
     if (err) return next(err);
     users.forEach((user) => {
-      result.push(_.pick(user, ['username', 'email', 'status', '_id']));
+      result.push(_.pick(user, ['username', 'email', 'status', '_id', 'roles']));
     })
     res.send(result);
   })

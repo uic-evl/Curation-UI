@@ -12,13 +12,14 @@ import {
   Grid,
   Cell,
 } from 'react-md';
-import { fetchUserById, addUserToRole } from 'client/actions';
+import { fetchUserById, addUserToRole, removeUserFromRoles } from 'client/actions';
 import UserRolesGrid from './UserRolesGrid';
 
 class UserForm extends Component {
   constructor(props) {
     super(props);
     this.onAddUserToRole = this.onAddUserToRole.bind(this);
+    this.onRemoveFromRole = this.onRemoveFromRole.bind(this);
   }
 
   componentDidMount() {
@@ -28,9 +29,12 @@ class UserForm extends Component {
 
   onAddUserToRole(role) {
     const { addUserToRole, fetchUserById, userId } = this.props;
-    addUserToRole(userId, role, () => {
-      fetchUserById(userId);
-    });
+    addUserToRole(userId, role);
+  }
+
+  onRemoveFromRole(roles) {
+    const { removeUserFromRoles, userId } = this.props;
+    removeUserFromRoles(userId, roles);
   }
 
   renderRoles() {
@@ -52,6 +56,7 @@ class UserForm extends Component {
         values={roles}
         selectValues={selectValues}
         onAssignClick={this.onAddUserToRole}
+        onRemoveClick={this.onRemoveFromRole}
       />
     );
   }
@@ -79,6 +84,7 @@ UserForm.propTypes = {
   userId: PropTypes.string.isRequired,
   fetchUserById: PropTypes.func,
   addUserToRole: PropTypes.func,
+  removeUserFromRoles: PropTypes.func,
   roles: PropTypes.arrayOf(PropTypes.string),
 };
 
@@ -94,4 +100,4 @@ function mapStateToProps(state) {
   return props;
 }
 
-export default connect(mapStateToProps, { fetchUserById, addUserToRole })(UserForm);
+export default connect(mapStateToProps, { fetchUserById, addUserToRole, removeUserFromRoles })(UserForm);

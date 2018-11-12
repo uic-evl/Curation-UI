@@ -25,6 +25,9 @@ import {
   ADD_USER_TO_ROLE,
   FETCH_GROUPS_BY_ORG,
   CREATE_GROUP,
+  REMOVE_USER_FROM_ROLE,
+  REMOVE_USER_FROM_ROLE_SUCCESS,
+  ADD_USER_TO_ROLE_SUCCESS,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -253,16 +256,6 @@ export function fetchUserById(id) {
   };
 }
 
-export function addUserToRole(userId, role, callback) {
-  const request = axios.patch(`${API_URL}addRole`, { _id: userId, roles: [role] })
-    .then(() => callback());
-
-  return {
-    type: ADD_USER_TO_ROLE,
-    payload: request,
-  };
-}
-
 export function fetchGroupsByOrganization(organization) {
   const url = `${API_URL}getGroupsByOrganization/${organization}`;
   const request = axios.get(url);
@@ -284,5 +277,36 @@ export function createGroup(name, organization, supervisor, type, callback) {
   return {
     type: CREATE_GROUP,
     payload: request,
+  };
+}
+
+export function addUserToRole(userId, role) {
+  return (dispatch) => {
+    dispatch({ type: ADD_USER_TO_ROLE });
+    axios.patch(`${API_URL}addRole`, { _id: userId, roles: [role] })
+      .then((res) => {
+        dispatch({ type: ADD_USER_TO_ROLE_SUCCESS, payload: res });
+      })
+      .catch((error) => {
+        console.log('error adding user to role');
+        console.log(error);
+      });
+  };
+}
+
+// Passing callback as a parameter doesn't work with reducers as it breaks
+// the reducer lifecycle. Consider using this approach and control the UI changes
+// with the redux state
+export function removeUserFromRoles(userId, roles) {
+  return (dispatch) => {
+    dispatch({ type: REMOVE_USER_FROM_ROLE });
+    axios.patch(`${API_URL}removeRole`, { _id: userId, roles })
+      .then((res) => {
+        dispatch({ type: REMOVE_USER_FROM_ROLE_SUCCESS, payload: res });
+      })
+      .catch((error) => {
+        console.log('error removing role');
+        console.log(error);
+      });
   };
 }

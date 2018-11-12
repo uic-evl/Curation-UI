@@ -71,6 +71,7 @@ class UsersGrid extends Component {
         <TableRow key={user._id}>
           <TableColumn>{user.username}</TableColumn>
           <TableColumn>{user.email}</TableColumn>
+          <TableColumn>{user.roles.toString()}</TableColumn>
           <TableColumn>{user.status}</TableColumn>
         </TableRow>
       );
@@ -95,6 +96,7 @@ class UsersGrid extends Component {
               <TableRow>
                 <TableColumn>Username</TableColumn>
                 <TableColumn>Email</TableColumn>
+                <TableColumn>Roles</TableColumn>
                 <TableColumn>Status</TableColumn>
               </TableRow>
             </TableHeader>
