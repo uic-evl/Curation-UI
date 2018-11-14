@@ -15,7 +15,6 @@ exports.getGroupsByOrganization = function(req, res, next) {
   const { organization } = req.params;
   Group.find({ organization }, (err, groups) => {
     if (err) return next(err);
-    console.log(groups);
     res.send(groups);  
   });
 }

@@ -67,8 +67,9 @@ class UsersGrid extends Component {
 
   createOrEditUser(email, organization, username) {
     const { create } = this.props; // get organization from here? TODO
-    debugger;
-    create(email, organization, username);
+    create(email, organization, username, () => {
+      this.setState({ dialogVisible: false });
+    });
   }
 
   renderUsers() {

@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const jwt = require('jwt-simple');
 const validator = require('email-validator');
 const sgMail = require('@sendgrid/mail');
@@ -66,9 +67,9 @@ exports.signup = function(req, res, next) {
     const user = new User({ email, password, username, organization });
     user.save((err, newUser) => {
       if (err) return next(err);
-      console.log('after saving user');
       sendWelcomeEmail(newUser.email, newUser.verificationToken);
-      res.json({ token: tokenForUser(user) });
+      newUser = _.pick(newUser, ['username', 'email', 'status', '_id', 'roles']);
+      res.json({ user: newUser });
     });
   });
 }

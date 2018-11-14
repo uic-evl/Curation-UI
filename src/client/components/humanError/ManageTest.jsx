@@ -31,7 +31,7 @@ class ManageTest extends Component {
 
   componentDidMount() {
     const { fetchAvailableUserTest, fetchTests } = this.props;
-    fetchAvailableUserTest('users_udel');
+    fetchAvailableUserTest('users_uic');
     fetchTests();
   }
 

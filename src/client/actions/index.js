@@ -325,7 +325,7 @@ export function removeUserFromRoles(userId, roles) {
   };
 }
 
-export function createUser(email, organization, username) {
+export function createUser(email, organization, username, callback) {
   return (dispatch) => {
     const user = {
       email,
@@ -338,6 +338,9 @@ export function createUser(email, organization, username) {
     axios.patch(`${API_URL}signup`, user)
       .then((res) => {
         dispatch({ type: CREATE_USER_SUCCESS, payload: res });
+      })
+      .then(() => {
+        callback();
       })
       .catch((error) => {
         console.log('error adding user');

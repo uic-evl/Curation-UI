@@ -8,7 +8,6 @@ import {
   REMOVE_USER_FROM_ROLE_SUCCESS,
   ADD_USER_TO_ROLE_SUCCESS,
   CREATE_GROUP_SUCCESS,
-  CREATE_USER,
   CREATE_USER_SUCCESS,
 } from 'client/actions/action_types';
 
@@ -67,12 +66,18 @@ export default function (state = null, action) {
         'selectedUser': state.selectedUser,
         'groups': state.groups,
       };
-    case CREATE_USER:
-      console.log('create_user');
-      return state;
     case CREATE_USER_SUCCESS:
-      console.log('create user success');
-      return state;
+      debugger;
+      if (state.users) {
+        state.users.push(action.payload.data.user);
+      } else {
+        state.users = [action.payload.data.user];
+      }
+      return {
+        'users': state.users,
+        'selectedUser': state.selectedUser,
+        'groups': state.groups,
+      };
     default:
       return state;
   }
