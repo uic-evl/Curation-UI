@@ -32,7 +32,8 @@ export default class EditGroupDialog extends Component {
     this.setState({ name: value });
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     const { onSubmit } = this.props;
     const { name, supervisor } = this.state;
 

@@ -37,7 +37,7 @@ class GroupsGrid extends Component {
     // set the selected rows here when the parent updates
   }
 
-  showEditRowDialog = () => {
+  showDialogGroup = () => {
     this.setState({ dialogVisible: true });
   }
 
@@ -46,10 +46,10 @@ class GroupsGrid extends Component {
   }
 
   createNewGroup(name, supervisor) {
-    debugger;
     const { create, organization } = this.props;
+    debugger;
     create(name, organization, supervisor, 'group', () => {
-      console.log('done');
+      this.setState({ dialogVisible: false });
     });
   }
 
@@ -78,7 +78,7 @@ class GroupsGrid extends Component {
           onAssignClick={null}
           onEditClick={null}
           onRemoveClick={null}
-          onAddClick={this.showEditRowDialog}
+          onAddClick={this.showDialogGroup}
         />
         <DataTable baseId="groups-magenement-table">
           <TableHeader>

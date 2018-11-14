@@ -45,6 +45,7 @@ export default class UserRolesGrid extends Component {
       }
     }
 
+    // Count 0 to hide the TableActions bar, then remove element
     this.setState({ count: 0 }, () => {
       onRemoveClick(selectedRoles);
     });

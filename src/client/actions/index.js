@@ -1,5 +1,7 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-debugger */
+/* eslint-disable no-unused-vars */
+/* eslint-disable arrow-body-style */
 import _ from 'lodash';
 import axios from 'axios';
 import {
@@ -25,9 +27,12 @@ import {
   ADD_USER_TO_ROLE,
   FETCH_GROUPS_BY_ORG,
   CREATE_GROUP,
+  CREATE_GROUP_SUCCESS,
   REMOVE_USER_FROM_ROLE,
   REMOVE_USER_FROM_ROLE_SUCCESS,
   ADD_USER_TO_ROLE_SUCCESS,
+  CREATE_USER,
+  CREATE_USER_SUCCESS,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -216,7 +221,6 @@ export function updateUserTestImage(image, callback) {
 
 export function verifyUser(token, callback) {
   const request = axios.patch(`${API_URL}verify/${token}`).then((response) => {
-    console.log(response);
     callback(response.data.id);
   });
   return {
@@ -267,16 +271,26 @@ export function fetchGroupsByOrganization(organization) {
 }
 
 export function createGroup(name, organization, supervisor, type, callback) {
-  const request = axios.patch(`${API_URL}createGroup`, {
-    name,
-    organization,
-    type,
-    supervisor,
-  }).then(() => callback());
-
-  return {
-    type: CREATE_GROUP,
-    payload: request,
+  return (dispatch) => {
+    const values = {
+      name,
+      organization,
+      type,
+      supervisor,
+    };
+    dispatch({ type: CREATE_GROUP });
+    axios.patch(`${API_URL}createGroup`, values)
+      .then((res) => {
+        // mapstatetoprops on container, catch event and hide pop up
+        dispatch({ type: CREATE_GROUP_SUCCESS, payload: res });
+      })
+      .then(() => {
+        callback();
+      })
+      .catch((error) => {
+        console.log('error creating group');
+        console.log(error);
+      });
   };
 }
 
@@ -306,6 +320,27 @@ export function removeUserFromRoles(userId, roles) {
       })
       .catch((error) => {
         console.log('error removing role');
+        console.log(error);
+      });
+  };
+}
+
+export function createUser(email, organization, username) {
+  return (dispatch) => {
+    const user = {
+      email,
+      organization,
+      username,
+      'password': '1234', // TODO: change for a random sequence
+    };
+
+    dispatch({ type: CREATE_USER });
+    axios.patch(`${API_URL}signup`, user)
+      .then((res) => {
+        dispatch({ type: CREATE_USER_SUCCESS, payload: res });
+      })
+      .catch((error) => {
+        console.log('error adding user');
         console.log(error);
       });
   };

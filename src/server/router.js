@@ -13,7 +13,7 @@ const requireSignin = passport.authenticate('local', { session: false });
 module.exports = function(app) {
   // Authentication
   app.post('/api/signin', requireSignin, Authentication.signin);
-  app.post('/api/signup', Authentication.signup);
+  app.patch('/api/signup', Authentication.signup);
   app.patch('/api/verify/:token', Authentication.verify);
   app.patch('/api/updatePassword', Authentication.updatePassword);
 

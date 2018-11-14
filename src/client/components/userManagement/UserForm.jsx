@@ -11,20 +11,28 @@ import {
   Paper,
   Grid,
   Cell,
+  TextField,
 } from 'react-md';
-import { fetchUserById, addUserToRole, removeUserFromRoles } from 'client/actions';
+import {
+  fetchUserById,
+  addUserToRole,
+  removeUserFromRoles,
+} from 'client/actions';
 import UserRolesGrid from './UserRolesGrid';
 
 class UserForm extends Component {
   constructor(props) {
     super(props);
+
     this.onAddUserToRole = this.onAddUserToRole.bind(this);
     this.onRemoveFromRole = this.onRemoveFromRole.bind(this);
   }
 
   componentDidMount() {
     const { fetchUserById, userId } = this.props;
-    fetchUserById(userId);
+    if (userId) {
+      fetchUserById(userId);
+    }
   }
 
   onAddUserToRole(role) {
@@ -38,9 +46,11 @@ class UserForm extends Component {
   }
 
   renderRoles() {
+    const { userId } = this.props;
+    if (!userId) return;
+
     const { roles } = this.props;
     if (!roles) return;
-    const { userId } = this.props;
 
     const selectValues = ['curator', 'lead', 'admin'];
     roles.forEach((val) => {
@@ -81,7 +91,7 @@ class UserForm extends Component {
 }
 
 UserForm.propTypes = {
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.string,
   fetchUserById: PropTypes.func,
   addUserToRole: PropTypes.func,
   removeUserFromRoles: PropTypes.func,
@@ -100,4 +110,8 @@ function mapStateToProps(state) {
   return props;
 }
 
-export default connect(mapStateToProps, { fetchUserById, addUserToRole, removeUserFromRoles })(UserForm);
+export default connect(mapStateToProps, {
+  fetchUserById,
+  addUserToRole,
+  removeUserFromRoles,
+})(UserForm);

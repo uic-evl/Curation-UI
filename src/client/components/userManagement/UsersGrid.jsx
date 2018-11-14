@@ -31,6 +31,8 @@ class UsersGrid extends Component {
       dialogVisible: false,
       selectedUserId: null,
     };
+
+    this.createOrEditUser = this.createOrEditUser.bind(this);
   }
 
   handleRowToggle = (row, selected, count) => {
@@ -50,7 +52,7 @@ class UsersGrid extends Component {
     this.setState({ selectedRows, count, selectedUserId });
   }
 
-  showEditRowDialog = () => {
+  showDialog = () => {
     this.setState({ dialogVisible: true });
   }
 
@@ -59,7 +61,14 @@ class UsersGrid extends Component {
   }
 
   addUser() {
+    // selectedUserId is null when none of the rows is selected
+    this.setState({ dialogVisible: true });
+  }
 
+  createOrEditUser(email, organization, username) {
+    const { create } = this.props; // get organization from here? TODO
+    debugger;
+    create(email, organization, username);
   }
 
   renderUsers() {
@@ -87,9 +96,9 @@ class UsersGrid extends Component {
             title="Users"
             count={count}
             onAssignClick={null}
-            onEditClick={this.showEditRowDialog}
+            onEditClick={this.showDialog}
             onRemoveClick={this.reset}
-            onAddClick={this.addUser}
+            onAddClick={this.showDialog}
           />
           <DataTable baseId="users-magenement-table" onRowToggle={this.handleRowToggle}>
             <TableHeader>
@@ -108,6 +117,7 @@ class UsersGrid extends Component {
             onHide={this.hideEditRowDialog}
             visible={dialogVisible}
             userId={selectedUserId}
+            onSubmit={this.createOrEditUser}
           />
         </Card>
       </div>
@@ -117,6 +127,7 @@ class UsersGrid extends Component {
 
 UsersGrid.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object),
+  create: PropTypes.func,
 };
 
 export default UsersGrid;
