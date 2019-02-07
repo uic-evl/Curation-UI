@@ -5,6 +5,7 @@ const Labeling = require('./controllers/labeling');
 const Security = require('./controllers/security');
 const HumanErrorTest = require('./controllers/humanErrorTest');
 const Tasks = require('./controllers/tasks');
+const Pipeline = require('./controllers/pipeline');
 const passportService = require('./services/passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -33,7 +34,7 @@ module.exports = function(app) {
   app.get('/api/fetchUserById/:id', Security.fetchUserById);
   app.patch('/api/removeRole', Security.removeRole);
 
-  // Test human error in classification tasks 
+  // Test human error in classification tasks
   app.patch('/api/createTest', HumanErrorTest.createTest);
   app.get('/api/getTests', HumanErrorTest.fetchTests);
   app.patch('/api/getNextTestImage', HumanErrorTest.getNext);
@@ -43,5 +44,9 @@ module.exports = function(app) {
   // Tasks
   app.get('/api/getTasks/:username', Tasks.fetchTasks);
   app.patch('/api/openTask', Tasks.openTask);
+
+  // Integration pipeline
+  app.patch('/api/insertFromPipe', Pipeline.insertFromPipe);
+  app.patch('/api/sendPipeTask', Pipeline.sendPipeTask);
 
 }
