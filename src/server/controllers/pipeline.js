@@ -41,7 +41,7 @@ exports.insertFromPipe = function(req, res, next) {
       entityId: input.entityId,
     });
     doc.save((err, createdDoc) => {
-      print(err)
+      console.log(err)
       it.next(createdDoc);
     })
   }
@@ -56,7 +56,7 @@ exports.insertFromPipe = function(req, res, next) {
       caption: figure.caption
     });
     newFigure.save((err, createdFigure) => {
-      print(err)
+      console.log(err)
       it.next(createdFigure);
     })
   }
@@ -72,7 +72,7 @@ exports.insertFromPipe = function(req, res, next) {
     });
 
     newSubfigure.save((err, createdSubfigure) => {
-      print(err)
+      console.log(err)
       it.next(createdSubfigure);
     })
   }
