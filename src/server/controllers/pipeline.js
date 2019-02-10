@@ -30,7 +30,7 @@ exports.insertFromPipe = function(req, res, next) {
     } catch (err) {
       console.log("catching whoopsie here");
       console.log(err);
-      res.status(400).send(err);
+      res.status(500).send(err);
     }
   }
 
@@ -41,6 +41,7 @@ exports.insertFromPipe = function(req, res, next) {
       entityId: input.entityId,
     });
     doc.save((err, createdDoc) => {
+      print(err)
       it.next(createdDoc);
     })
   }
@@ -52,8 +53,10 @@ exports.insertFromPipe = function(req, res, next) {
       state: STATE_REVIEW,
       docId: savedDocId,
       uri: figure.uri,
+      caption: figure.caption
     });
     newFigure.save((err, createdFigure) => {
+      print(err)
       it.next(createdFigure);
     })
   }
@@ -69,6 +72,7 @@ exports.insertFromPipe = function(req, res, next) {
     });
 
     newSubfigure.save((err, createdSubfigure) => {
+      print(err)
       it.next(createdSubfigure);
     })
   }
