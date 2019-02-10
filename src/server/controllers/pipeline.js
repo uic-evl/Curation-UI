@@ -13,7 +13,7 @@ exports.insertFromPipe = function(req, res, next) {
   function *insertFromPipe(input) {
     try {
       let createdDoc = yield saveDocument(input);
-      throw new Error('whoopsie!');
+      // throw new Error('whoopsie!');
 
       let figures = input.figures;
       for (let figure of figures) {
