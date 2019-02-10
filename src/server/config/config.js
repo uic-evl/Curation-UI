@@ -4,9 +4,9 @@ console.log('env ******', env);
 if (env === 'development'){
   process.env.PORT = 3050;
   process.env.CURATION = `http://localhost:${process.env.PORT}/`;
-} else if (env === 'test'){
-  process.env.PORT = 3000;
-  process.env.MONGODB_URI = 'mongodb://abc:cde@12345/mydb';
+} else if (env === 'dev'){
+  // process.env.PORT = 3000;
+  process.env.CURATION = `http://localhost:${process.env.PORT}/`;
 }
 
 module.exports = {
