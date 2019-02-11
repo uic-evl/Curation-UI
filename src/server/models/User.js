@@ -17,6 +17,8 @@ const userSchema = new Schema({
   },
   roles: { type: Array, "default": [] },
   access: { type: Array, "default": [] },
+  groups: { type: Array, "default": [] },
+  numberTasks: { type: Number, "default": 0 },
   status: String,
   verificationToken: String,
   organization: String,
@@ -24,7 +26,7 @@ const userSchema = new Schema({
 
 /* replacing function(next) by (next) =>, loses
 the reference to the context *this* */
-// Before saving encrypt the password 
+// Before saving encrypt the password
 userSchema.pre('save', function(next) {
   const user = this;
 

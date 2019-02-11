@@ -15,7 +15,7 @@ exports.getGroupsByOrganization = function(req, res, next) {
   const { organization } = req.params;
   Group.find({ organization }, (err, groups) => {
     if (err) return next(err);
-    res.send(groups);  
+    res.send(groups);
   });
 }
 
@@ -27,8 +27,8 @@ exports.createGroup = function(req, res, next) {
   }
 
   const group = new Group({
-    name, 
-    users, 
+    name,
+    users,
     supervisor,
     type,
     organization,
@@ -54,7 +54,7 @@ exports.editGroup = function(req, res, next) {
       existingGroup.name = name;
       existingGroup.users = users;
       existingGroup.supervisor = supervisor;
-    
+
       existingGroup.save((err1) => {
         if (err1) return next(err1);
         res.send({ existingGroup });
@@ -68,7 +68,7 @@ exports.editGroup = function(req, res, next) {
 // Add user to a role
 exports.addRole = function(req, res, next) {
   const { _id, roles } = req.body;
-  
+
   User.findById(_id, (err, existingUser) => {
     if (err) return next(err);
 
@@ -76,7 +76,7 @@ exports.addRole = function(req, res, next) {
       roles.forEach(role => {
         existingUser.roles.push(role);
       });
-      
+
       existingUser.save((err) => {
         if (err) return next(err);
         existingUser = _.pick(existingUser, ['username', 'email', 'status', '_id', 'roles']);
@@ -100,7 +100,7 @@ exports.removeRole = function(req, res, next) {
         if (idx > -1) {
           existingUser.roles.splice(idx, 1);
         }
-      });  
+      });
 
       existingUser.save((err) => {
         if (err) return next(err);
@@ -108,19 +108,33 @@ exports.removeRole = function(req, res, next) {
         res.send({ user: existingUser });
       });
     } else {
-      return res.status(422).send({ error: 'User not found'});  
+      return res.status(422).send({ error: 'User not found'});
     }
   });
 };
 
 exports.fetchUsersByGroup = function(req, res, next) {
   const group = req.params.groupname;
-  
+
   let result = [];
   User.find({ 'organization': group }, (err, users) => {
     if (err) return next(err);
     users.forEach((user) => {
       result.push(_.pick(user, ['username', 'email', 'status', '_id', 'roles']));
+    })
+    res.send(result);
+  })
+}
+
+exports.fetchUsersFromOrgByGroup = function(req, res, next) {
+  const organization = req.params.organization;
+  const group = req.params.groupname;
+
+  let result = [];
+  User.find({ 'organization': organization, 'groups': group }, (err, users) => {
+    if (err) return next(err);
+    users.forEach((user) => {
+      result.push(_.pick(user, ['username', 'email', 'status', '_id', 'roles', 'numberTasks']));
     })
     res.send(result);
   })

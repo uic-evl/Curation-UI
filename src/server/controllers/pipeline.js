@@ -79,5 +79,35 @@ exports.insertFromPipe = function(req, res, next) {
 }
 
 exports.sendPipeTask = function(req, res, next) {
+  const documentId = req.body.documentId;
+  const assignedUser = getNextUser()
+  const task = createLabelingTask(assignedUser._id, assignedUser.username, documentId)
+  task.save((err, savedTask) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+    res.send(task);
+  });
+}
 
+function getNextUser() {
+  return {
+    "username": "test",
+    "_id": "test"
+  }
+}
+
+function createLabelingTask(userId, username, documentId) {
+  return new Task({
+    username: username,
+    assignedTo: [username],
+    userId: userId,
+    status: 'Assigned',
+    creationDate: Date.now(),
+    startDate: null,
+    endDate: null,
+    type: 'Label',
+    url: '/label/' + documentId,
+  });
 }
