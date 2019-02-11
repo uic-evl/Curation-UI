@@ -137,7 +137,7 @@ exports.fetchUsersFromOrgByGroup = function(req, res, next) {
       result.push(_.pick(user, ['username', 'email', 'status', '_id', 'roles', 'numberTasks']));
     })
     res.send(result);
-  })
+  });
 }
 
 exports.fetchUserById = function(req, res, next) {

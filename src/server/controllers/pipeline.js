@@ -1,3 +1,5 @@
+const _ = require('lodash');
+const User = require('../models/User');
 const Document = require('../models/Document');
 const Figure = require('../models/Figure');
 
@@ -80,22 +82,36 @@ exports.insertFromPipe = function(req, res, next) {
 
 exports.sendPipeTask = function(req, res, next) {
   const documentId = req.body.documentId;
-  const assignedUser = getNextUser()
-  const task = createLabelingTask(assignedUser._id, assignedUser.username, documentId)
-  task.save((err, savedTask) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err);
-    }
-    res.send(task);
-  });
-}
+  const organization = req.body.organization;
+  const groupname = req.body.groupname;
 
-function getNextUser() {
-  return {
-    "username": "test",
-    "_id": "test"
-  }
+  User.find({ 'organization': organization, 'groups': group })
+      .sort({ 'numberTasks': 'ascending' })
+      .limit(1)
+      .exec((err, users) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        }
+
+        console.log(users);
+        assignedUser = users[0];
+        const task = createLabelingTask(assignedUser._id, assignedUser.username, documentId);
+        task.save((err, savedTask) => {
+          if (err1) {
+            console.log(err1);
+            res.status(500).send(err1);
+          }
+          assignedUser.numberTasks = assignedUser.numberTasks + 1;
+          assignedUser.save((err2, savedUser) => {
+            if (err2) {
+              console.log(err2);
+              res.status(500).send(err2);
+            }
+            res.send(task);
+          });
+        });
+      });
 }
 
 function createLabelingTask(userId, username, documentId) {
