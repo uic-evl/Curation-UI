@@ -33,13 +33,14 @@ import {
   ADD_USER_TO_ROLE_SUCCESS,
   CREATE_USER,
   CREATE_USER_SUCCESS,
+  FETCH_DOCUMENT,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
 import TEST_SUBFIGURES from 'client/data/test_subfigures';
 import TEST_ELEMENTS from 'client/data/test_elements';
 
-const API_URL = 'http://localhost:3050/api/';
+const API_URL = 'http://localhost:3020/api/';
 
 export function fetchElement(id) {
   const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });
@@ -346,5 +347,15 @@ export function createUser(email, organization, username, callback) {
         console.log('error adding user');
         console.log(error);
       });
+  };
+}
+
+export function fetchDocument(documentId) {
+  const url = `${API_URL}fetchDocumentContent/${documentId}`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_DOCUMENT,
+    payload: request,
   };
 }

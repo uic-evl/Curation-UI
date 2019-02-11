@@ -6,6 +6,7 @@ const Security = require('./controllers/security');
 const HumanErrorTest = require('./controllers/humanErrorTest');
 const Tasks = require('./controllers/tasks');
 const Pipeline = require('./controllers/pipeline');
+const DocumentLabeling = require('./controllers/docLabeling');
 const passportService = require('./services/passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -45,6 +46,7 @@ module.exports = function(app) {
   // Tasks
   app.get('/api/getTasks/:username', Tasks.fetchTasks);
   app.patch('/api/openTask', Tasks.openTask);
+  app.get('/api/fetchDocumentContent/:id', DocumentLabeling.fetchDocumentContent);
 
   // Integration pipeline
   app.patch('/api/insertFromPipe', Pipeline.insertFromPipe);

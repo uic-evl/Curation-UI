@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
   _id: { type: Schema.ObjectId, auto: true },
+  description: { type: String, default: '' },
   username: { type: String, lowercase: true },
   userId: { type: Schema.ObjectId },
   creationDate: { type: Date, required: true },
@@ -12,6 +13,7 @@ const schema = new Schema({
   status: { type: String, required: true },
   type: { type: String, required: true },
   assignedTo: { type: Array, required: true, },
+  taskPerformer: { type: String, default: '' },
   url: { type: String }
 });
 

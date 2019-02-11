@@ -38,6 +38,9 @@ const figureSchema = new Schema({
     uri: {
       type: String,
       required: true,
+    },
+    subfigures: {
+      type: Array, "default": [],
     }
 });
 

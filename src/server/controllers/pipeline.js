@@ -1,11 +1,13 @@
 const _ = require('lodash');
 const User = require('../models/User');
+const Task = require('../models/Task');
 const Document = require('../models/Document');
 const Figure = require('../models/Figure');
 
 const STATE_REVIEW = "To Review";
 const TYPE_FIGURE = "Figure";
 const TYPE_SUBFIGURE = "Subfigure";
+const TASK_TYPE = 'Label';
 
 exports.insertFromPipe = function(req, res, next) {
   const input = req.body.document;
@@ -82,10 +84,11 @@ exports.insertFromPipe = function(req, res, next) {
 
 exports.sendPipeTask = function(req, res, next) {
   const documentId = req.body.documentId;
+  const documentName = req.body.documentName;
   const organization = req.body.organization;
   const groupname = req.body.groupname;
 
-  User.find({ 'organization': organization, 'groups': group })
+  User.find({ 'organization': organization, 'groups': groupname })
       .sort({ 'numberTasks': 'ascending' })
       .limit(1)
       .exec((err, users) => {
@@ -94,10 +97,10 @@ exports.sendPipeTask = function(req, res, next) {
           res.status(500).send(err);
         }
 
-        console.log(users);
         assignedUser = users[0];
-        const task = createLabelingTask(assignedUser._id, assignedUser.username, documentId);
-        task.save((err, savedTask) => {
+        const task = createLabelingTask(assignedUser._id, assignedUser.username,
+                                        documentId, documentName);
+        task.save((err1, savedTask) => {
           if (err1) {
             console.log(err1);
             res.status(500).send(err1);
@@ -114,16 +117,17 @@ exports.sendPipeTask = function(req, res, next) {
       });
 }
 
-function createLabelingTask(userId, username, documentId) {
+function createLabelingTask(userId, username, documentId, docName) {
   return new Task({
     username: username,
+    description: docName,
     assignedTo: [username],
     userId: userId,
     status: 'Assigned',
     creationDate: Date.now(),
     startDate: null,
     endDate: null,
-    type: 'Label',
+    type: TASK_TYPE,
     url: '/label/' + documentId,
   });
 }

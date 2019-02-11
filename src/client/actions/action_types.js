@@ -32,3 +32,7 @@ export const REMOVE_USER_FROM_ROLE_SUCCESS = 'remove_user_from_role_sucess';
 
 export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';
+
+
+// labeling documents
+export const FETCH_DOCUMENT = 'fetch_document';

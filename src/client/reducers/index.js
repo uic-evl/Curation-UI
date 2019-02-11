@@ -14,6 +14,7 @@ import ClassificationTest from 'client/reducers/reducer_classification_test';
 import TasksReducer from 'client/reducers/reducer_tasks';
 import UserTest from 'client/reducers/reducer_user_test';
 import Management from 'client/reducers/reducer_management';
+import LabelDocument from 'client/reducers/labeling';
 
 const rootReducer = combineReducers({
   auth,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   tasks: TasksReducer,
   userTest: UserTest,
   mgt: Management,
+  labeling: LabelDocument,
 });
 
 export default rootReducer;
