@@ -127,8 +127,8 @@ exports.fetchUsersByGroup = function(req, res, next) {
 }
 
 exports.fetchUsersFromOrgByGroup = function(req, res, next) {
-  const organization = req.params.organization;
-  const group = req.params.groupname;
+  const organization = req.query.organization;
+  const group = req.query.groupname;
 
   let result = [];
   User.find({ 'organization': organization, 'groups': group }, (err, users) => {

@@ -33,6 +33,7 @@ module.exports = function(app) {
   app.get('/api/fetchUsersByGroup/:groupname', Security.fetchUsersByGroup);
   app.get('/api/fetchUserById/:id', Security.fetchUserById);
   app.patch('/api/removeRole', Security.removeRole);
+  app.get('/api/fetchUsersFromOrgByGroup', Security.fetchUsersFromOrgByGroup);
 
   // Test human error in classification tasks
   app.patch('/api/createTest', HumanErrorTest.createTest);
@@ -48,5 +49,6 @@ module.exports = function(app) {
   // Integration pipeline
   app.patch('/api/insertFromPipe', Pipeline.insertFromPipe);
   app.patch('/api/sendPipeTask', Pipeline.sendPipeTask);
+
 
 }
