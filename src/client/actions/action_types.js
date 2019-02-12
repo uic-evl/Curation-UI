@@ -36,3 +36,5 @@ export const AUTH_ERROR = 'auth_error';
 
 // labeling documents
 export const FETCH_DOCUMENT = 'fetch_document';
+export const SELECT_FIGURE_X = 'select_figure_x';
+export const SELECT_SUBFIGURE_X = 'select_subfigure_x';

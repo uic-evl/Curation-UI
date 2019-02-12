@@ -34,6 +34,8 @@ import {
   CREATE_USER,
   CREATE_USER_SUCCESS,
   FETCH_DOCUMENT,
+  SELECT_FIGURE_X,
+  SELECT_SUBFIGURE_X,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -357,5 +359,19 @@ export function fetchDocument(documentId) {
   return {
     type: FETCH_DOCUMENT,
     payload: request,
+  };
+}
+
+export function selectFigureX(selectedFigure) {
+  return {
+    type: SELECT_FIGURE_X,
+    payload: selectedFigure,
+  };
+}
+
+export function selectSubfigureX(selectedSubfigure) {
+  return {
+    type: SELECT_SUBFIGURE_X,
+    payload: selectedSubfigure,
   };
 }

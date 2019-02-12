@@ -3,15 +3,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { selectSubfigureX } from 'client/actions';
 import {
   List,
   ListItem,
   FontIcon,
-  Avatar,
   Subheader,
 } from 'react-md';
 
 class SubfigureList extends Component {
+  constructor(props) {
+    super(props);
+    this.onClickRow = this.onClickRow.bind(this);
+  }
+
+  onClickRow(figure) {
+    const { selectSubfigureX } = this.props;
+    selectSubfigureX(figure);
+  }
+
   applyStyle(figureToShow) {
     const { selectedFigure } = this.props;
 
@@ -29,10 +39,11 @@ class SubfigureList extends Component {
       return (
         <ListItem
           key={figure.name}
-          leftAvatar={<Avatar icon={<FontIcon error>image</FontIcon>} />}
+          leftIcon={<FontIcon error>image</FontIcon>}
           primaryText={figure.name}
           secondaryText={figure.subfigures.length}
           className={this.applyStyle(figure)}
+          onClick={() => this.onClickRow(figure)}
         />
       );
     });
@@ -51,6 +62,7 @@ class SubfigureList extends Component {
 SubfigureList.propTypes = {
   figures: PropTypes.arrayOf(PropTypes.object),
   selectedFigure: PropTypes.object,
+  selectSubfigureX: PropTypes.func,
 };
 
 function mapStateToProps(props) {
@@ -60,4 +72,4 @@ function mapStateToProps(props) {
   };
 }
 
-export default connect(mapStateToProps, null)(SubfigureList);
+export default connect(mapStateToProps, { selectSubfigureX })(SubfigureList);
