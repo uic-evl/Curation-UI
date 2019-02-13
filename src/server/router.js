@@ -23,6 +23,7 @@ module.exports = function(app) {
   app.get('/api/modalities', Labeling.getModalities);
   app.get('/api/training/:previous', Labeling.getNextImage);
   app.patch('/api/training/:id', Labeling.updateImage);
+  app.patch('/api/updateSubfigure/', DocumentLabeling.updateSubfigure);
 
   // Role and groups management
   app.patch('/api/addRole', Security.addRole);

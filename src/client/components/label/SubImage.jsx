@@ -22,6 +22,7 @@ import {
   Button,
   Paper,
   SelectionControl,
+  Snackbar,
 } from 'react-md';
 import { connect } from 'react-redux';
 import {
@@ -31,13 +32,16 @@ import {
   getStateInitVals,
   resetFormValues,
 } from 'client/containers/utils/training_form';
-import { updateTrainingImage, fetchTrainingImages } from 'client/actions';
+import { updateSubfigure } from 'client/actions';
 
 class SubImage extends Component {
   constructor(props) {
     super(props);
 
     this.state = getStateInitVals();
+    this.state.toasts = [];
+    this.state.autohide = true;
+    this.state.toastMessage = '';
 
     this.onClean = this.onClean.bind(this);
     this.onChangeCompound = this.onChangeCompound.bind(this);
@@ -48,20 +52,30 @@ class SubImage extends Component {
     this.onChangeNewModality = this.onChangeNewModality.bind(this);
     this.onChangeNeedsCropping = this.onChangeNeedsCropping.bind(this);
     this.onChangeObservations = this.onChangeObservations.bind(this);
-    this.onChangeSharedModality = this.onChangeSharedModality.bind(this);
-    this.onPrevious = this.onPrevious.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
   componentDidMount() {
-    const { modalities, image } = this.props;
-    const { modality1, modality2 } = image;
-    const { modality3, modality4 } = image;
+    const { modalities, figure } = this.props;
+    const { modality1, modality2 } = figure;
+    const { modality3, modality4 } = figure;
     const { modalities2, disabledModality1, disabledModality2 } = filterModalities2(modalities, modality1);
     const { modalities3, disabledModality3 } = filterModalities3(modalities, modality1, modality2);
     const { modalities4, disabledModality4 } = filterModalities4(modalities, modality1, modality2, modality3);
 
-    const disabledSharedModality = !image.is_compound;
+    // these lines are provisional, have to fix db
+    let observations = figure.observations;
+    if (observations === undefined) {
+      observations = '';
+    }
+    let needsCropping = figure.needsCropping;
+    if (needsCropping === undefined) {
+      needsCropping = false;
+    }
+    let isCompound = figure.isCompound;
+    if (isCompound === undefined) {
+      isCompound = false;
+    }
 
     this.setState({
       modality1,
@@ -71,31 +85,39 @@ class SubImage extends Component {
       modalities2,
       modalities3,
       modalities4,
-      observations: image.observations,
-      needsCropping: image.needs_cropping,
-      newModality1: image.other_modality1,
-      sharedModality: image.shared_modality,
-      isCompound: image.is_compound,
+      observations,
+      needsCropping,
+      isCompound,
       disabledModality1,
       disabledModality2,
       disabledModality3,
       disabledModality4,
-      disabledSharedModality,
     });
   }
 
   componentDidUpdate(prevProps) {
-    const { modalities, image } = this.props;
+    const { modalities, figure } = this.props;
 
     // Prevent infinity loop by only updating new images
-    if (prevProps && prevProps.image.name !== image.name) {
-      const { modality1, modality2 } = image;
-      const { modality3, modality4 } = image;
+    if (prevProps && prevProps.figure._id !== figure._id) {
+      const { modality1, modality2 } = figure;
+      const { modality3, modality4 } = figure;
       const { modalities2, disabledModality1, disabledModality2 } = filterModalities2(modalities, modality1);
       const { modalities3, disabledModality3 } = filterModalities3(modalities, modality1, modality2);
       const { modalities4, disabledModality4 } = filterModalities4(modalities, modality1, modality2, modality3);
 
-      const disabledSharedModality = !image.is_compound;
+      let observations = figure.observations;
+      if (observations === undefined) {
+        observations = '';
+      }
+      let needsCropping = figure.needsCropping;
+      if (needsCropping === undefined) {
+        needsCropping = false;
+      }
+      let isCompound = figure.isCompound;
+      if (isCompound === undefined) {
+        isCompound = false;
+      }
 
       this.setState({
         modality1,
@@ -105,16 +127,13 @@ class SubImage extends Component {
         modalities2,
         modalities3,
         modalities4,
-        observations: image.observations,
-        needsCropping: image.needs_cropping,
-        newModality1: image.other_modality1,
-        sharedModality: image.shared_modality,
-        isCompound: image.is_compound,
+        observations,
+        needsCropping,
+        isCompound,
         disabledModality1,
         disabledModality2,
         disabledModality3,
         disabledModality4,
-        disabledSharedModality,
       });
     }
   }
@@ -188,56 +207,40 @@ class SubImage extends Component {
     this.setState({ observations: value });
   }
 
-  onChangeSharedModality(value) {
-    this.setState({ sharedModality: value });
-  }
-
   onChangeNeedsCropping(value) {
     this.setState({ needsCropping: value });
   }
 
-  onPrevious() {
-    const { fetchTrainingImages } = this.props;
-
-    this.setState({
-      currHistory: this.state.currHistory + 1,
-    }, () => {
-      this.setState(resetFormValues());
-      fetchTrainingImages(this.state.currHistory);
-    });
-  }
-
   onSave() {
-    const { image } = this.props;
-    let values = null;
-
-    if (this.state.modality1 === '') {
-      // Skip this image and get a new one
-      values = {
-        state: 'skipped',
-        modality1: '',
-        modality2: '',
-        modality3: '',
-        modality4: '',
-        observations: '',
-        isCompound: false,
-        sharedModality: false,
-      };
-    } else {
-      values = _.pick(this.state,
-        ['modality1', 'modality2', 'modality3', 'modality4', 'observations', 'isCompound',
-          'sharedModality', 'newModality1', 'needsCropping']);
-    }
-
-    this.setState({ currHistory: 0 });
+    const { figure, updateSubfigure } = this.props;
+    const values = _.pick(this.state,
+      ['modality1', 'modality2', 'modality3', 'modality4', 'observations', 'isCompound',
+        'needsCropping']);
 
     if (this.validate()) {
-      updateTrainingImage(image._id, values, () => {
-        const { fetchTrainingImages } = this.props;
-        fetchTrainingImages(0);
-        this.setState(resetFormValues());
+      updateSubfigure(figure._id, values, () => {
+        console.log('updated');
+        this.toastSubmit('Subfigure updated!');
+        // this.setState(resetFormValues());
       });
     }
+  }
+
+  addToast = (text, action, autohide: true) => {
+    this.setState((state) => {
+      const toasts = state.toasts.slice();
+      toasts.push({ text, action });
+      return { toasts, autohide };
+    });
+  };
+
+  dismissToast = () => {
+    const [, ...toasts] = this.state.toasts;
+    this.setState({ toasts });
+  }
+
+  toastSubmit = (message) => {
+    this.addToast(message);
   }
 
   validate() {
@@ -257,19 +260,21 @@ class SubImage extends Component {
   }
 
   render() {
-    const { image, modalities1 } = this.props;
+    const { figure, modalities1 } = this.props;
+    const { toasts, autohide, toastMessage } = this.state;
 
-    if (!image) {
+    if (!figure) {
       return <div />;
     }
 
-    const imageUrl = `/images/Microscopy/${image.name}`;
+    const imageUrl = `/images/Microscopy/${figure.name}`;
 
     return (
       <div>
         <div className="md-grid">
           <div className="md-cell--12">
             <Paper className="md-grid md-grid--no-spacing">
+              <div>{figure._id}</div>
               <div className="md-cell md-cell--12">
                 <SelectField
                   id="modality1-select-field"
@@ -352,6 +357,12 @@ class SubImage extends Component {
                 >
                   Save
                 </Button>
+                <Snackbar
+                  id="message-snackbar"
+                  toasts={toasts}
+                  autohide={autohide}
+                  onDismiss={this.dismissToast}
+                />
               </div>
             </Paper>
           </div>
@@ -361,4 +372,4 @@ class SubImage extends Component {
   }
 }
 
-export default connect(null, { updateTrainingImage, fetchTrainingImages })(SubImage);
+export default connect(null, { updateSubfigure })(SubImage);

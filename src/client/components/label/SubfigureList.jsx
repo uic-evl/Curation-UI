@@ -1,5 +1,6 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable no-debugger */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,7 +8,6 @@ import { selectSubfigureX } from 'client/actions';
 import {
   List,
   ListItem,
-  FontIcon,
   Subheader,
 } from 'react-md';
 
@@ -39,9 +39,8 @@ class SubfigureList extends Component {
       return (
         <ListItem
           key={figure.name}
-          leftIcon={<FontIcon error>image</FontIcon>}
           primaryText={figure.name}
-          secondaryText={figure.subfigures.length}
+          secondaryText={figure.state}
           className={this.applyStyle(figure)}
           onClick={() => this.onClickRow(figure)}
         />

@@ -76,7 +76,7 @@ class LabelDocument extends Component {
           </Cell>
           <Cell size={3}>
             <SubImage
-              image={selectedSubfigure}
+              figure={selectedSubfigure}
               existsPrevious={false}
               modalities={modalities}
               modalities1={modalities1}

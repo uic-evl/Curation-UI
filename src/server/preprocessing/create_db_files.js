@@ -9,9 +9,9 @@ MongoClient.connect('mongodb://curator_:curator_@localhost:27017/curation', (err
   }
   console.log('Connected to MongoDB Energy server');
   //createModalities(db);
-  //createTrainingData(db);
+  createTrainingData(db);
   //createAccessControl(db);
-  createStartingGroups(db);
+  //createStartingGroups(db);
 });
 
 function createTrainingData(db) {

@@ -36,6 +36,8 @@ import {
   FETCH_DOCUMENT,
   SELECT_FIGURE_X,
   SELECT_SUBFIGURE_X,
+  UPDATE_SUBFIGURE,
+  UPDATE_SUBFIGURE_SUCCESS,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -373,5 +375,22 @@ export function selectSubfigureX(selectedSubfigure) {
   return {
     type: SELECT_SUBFIGURE_X,
     payload: selectedSubfigure,
+  };
+}
+
+export function updateSubfigure(id, values, callback) {
+  return (dispatch) => {
+    dispatch({ type: UPDATE_SUBFIGURE });
+    axios.patch(`${API_URL}updateSubfigure`, { 'id': id, 'values': values })
+      .then((res) => {
+        dispatch({ type: UPDATE_SUBFIGURE_SUCCESS, payload: res });
+      })
+      .then(() => {
+        callback();
+      })
+      .catch((error) => {
+        console.log('error adding user');
+        console.log(error);
+      });
   };
 }
