@@ -421,7 +421,6 @@ export function openTask(id) {
 }
 
 export function finishTask(task, username, userId, callback) {
-  debugger;
   return (dispatch) => {
     dispatch({ type: FINISH_TASK });
     axios.patch(`${API_URL}finishTask`, { 'task': task, 'username': username, 'userId': userId })

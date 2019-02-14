@@ -11,21 +11,51 @@ const figureSchema = new Schema({
       type: String,
       required: true,
     },
-    modality1: { type: String },
-    modality2: { type: String },
-    modality3: { type: String },
-    modality4: { type: String },
+    modality1: {
+      type: String,
+      "default": "",
+    },
+    modality2: {
+      type: String,
+      "default": ""
+    },
+    modality3: {
+      type: String,
+      "default": "",
+    },
+    modality4: {
+      type: String,
+      "default": ""
+    },
     otherModality1: { type: String },
     state: {
       type: String,
       required: true,
     },
-    lastUpdate: { type: Date },
-    lastModifier: { type: String },
-    caption: { type: String },
-    observations: { type: String },
-    needsCropping: { type: Boolean },
-    isCompound: { type: Boolean },
+    lastUpdate: {
+      type: Date,
+      "default": null
+    },
+    lastModifier: {
+      type: String,
+      "default": "",
+    },
+    caption: {
+      type: String,
+      "default": ""
+    },
+    observations: {
+      type: String,
+      "default": ""
+    },
+    needsCropping: {
+      type: Boolean,
+      "default": false
+    },
+    isCompound: {
+      type: Boolean,
+      "default": false
+    },
     docId: {
       type: Schema.ObjectId,
       required: true,
@@ -34,6 +64,7 @@ const figureSchema = new Schema({
     figureId: {
       type: Schema.ObjectId,
       auto: false,
+      "default": null
     },
     uri: {
       type: String,

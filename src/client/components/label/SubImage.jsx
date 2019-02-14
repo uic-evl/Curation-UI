@@ -54,6 +54,7 @@ class SubImage extends Component {
     this.onChangeNeedsCropping = this.onChangeNeedsCropping.bind(this);
     this.onChangeObservations = this.onChangeObservations.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.onSkip = this.onSkip.bind(this);
   }
 
   componentDidMount() {
@@ -212,6 +213,17 @@ class SubImage extends Component {
     this.setState({ needsCropping: value });
   }
 
+  onSkip() {
+    const { figure, updateSubfigure } = this.props;
+    const SKIPPED = 'Skipped';
+    const values = {
+      'state': SKIPPED,
+    };
+    updateSubfigure(figure._id, values, () => {
+      this.toastSubmit('Subfigure updated!');
+    });
+  }
+
   onSave() {
     const { figure, updateSubfigure } = this.props;
     const values = _.pick(this.state,
@@ -276,9 +288,6 @@ class SubImage extends Component {
           themed
           className="properties-title"
           title={subtitle}
-          actions={
-            <Button flat secondary onClick={this.onSave}>Save</Button>
-          }
         />
         <div className="md-grid">
           <div className="md-cell--12">
@@ -371,9 +380,10 @@ class SubImage extends Component {
           themed
           className="properties-title"
           title=""
-          actions={
-            <Button flat secondary onClick={this.onSave}>Save</Button>
-          }
+          actions={(
+            [<Button flat secondary onClick={this.onSkip}>Skip</Button>,
+              <Button flat secondary onClick={this.onSave}>Save</Button>]
+          )}
         />
       </div>
     );

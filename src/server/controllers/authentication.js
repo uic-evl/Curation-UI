@@ -19,12 +19,15 @@ function sendWelcomeEmail(email, token) {
   sgMail.setApiKey(sgKey);
 
   const url = `${appHost}verify/${token}`;
+  const signInUrl = `${appHost}signin`;
   const msg = {
     to: email,
     from: 'no-reply@dev-curation.com',
     subject: 'Welcome to the curation website',
     text: `Verify your account by clicking in this URL: ${url}`,
-    html: `<p>Hi new user!<br/>Verify your account by clicking in this URL: <a href=${url}>${url}</a></p>`,
+    html: `<p>Hello curator!<br/>Verify your account by clicking in this URL:<br/>
+    <a href=${url}>${url}</a><br />Proceed to update your password and then sign in using
+    following link: ${signInUrl}</p>`,
   };
 
   sgMail.send(msg);
@@ -39,7 +42,7 @@ exports.signin = function(req, res, next) {
     roles: req.user.roles,
     access: req.user.access,
     token: tokenForUser(req.user),
-    organization: req.user.organization, 
+    organization: req.user.organization,
   });
 }
 
@@ -99,7 +102,7 @@ exports.verify = function(req, res, next) {
 exports.updatePassword = function(req, res, next) {
   const id = req.body._id;
   const password = req.body.password;
-  
+
   User.findById(id, (err, user) => {
     if (err) return next(err);
     if (!user) res.status(404).send({'error': 'user not found'});
@@ -109,8 +112,8 @@ exports.updatePassword = function(req, res, next) {
     user.save(err1 => {
       if (err1) return next(err1);
       res.json({
-        message: 'Password updated', 
-        token: tokenForUser(user) 
+        message: 'Password updated',
+        token: tokenForUser(user)
       });
     })
   });

@@ -56,7 +56,6 @@ class LabelDocument extends Component {
     if (this.validateTaskDone()) {
       const { task, username, userId } = this.props;
       const { history, finishTask } = this.props;
-      debugger;
       finishTask(task, username, userId, () => {
         console.log('Task finished');
         history.push('/inbox');
@@ -110,7 +109,6 @@ class LabelDocument extends Component {
     const { toasts, autohide, toastMessage } = this.state;
     const { selectedFigure, selectedSubfigure } = this.props;
     const pdfUri = `/images${document.uri}`;
-    debugger;
     const imageUrl = `/images${selectedSubfigure.uri}`;
     const figureUrl = `/images${selectedFigure.uri}`;
     return (
@@ -135,36 +133,43 @@ class LabelDocument extends Component {
         </Grid>
         <Grid className="md-grid">
           <Cell size={2} className="md-grid--no-spacing">
-            <Media aspectRatio="1-1">
-              <img src={figureUrl} alt={selectedFigure.name} />
-            </Media>
-            <FigureList />
+            <Grid className="md-grid--no-spacing">
+              <Cell size={12}>
+                <Media aspectRatio="1-1">
+                  <img src={figureUrl} alt={selectedFigure.name} />
+                </Media>
+                <div className="md-cell--12 figure-caption-name">
+                  {`Fig. ${selectedFigure.name}`}
+                </div>
+              </Cell>
+              <Cell size={12} className="md-cell md-cell--12 md-cell--bottom">
+                <FigureList />
+              </Cell>
+            </Grid>
           </Cell>
           <Cell size={10}>
             <Paper zDepth={2}>
               <Toolbar
                 themed
                 className="md-grid--no-spacing"
-                title={`Figure ${selectedFigure.name}`}
+                title={`Figure ${selectedFigure.name} Details`}
               />
               <Grid className="md-grid">
-                <div>{selectedFigure.caption}</div>
+                <div className="caption-container">{selectedFigure.caption}</div>
               </Grid>
               <Grid className="md-grid--no-spacing">
                 <Cell size={12}><SubfigureList /></Cell>
               </Grid>
               <Grid className="md-grid--no-spacing">
-                <Cell>
+                <Cell size={4}>
                   <SubImage
                     figure={selectedSubfigure}
                     modalities={modalities}
                     modalities1={modalities1}
                   />
                 </Cell>
-                <Cell>
-                  <Media aspectRatio="1-1">
-                    <img src={imageUrl} alt={selectedSubfigure.name} />
-                  </Media>
+                <Cell size={8}>
+                  <img src={imageUrl} alt={selectedSubfigure.name} />
                 </Cell>
               </Grid>
             </Paper>

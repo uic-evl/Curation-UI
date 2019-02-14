@@ -64,7 +64,7 @@ class FigureList extends Component {
 
   render() {
     return (
-      <List className="md-paper">
+      <List className="md-paper figures-list">
         <Subheader primaryText="Figures" />
         {this.renderFigures()}
       </List>

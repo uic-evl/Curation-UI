@@ -3,10 +3,12 @@
 }
 
 .subfigure-item {
-  float: left;
+  /* float: left; */
+  display: inline-block;
 }
 
 .subfigure-list {
+  white-space: nowrap;
   overflow: hidden;
   overflow-x: scroll;
 }
@@ -17,5 +19,23 @@
 }
 
 .properties-title h2 {
-  font-size: 15px !important;
+  font-size: 14px !important;
+}
+
+.figures-list {
+  height: 50vh;
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-top: 20px;
+}
+
+.caption-container {
+  height: 10vh;
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.figure-caption-name{
+  text-align: center;
 }

@@ -4,6 +4,7 @@ const Figure = require('../models/Figure');
 const TYPE_FIGURE = "Figure";
 const STATE_REVIEWED = "Reviewed";
 const STATE_TO_REVIEW = "To Review";
+const STATE_SKIPPED = "Skipped";
 const SUCCESS_MESSAGE = 'Subfigure updated successfully!';
 
 exports.fetchDocumentContent = function(req, res, next) {
@@ -55,14 +56,19 @@ exports.updateSubfigure = function(req, res, next) {
   Figure.findById(id, (err, subfigure) => {
     if (err) res.send({error: 'Figure not found'});
 
-    subfigure.modality1 = values.modality1;
-    subfigure.modality2 = values.modality2;
-    subfigure.modality3 = values.modality3;
-    subfigure.modality4 = values.modality4;
-    subfigure.needsCropping = values.needsCropping;
-    subfigure.isCompound = values.isCompound;
-    subfigure.observations = values.observations;
-    subfigure.state = STATE_REVIEWED;
+    // check if it is due to skipping
+    if (values.state && values.state == STATE_SKIPPED) {
+      subfigure.state = STATE_SKIPPED;
+    } else {
+      subfigure.modality1 = values.modality1;
+      subfigure.modality2 = values.modality2;
+      subfigure.modality3 = values.modality3;
+      subfigure.modality4 = values.modality4;
+      subfigure.needsCropping = values.needsCropping;
+      subfigure.isCompound = values.isCompound;
+      subfigure.observations = values.observations;
+      subfigure.state = STATE_REVIEWED;
+    }
 
     subfigure.save((err2, savedSubfigure) => {
       console.log(savedSubfigure);
