@@ -47,6 +47,8 @@ module.exports = function(app) {
   // Tasks
   app.get('/api/getTasks/:username', Tasks.fetchTasks);
   app.patch('/api/openTask', Tasks.openTask);
+  app.get('/api/fetchTask/:id', Tasks.fetchTask);
+  app.patch('/api/finishTask', Tasks.finishTask);
   app.get('/api/fetchDocumentContent/:id', DocumentLabeling.fetchDocumentContent);
 
   // Integration pipeline

@@ -2,6 +2,7 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
+/* eslint-disable no-console */
 import _ from 'lodash';
 import axios from 'axios';
 import {
@@ -38,6 +39,10 @@ import {
   SELECT_SUBFIGURE_X,
   UPDATE_SUBFIGURE,
   UPDATE_SUBFIGURE_SUCCESS,
+  FETCH_TASK,
+  FINISH_TASK,
+  FINISH_TASK_SUCCESS,
+  OPEN_TASK,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -154,6 +159,7 @@ export const signin = (formProps, callback) => async (dispatch) => {
     localStorage.setItem('username', response.data.username);
     localStorage.setItem('roles', response.data.roles);
     localStorage.setItem('organization', response.data.organization);
+    localStorage.setItem('userId', response.data.user_id);
     callback();
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
@@ -390,6 +396,43 @@ export function updateSubfigure(id, values, callback) {
       })
       .catch((error) => {
         console.log('error adding user');
+        console.log(error);
+      });
+  };
+}
+
+export function fetchTask(id) {
+  const url = `${API_URL}fetchTask/${id}`;
+  const request = axios.get(url);
+
+  return {
+    type: FETCH_TASK,
+    payload: request,
+  };
+}
+
+export function openTask(id) {
+  const request = axios.patch(`${API_URL}openTask`, { 'id': id });
+
+  return {
+    type: OPEN_TASK,
+    payload: request,
+  };
+}
+
+export function finishTask(task, username, userId, callback) {
+  debugger;
+  return (dispatch) => {
+    dispatch({ type: FINISH_TASK });
+    axios.patch(`${API_URL}finishTask`, { 'task': task, 'username': username, 'userId': userId })
+      .then((res) => {
+        dispatch({ type: FINISH_TASK_SUCCESS, payload: res });
+      })
+      .then(() => {
+        callback();
+      })
+      .catch((error) => {
+        console.log('error finishing the task');
         console.log(error);
       });
   };

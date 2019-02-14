@@ -22,15 +22,15 @@ class SubfigureList extends Component {
     selectSubfigureX(figure);
   }
 
-  applyStyle(figureToShow) {
+  isActive(figureToShow) {
     const { selectedFigure } = this.props;
 
     if (selectedFigure) {
       if (selectedFigure._id === figureToShow._id) {
-        return 'selected';
+        return true;
       }
     }
-    return '';
+    return false;
   }
 
   renderFigures() {
@@ -41,7 +41,9 @@ class SubfigureList extends Component {
           key={figure.name}
           primaryText={figure.name}
           secondaryText={figure.state}
-          className={this.applyStyle(figure)}
+          className="subfigure-item"
+          activeBoxClassName="md-list-tile--active"
+          active={this.isActive(figure)}
           onClick={() => this.onClickRow(figure)}
         />
       );
@@ -50,8 +52,8 @@ class SubfigureList extends Component {
 
   render() {
     return (
-      <List className="md-paper">
-        <Subheader primaryText="Subfigures" />
+      <List className="subfigure-list md-cell--12">
+        <Subheader primaryText="Subfigures" className="subfigure-item" />
         {this.renderFigures()}
       </List>
     );

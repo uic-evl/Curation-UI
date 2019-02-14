@@ -30,7 +30,7 @@ exports.insertFromPipe = function(req, res, next) {
         }
       };
 
-      res.send({error: null});
+      res.send(createdDoc);
     } catch (err) {
       console.log("catching whoopsie here");
       console.log(err);
@@ -43,6 +43,7 @@ exports.insertFromPipe = function(req, res, next) {
       name: input.name,
       pubmedId: input.pubmedId,
       entityId: input.entityId,
+      uri: input.uri,
     });
     doc.save((err, createdDoc) => {
       console.log(err)

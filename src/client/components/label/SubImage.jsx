@@ -20,9 +20,10 @@ import {
   SelectField,
   TextField,
   Button,
-  Paper,
+  Grid,
   SelectionControl,
   Snackbar,
+  Divider,
 } from 'react-md';
 import { connect } from 'react-redux';
 import {
@@ -223,6 +224,8 @@ class SubImage extends Component {
         this.toastSubmit('Subfigure updated!');
         // this.setState(resetFormValues());
       });
+    } else {
+      this.toastSubmit('Fill the mandatory fields');
     }
   }
 
@@ -244,11 +247,8 @@ class SubImage extends Component {
   }
 
   validate() {
-    if (this.state.modality1 === 'Other') {
-      if (this.state.newModality1 === '') {
-        return false;
-      }
-      return true;
+    if (this.props.modalities1.length > 0 && (this.state.modality1 === undefined || this.state.modality1 === '')) {
+      return false;
     }
     if (this.state.modalities2.length > 0 && this.state.modality2 === '') {
       return false;
@@ -268,18 +268,26 @@ class SubImage extends Component {
     }
 
     const imageUrl = `/images/Microscopy/${figure.name}`;
+    const subtitle = `Subfigure ${figure.name}`;
 
     return (
       <div>
+        <Toolbar
+          themed
+          className="properties-title"
+          title={subtitle}
+          actions={
+            <Button flat secondary onClick={this.onSave}>Save</Button>
+          }
+        />
         <div className="md-grid">
           <div className="md-cell--12">
-            <Paper className="md-grid md-grid--no-spacing">
-              <div>{figure._id}</div>
+            <Grid className="md-grid md-grid--no-spacing">
               <div className="md-cell md-cell--12">
                 <SelectField
                   id="modality1-select-field"
                   label="Category"
-                  className="md-cell md-cell--12 md-cell--top"
+                  className="md-cell md-cell--12 md-cell--top custom-input-field"
                   menuItems={modalities1}
                   onChange={this.onChangeModality1}
                   value={this.state.modality1}
@@ -289,7 +297,7 @@ class SubImage extends Component {
                 <SelectField
                   id="modality2-select-field"
                   label="Modality"
-                  className="md-cell md-cell--12 md-cell--top"
+                  className="md-cell md-cell--12 md-cell--top custom-input-field"
                   menuItems={this.state.modalities2}
                   value={this.state.modality2}
                   onChange={this.onChangeModality2}
@@ -301,7 +309,7 @@ class SubImage extends Component {
                 <SelectField
                   id="modality3-select-field"
                   label="Sub-Modality"
-                  className="md-cell md-cell--12"
+                  className="md-cell md-cell--12 custom-input-field"
                   value={this.state.modality3}
                   menuItems={this.state.modalities3}
                   onChange={this.onChangeModality3}
@@ -313,7 +321,7 @@ class SubImage extends Component {
                 <SelectField
                   id="modality3-select-field"
                   label="Sub-sub-Modality"
-                  className="md-cell md-cell--12 md-cell--top"
+                  className="md-cell md-cell--12 md-cell--top custom-input-field"
                   menuItems={this.state.modalities4}
                   value={this.state.modality4}
                   onChange={this.onChangeModality4}
@@ -323,18 +331,18 @@ class SubImage extends Component {
                 <SelectionControl
                   id="figure-cropping"
                   type="checkbox"
-                  label="Figure needs cropping"
+                  label="Subfigure needs cropping?"
                   name="lights"
-                  className="md-cell md-cell--12"
+                  className="md-cell md-cell--12 custom-input-field"
                   checked={this.state.needsCropping}
                   onChange={this.onChangeNeedsCropping}
                 />
                 <SelectionControl
                   id="is-compound"
                   type="checkbox"
-                  label="Is Compound?"
+                  label="Is compounded figure?"
                   name="lights"
-                  className="md-cell md-cell--12"
+                  className="md-cell md-cell--12 custom-input-field"
                   checked={this.state.isCompound}
                   onChange={this.onChangeCompound}
                 />
@@ -342,21 +350,13 @@ class SubImage extends Component {
                   id="observations"
                   label="Observations"
                   lineDirection="center"
-                  className="md-cell md-cell--top"
+                  className="custom-input-field md-cell md-cell--12"
                   rows={1}
                   value={this.state.observations}
                   onChange={this.onChangeObservations}
                 />
               </div>
               <div className="md-cell md-cell--12">
-                <Button
-                  flat
-                  secondary
-                  className="md-cell--5"
-                  onClick={this.onSave}
-                >
-                  Save
-                </Button>
                 <Snackbar
                   id="message-snackbar"
                   toasts={toasts}
@@ -364,9 +364,17 @@ class SubImage extends Component {
                   onDismiss={this.dismissToast}
                 />
               </div>
-            </Paper>
+            </Grid>
           </div>
         </div>
+        <Toolbar
+          themed
+          className="properties-title"
+          title=""
+          actions={
+            <Button flat secondary onClick={this.onSave}>Save</Button>
+          }
+        />
       </div>
     );
   }

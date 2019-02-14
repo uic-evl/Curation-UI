@@ -40,3 +40,9 @@ export const SELECT_FIGURE_X = 'select_figure_x';
 export const SELECT_SUBFIGURE_X = 'select_subfigure_x';
 export const UPDATE_SUBFIGURE = 'update_subfigure';
 export const UPDATE_SUBFIGURE_SUCCESS = 'update_subfigure_success';
+
+// tasks
+export const OPEN_TASK = 'open_task';
+export const FETCH_TASK = 'fetch_task';
+export const FINISH_TASK = 'finish_task';
+export const FINISH_TASK_SUCCESS = 'finish_task_success';

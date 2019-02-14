@@ -36,6 +36,16 @@ class FigureList extends Component {
     return '';
   }
 
+  isActive(figureToShow) {
+    const { selectedFigure } = this.props;
+    if (selectedFigure) {
+      if (selectedFigure._id === figureToShow._id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   renderFigures() {
     const { figures } = this.props;
     return figures.map((figure) => {
@@ -43,8 +53,9 @@ class FigureList extends Component {
         <ListItem
           key={figure.name}
           primaryText={`Fig. ${figure.name}`}
+          activeBoxClassName="md-list-tile--active"
+          active={this.isActive(figure)}
           secondaryText={figure.state}
-          className={this.applyStyle(figure)}
           onClick={() => this.onClickRow(figure)}
         />
       );

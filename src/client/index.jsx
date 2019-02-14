@@ -25,6 +25,7 @@ ReactDOM.render(
       username: localStorage.getItem('username'),
       roles: localStorage.getItem('roles'),
       organization: localStorage.getItem('organization'),
+      userId: localStorage.getItem('userId'),
     },
   })}
   >

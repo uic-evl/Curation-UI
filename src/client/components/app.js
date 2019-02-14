@@ -102,7 +102,7 @@ export default class App extends Component {
           <Route path="/verify/:token" component={Verify} />
           <Route path="/management" component={Management} />
           <Route path="/inbox" component={Inbox} />
-          <Route path="/label/:id" component={LabelDocument} />
+          <Route path="/label/:id/:taskId" component={LabelDocument} />
           <Route path="/" component={ElementContainer} />
         </Switch>
       </NavigationDrawer>

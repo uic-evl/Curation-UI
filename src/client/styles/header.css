@@ -1,3 +1,21 @@
 .figure-header {
   background-color: #3F51B5 !important;
 }
+
+.subfigure-item {
+  float: left;
+}
+
+.subfigure-list {
+  overflow: hidden;
+  overflow-x: scroll;
+}
+
+.custom-input-field {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.properties-title h2 {
+  font-size: 15px !important;
+}
