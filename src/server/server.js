@@ -5,6 +5,8 @@ const path = require('path');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpack = require('webpack');
 const bodyParser = require('body-parser');
+const https = require("https");
+const fs = require("fs");
 
 // Webpack configuration
 const webpackConfig = require('../../webpack.config.js');
@@ -13,11 +15,17 @@ const compiler = webpack(webpackConfig);
 const router = require('./router');
 const { mongoose } = require('./db/mongoose');
 
+// SSL Certificate
+var privateKey = fs.readFileSync(process.env.PK, 'utf8');
+var certificate = fs.readFileSync(process.env.CRT, 'utf8');
+var ca = fs.readFileSync(process.env.CA).toString();
+var credentials = {key: privateKey, cert: certificate, ca:ca};
+
 // Server Setup
 const app = express();
 const port = process.env.PORT || 3050;
 
-// App Setup 
+// App Setup
 app.use(webpackMiddleware(compiler));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '../../dist')));
@@ -35,6 +43,13 @@ app.get('*', (req, res, next) => {
   });
 });
 
+var httpsServer = https.createServer(credentials, app);
+httpsServer.listen(port, () => {
+  console.log('Starting curation-ui backend on port ' + port);
+})
+
+/*
 app.listen(port, () => {
   console.log('Starting curation-ui backend on port ' + port);
 });
+*/

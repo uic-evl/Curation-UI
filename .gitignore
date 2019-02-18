@@ -1,2 +1,6 @@
 node_modules/
 dist/
+.DS_Store
+package-lock.json
+assets/.DS_Store
+assets/*/.DS_Store

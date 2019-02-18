@@ -49,7 +49,7 @@ import TEST_FIGURES from 'client/data/test_figures';
 import TEST_SUBFIGURES from 'client/data/test_subfigures';
 import TEST_ELEMENTS from 'client/data/test_elements';
 
-const API_URL = 'http://localhost:3020/api/';
+const API_URL = 'https://localhost:3020/api/';
 
 export function fetchElement(id) {
   const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });
