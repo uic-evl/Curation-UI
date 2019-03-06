@@ -49,13 +49,18 @@ class FigureList extends Component {
   renderFigures() {
     const { figures } = this.props;
     return figures.map((figure) => {
+      let state = 'Reviewed';
+      if (figure.state === 'To Review') {
+        state = 'Unreviewed';
+      }
+
       return (
         <ListItem
           key={figure.name}
-          primaryText={`Fig. ${figure.name}`}
+          primaryText={`Fig. Page ${figure.name}`}
           activeBoxClassName="md-list-tile--active"
           active={this.isActive(figure)}
-          secondaryText={figure.state}
+          secondaryText={state}
           onClick={() => this.onClickRow(figure)}
         />
       );

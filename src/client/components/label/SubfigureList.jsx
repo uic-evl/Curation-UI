@@ -36,11 +36,15 @@ class SubfigureList extends Component {
   renderFigures() {
     const { figures } = this.props;
     return figures.map((figure) => {
+      let state = 'Reviewed';
+      if (figure.state === 'To Review') {
+        state = 'Unreviewed';
+      }
+
       return (
         <ListItem
           key={figure.name}
-          primaryText={figure.name}
-          secondaryText={figure.state}
+          primaryText={`${figure.name} (${state})`}
           className="subfigure-item"
           activeBoxClassName="md-list-tile--active"
           active={this.isActive(figure)}

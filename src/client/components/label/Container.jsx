@@ -30,6 +30,8 @@ import FigureList from 'client/components/label/FigureList';
 import SubfigureList from 'client/components/label/SubfigureList';
 import MainImage from 'client/components/label/MainImageCaption';
 import SubImage from 'client/components/label/SubImage';
+import SubImageModList from 'client/components/label/SubImageModList';
+import ModalitiesTree from 'client/components/label/Tree';
 import { parseValuesSelectField } from 'client/containers/utils/training_form';
 
 class LabelDocument extends Component {
@@ -111,6 +113,7 @@ class LabelDocument extends Component {
     const pdfUri = `/images${document.uri}`;
     const imageUrl = `/images${selectedSubfigure.uri}`;
     const figureUrl = `/images${selectedFigure.uri}`;
+
     return (
       <div className="md-grid--no-spacing">
         <Grid className="md-grid--no-spacing">
@@ -139,7 +142,7 @@ class LabelDocument extends Component {
                   <img src={figureUrl} alt={selectedFigure.name} />
                 </Media>
                 <div className="md-cell--12 figure-caption-name">
-                  {`Fig. ${selectedFigure.name}`}
+                  {`Fig. Page ${selectedFigure.name}`}
                 </div>
               </Cell>
               <Cell size={12} className="md-cell md-cell--12 md-cell--bottom">
@@ -151,8 +154,8 @@ class LabelDocument extends Component {
             <Paper zDepth={2}>
               <Toolbar
                 themed
-                className="md-grid--no-spacing"
-                title={`Figure ${selectedFigure.name} Details`}
+                className="md-grid--no-spacing figure-header-2 "
+                title={`Properties of Figure in Page ${selectedFigure.name}`}
               />
               <Grid className="md-grid">
                 <div className="caption-container">{selectedFigure.caption}</div>
@@ -161,14 +164,10 @@ class LabelDocument extends Component {
                 <Cell size={12}><SubfigureList /></Cell>
               </Grid>
               <Grid className="md-grid--no-spacing">
-                <Cell size={4}>
-                  <SubImage
-                    figure={selectedSubfigure}
-                    modalities={modalities}
-                    modalities1={modalities1}
-                  />
+                <Cell size={7}>
+                  <SubImageModList modalities={modalities} />
                 </Cell>
-                <Cell size={8}>
+                <Cell size={5}>
                   <img src={imageUrl} alt={selectedSubfigure.name} />
                 </Cell>
               </Grid>

@@ -11,6 +11,9 @@ const TASK_TYPE = 'Label';
 
 exports.insertFromPipe = function(req, res, next) {
   const input = req.body.document;
+  console.log("INPUT!");
+  console.log(input);
+  console.log("");
   var it = insertFromPipe(input);
   it.next();
 
