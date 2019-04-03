@@ -112,6 +112,7 @@ exports.updateSubfigure = function(req, res, next) {
 exports.updateAllSubfigures = function(req, res, next) {
   const figureId = req.body.figureId;
   const values = req.body.values;
+  const subfigureId = req.body.subfigureId;
 
   console.log(figureId);
   console.log(values);
@@ -140,7 +141,8 @@ exports.updateAllSubfigures = function(req, res, next) {
             if (err4) res.send({error: 'Error retrieving subfigures' });
             res.send({
               'figure': savedFigure,
-              'subfigures': subfigures
+              'subfigures': subfigures,
+              'selectedSubfigureId': subfigureId,
             });
           })
         });

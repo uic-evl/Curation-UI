@@ -403,10 +403,10 @@ export function updateSubfigure(id, values, callback) {
   };
 }
 
-export function updateAllSubfigures(figureId, values, callback) {
+export function updateAllSubfigures(figureId, subfigureId, values, callback) {
   return (dispatch) => {
     dispatch({ type: UPDATE_ALL_SUBFIGURES });
-    axios.patch(`${API_URL}updateAllSubfigures`, { 'figureId': figureId, 'values': values })
+    axios.patch(`${API_URL}updateAllSubfigures`, { 'figureId': figureId, 'values': values, 'subfigureId': subfigureId })
       .then((res) => {
         dispatch({ type: UPDATE_ALL_SUBFIGURES_SUCCESS, payload: res });
       })

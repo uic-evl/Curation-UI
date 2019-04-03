@@ -78,9 +78,9 @@ export default function (state = null, action) {
       };
 
     case UPDATE_ALL_SUBFIGURES_SUCCESS:
-      debugger;
       selectedFigure = action.payload.data.figure;
       selectedFigure.subfigures = action.payload.data.subfigures;
+      const selectedSubfigureId = action.payload.data.selectedSubfigureId;
 
       const savedFigures2 = state.figures;
       for (const i in savedFigures2) {
@@ -90,11 +90,18 @@ export default function (state = null, action) {
         }
       }
 
+      for (const i in selectedFigure.subfigures) {
+        if (selectedFigure.subfigures[i]._id === selectedSubfigureId) {
+          selectedSubfigure = selectedFigure.subfigures[i];
+          break;
+        }
+      }
+
       return {
         'document': state.document,
         'figures': savedFigures2,
         'selectedFigure': selectedFigure,
-        'selectedSubfigure': state.selectedFigure.subfigures[0],
+        'selectedSubfigure': selectedSubfigure,
       };
 
     default:

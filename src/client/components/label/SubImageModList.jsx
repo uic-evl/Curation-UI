@@ -9,6 +9,7 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-did-update-set-state */
+/* eslint-disable react/destructuring-assignment */
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -25,6 +26,7 @@ import {
   SelectionControl,
   Toolbar,
   Button,
+  Snackbar,
 } from 'react-md';
 import { updateSubfigure, updateAllSubfigures } from 'client/actions';
 
@@ -63,6 +65,11 @@ class SubImageModList extends Component {
       isCompound: false,
       needsCropping: false,
       observations: '',
+      applyToAll: false,
+      countSelected: 0,
+      toasts: [],
+      autohide: true,
+      toastMessage: '',
     };
 
     this.onChangeCompound = this.onChangeCompound.bind(this);
@@ -70,7 +77,9 @@ class SubImageModList extends Component {
     this.onChangeNeedsCropping = this.onChangeNeedsCropping.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onSkip = this.onSkip.bind(this);
-    this.onApplyToAll = this.onApplyToAll.bind(this);
+    this.onChangeApplyToAll = this.onChangeApplyToAll.bind(this);
+    this.getMatrixIds = this.getMatrixIds.bind(this);
+    this.getValues = this.getValues.bind(this);
   }
 
   componentDidMount() {
@@ -80,23 +89,27 @@ class SubImageModList extends Component {
     const { matrix } = this.state;
 
     modalities.forEach((mod) => { matrix[mod._id] = { 'value': true }; });
+    const countSelected = modalities.length;
     this.setState({
       matrix,
       needsCropping,
       isCompound,
       observations,
+      countSelected,
     });
   }
 
   componentDidUpdate(prevProps) {
     const { figure } = this.props;
     const { modalities } = this.state;
+    let { countSelected, applyToAll } = this.state;
 
     // Prevent infinity loop by only updating new images
     if (prevProps && prevProps.figure._id !== figure._id) {
       const matrix = this.cleanDictionary(modalities);
       const figModalities = figure.modalities;
       figModalities.forEach((mod) => { matrix[mod._id] = { 'value': true }; });
+      countSelected = figModalities.length;
 
       let { observations, needsCropping, isCompound } = figure;
       if (observations === undefined) {
@@ -109,38 +122,23 @@ class SubImageModList extends Component {
         isCompound = false;
       }
 
+      if (countSelected === 0 && applyToAll) {
+        applyToAll = false;
+      }
+
       this.setState({
         matrix,
         needsCropping,
         isCompound,
         observations,
+        countSelected,
+        applyToAll,
       });
     }
   }
 
-  onApplyToAll() {
-    const { matrix } = this.state;
-    const matrixIds = [];
-    for (const key in matrix) {
-      if (matrix[key].value) {
-        matrixIds.push(key);
-      }
-    }
-
-    if (this.validate(matrixIds)) {
-      const { updateAllSubfigures, figure, modalities } = this.props;
-      const values = _.pick(this.state, ['observations', 'isCompound', 'needsCropping']);
-      const pickedModalities = [];
-      matrixIds.forEach((_id) => {
-        const modality = _.filter(modalities, { '_id': _id });
-        pickedModalities.push(modality[0]);
-      });
-      values.modalities = pickedModalities;
-
-      updateAllSubfigures(figure.figureId, values, () => {
-        console.log('update all subfigures');
-      });
-    }
+  onChangeApplyToAll(value) {
+    this.setState({ applyToAll: value });
   }
 
   onChangeCompound(value) {
@@ -153,8 +151,20 @@ class SubImageModList extends Component {
 
   onChangeModality(id) {
     const { matrix } = this.state;
+    let { countSelected, applyToAll } = this.state;
+
+    if (matrix[id].value) {
+      countSelected -= 1;
+    } else {
+      countSelected += 1;
+    }
     matrix[id].value = !matrix[id].value;
-    this.setState({ matrix });
+
+    if (countSelected === 0 && applyToAll) {
+      applyToAll = false;
+    }
+
+    this.setState({ matrix, countSelected, applyToAll });
   }
 
   onChangeNeedsCropping(value) {
@@ -162,32 +172,8 @@ class SubImageModList extends Component {
   }
 
   onSave() {
-    const { matrix } = this.state;
-    const matrixIds = [];
-    for (const key in matrix) {
-      if (matrix[key].value) {
-        matrixIds.push(key);
-      }
-    }
-
-    if (this.validate(matrixIds)) {
-      const { figure, updateSubfigure, modalities } = this.props;
-      const values = _.pick(this.state, ['observations', 'isCompound', 'needsCropping']);
-      const pickedModalities = [];
-      matrixIds.forEach((_id) => {
-        const modality = _.filter(modalities, { '_id': _id });
-        pickedModalities.push(modality[0]);
-      });
-      values.modalities = pickedModalities;
-      console.log(values);
-      console.log('valid');
-
-      updateSubfigure(figure._id, values, () => {
-        console.log('updated');
-      });
-    } else {
-      console.log('invalid');
-    }
+    const { applyToAll } = this.state;
+    this.save(applyToAll);
   }
 
   onSkip() {
@@ -202,10 +188,46 @@ class SubImageModList extends Component {
     });
   }
 
-  cleanDictionary(orderedModalities) {
-    const dict = {};
-    orderedModalities.forEach((mod) => { dict[mod._id] = { 'value': false }; });
-    return dict;
+  getMatrixIds() {
+    // Check the matrix and return an array of ids of the selected modalities
+    const { matrix } = this.state;
+    const matrixIds = [];
+    for (const key in matrix) {
+      if (matrix[key].value) {
+        matrixIds.push(key);
+      }
+    }
+
+    return matrixIds;
+  }
+
+  getValues(matrixIds) {
+    const { modalities } = this.props;
+    const values = _.pick(this.state, ['observations', 'isCompound', 'needsCropping']);
+    const pickedModalities = [];
+    matrixIds.forEach((_id) => {
+      const modality = _.filter(modalities, { '_id': _id });
+      pickedModalities.push(modality[0]);
+    });
+    values.modalities = pickedModalities;
+    return values;
+  }
+
+  addToast = (text, action, autohide: true) => {
+    this.setState((state) => {
+      const toasts = state.toasts.slice();
+      toasts.push({ text, action });
+      return { toasts, autohide };
+    });
+  };
+
+  dismissToast = () => {
+    const [, ...toasts] = this.state.toasts;
+    this.setState({ toasts });
+  }
+
+  toastSubmit = (message) => {
+    this.addToast(message);
   }
 
   validate(matrixIds) {
@@ -213,6 +235,32 @@ class SubImageModList extends Component {
       return true;
     }
     return false;
+  }
+
+  save(all) {
+    const matrixIds = this.getMatrixIds();
+    if (this.validate(matrixIds)) {
+      const { updateSubfigure, updateAllSubfigures, figure } = this.props;
+      const values = this.getValues(matrixIds);
+
+      updateSubfigure(figure._id, values, () => {
+        if (all) {
+          updateAllSubfigures(figure.figureId, figure._id, values, () => {
+            this.toastSubmit('Subfigures updated!');
+          });
+        } else {
+          this.toastSubmit('Subfigure updated');
+        }
+      });
+    } else {
+      this.toastSubmit('Please select a modality label');
+    }
+  }
+
+  cleanDictionary(orderedModalities) {
+    const dict = {};
+    orderedModalities.forEach((mod) => { dict[mod._id] = { 'value': false }; });
+    return dict;
   }
 
   renderItems() {
@@ -268,9 +316,34 @@ class SubImageModList extends Component {
 
   render() {
     const { observations, isCompound, needsCropping } = this.state;
+    const { applyToAll, countSelected } = this.state;
+    const { toasts, autohide } = this.state;
 
     return (
       <div>
+        <Grid className="md-grid--no-spacing">
+          <Cell size={5} className="md-cell md-cell--right">
+            <SelectionControl
+              id="apply-to-all"
+              type="checkbox"
+              label="Apply labels to all subfigures?"
+              name="toall"
+              className="md-cell md-cell--12 custom-input-field"
+              checked={applyToAll}
+              onChange={this.onChangeApplyToAll}
+              disabled={countSelected === 0}
+            />
+          </Cell>
+        </Grid>
+        <Toolbar
+          themed
+          className="properties-title"
+          title=""
+          actions={(
+            [<Button flat secondary onClick={this.onSkip}>Skip</Button>,
+              <Button flat secondary onClick={this.onSave}>Save</Button>]
+          )}
+        />
         <DataTable plain>
           <TableBody>
             {this.renderItems()}
@@ -312,16 +385,14 @@ class SubImageModList extends Component {
             />
           </Cell>
         </Grid>
-        <Toolbar
-          themed
-          className="properties-title"
-          title=""
-          actions={(
-            [<Button flat secondary onClick={this.onApplyToAll}>Apply to All</Button>,
-              <Button flat secondary onClick={this.onSkip}>Skip</Button>,
-              <Button flat secondary onClick={this.onSave}>Save</Button>]
-          )}
-        />
+        <div className="md-cell md-cell--12">
+          <Snackbar
+            id="message-snackbar"
+            toasts={toasts}
+            autohide={autohide}
+            onDismiss={this.dismissToast}
+          />
+        </div>
       </div>
 
     );
