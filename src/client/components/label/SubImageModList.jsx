@@ -8,8 +8,10 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/no-did-update-set-state */
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   DataTable,
@@ -24,7 +26,7 @@ import {
   Toolbar,
   Button,
 } from 'react-md';
-import { updateSubfigure } from 'client/actions';
+import { updateSubfigure, updateAllSubfigures } from 'client/actions';
 
 class SubImageModList extends Component {
   constructor(props) {
@@ -51,15 +53,14 @@ class SubImageModList extends Component {
       ordModalities = ordModalities.concat(values);
     }
 
-    const dict = {};
-    ordModalities.forEach((mod) => { dict[mod._id] = { 'value': false }; });
+    const dict = this.cleanDictionary(ordModalities);
 
     this.state = {
       rows: order,
       modalities: ordModalities,
       matrix: dict,
       maxCols: maxSize,
-      compound: false,
+      isCompound: false,
       needsCropping: false,
       observations: '',
     };
@@ -68,10 +69,82 @@ class SubImageModList extends Component {
     this.onChangeObservations = this.onChangeObservations.bind(this);
     this.onChangeNeedsCropping = this.onChangeNeedsCropping.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.onSkip = this.onSkip.bind(this);
+    this.onApplyToAll = this.onApplyToAll.bind(this);
+  }
+
+  componentDidMount() {
+    const { figure } = this.props;
+    const { modalities, needsCropping, isCompound } = figure;
+    const { observations } = figure;
+    const { matrix } = this.state;
+
+    modalities.forEach((mod) => { matrix[mod._id] = { 'value': true }; });
+    this.setState({
+      matrix,
+      needsCropping,
+      isCompound,
+      observations,
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { figure } = this.props;
+    const { modalities } = this.state;
+
+    // Prevent infinity loop by only updating new images
+    if (prevProps && prevProps.figure._id !== figure._id) {
+      const matrix = this.cleanDictionary(modalities);
+      const figModalities = figure.modalities;
+      figModalities.forEach((mod) => { matrix[mod._id] = { 'value': true }; });
+
+      let { observations, needsCropping, isCompound } = figure;
+      if (observations === undefined) {
+        observations = '';
+      }
+      if (needsCropping === undefined) {
+        needsCropping = false;
+      }
+      if (isCompound === undefined) {
+        isCompound = false;
+      }
+
+      this.setState({
+        matrix,
+        needsCropping,
+        isCompound,
+        observations,
+      });
+    }
+  }
+
+  onApplyToAll() {
+    const { matrix } = this.state;
+    const matrixIds = [];
+    for (const key in matrix) {
+      if (matrix[key].value) {
+        matrixIds.push(key);
+      }
+    }
+
+    if (this.validate(matrixIds)) {
+      const { updateAllSubfigures, figure, modalities } = this.props;
+      const values = _.pick(this.state, ['observations', 'isCompound', 'needsCropping']);
+      const pickedModalities = [];
+      matrixIds.forEach((_id) => {
+        const modality = _.filter(modalities, { '_id': _id });
+        pickedModalities.push(modality[0]);
+      });
+      values.modalities = pickedModalities;
+
+      updateAllSubfigures(figure.figureId, values, () => {
+        console.log('update all subfigures');
+      });
+    }
   }
 
   onChangeCompound(value) {
-    this.setState({ compound: value });
+    this.setState({ isCompound: value });
   }
 
   onChangeObservations(value) {
@@ -99,7 +172,7 @@ class SubImageModList extends Component {
 
     if (this.validate(matrixIds)) {
       const { figure, updateSubfigure, modalities } = this.props;
-      const values = _.pick(this.state, ['observations', 'compound', 'needsCropping']);
+      const values = _.pick(this.state, ['observations', 'isCompound', 'needsCropping']);
       const pickedModalities = [];
       matrixIds.forEach((_id) => {
         const modality = _.filter(modalities, { '_id': _id });
@@ -108,9 +181,31 @@ class SubImageModList extends Component {
       values.modalities = pickedModalities;
       console.log(values);
       console.log('valid');
+
+      updateSubfigure(figure._id, values, () => {
+        console.log('updated');
+      });
     } else {
       console.log('invalid');
     }
+  }
+
+  onSkip() {
+    const { figure, updateSubfigure } = this.props;
+    const SKIPPED = 'Skipped';
+    const values = {
+      'state': SKIPPED,
+    };
+    updateSubfigure(figure._id, values, () => {
+      console.log('skipped');
+      // this.toastSubmit('Subfigure updated!');
+    });
+  }
+
+  cleanDictionary(orderedModalities) {
+    const dict = {};
+    orderedModalities.forEach((mod) => { dict[mod._id] = { 'value': false }; });
+    return dict;
   }
 
   validate(matrixIds) {
@@ -123,14 +218,21 @@ class SubImageModList extends Component {
   renderItems() {
     const { rows, modalities, maxCols } = this.state;
 
+    let i = 0;
     return rows.map((row) => {
+      let rowStyle = '';
+      if (i % 2 !== 0) {
+        rowStyle = 'alternate-color';
+      }
+      i += 1;
+
       const values = _.filter(modalities, { columnName: row });
       while (values.length < maxCols) {
         values.push(null);
       }
 
       return (
-        <TableRow key={row}>
+        <TableRow key={row} className={rowStyle}>
           <TableColumn className="selection-table selected-td" plain>{row}</TableColumn>
           {this.renderCols(values)}
         </TableRow>
@@ -165,7 +267,7 @@ class SubImageModList extends Component {
   }
 
   render() {
-    const { observations, compound, needsCropping } = this.state;
+    const { observations, isCompound, needsCropping } = this.state;
 
     return (
       <div>
@@ -183,7 +285,7 @@ class SubImageModList extends Component {
               label="Compound image?"
               name="lights"
               className="md-cell md-cell--12 custom-input-field"
-              checked={compound}
+              checked={isCompound}
               onChange={this.onChangeCompound}
             />
           </Cell>
@@ -215,7 +317,8 @@ class SubImageModList extends Component {
           className="properties-title"
           title=""
           actions={(
-            [<Button flat secondary onClick={this.onSkip}>Skip</Button>,
+            [<Button flat secondary onClick={this.onApplyToAll}>Apply to All</Button>,
+              <Button flat secondary onClick={this.onSkip}>Skip</Button>,
               <Button flat secondary onClick={this.onSave}>Save</Button>]
           )}
         />
@@ -228,7 +331,8 @@ class SubImageModList extends Component {
 SubImageModList.propTypes = {
   modalities: PropTypes.arrayOf(PropTypes.object),
   updateSubfigure: PropTypes.func,
+  updateAllSubfigures: PropTypes.func,
   figure: PropTypes.object,
 };
 
-export default SubImageModList;
+export default connect(null, { updateSubfigure, updateAllSubfigures })(SubImageModList);

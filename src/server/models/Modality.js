@@ -21,4 +21,5 @@ const schema = new mongoose.Schema({
 });
 
 const Modality = mongoose.model('modalities', schema, 'modalities');
+//const Modality = mongoose.model('modality', schema);
 module.exports = { Modality };

@@ -60,10 +60,11 @@ exports.updateSubfigure = function(req, res, next) {
     if (values.state && values.state == STATE_SKIPPED) {
       subfigure.state = STATE_SKIPPED;
     } else {
-      subfigure.modality1 = values.modality1;
-      subfigure.modality2 = values.modality2;
-      subfigure.modality3 = values.modality3;
-      subfigure.modality4 = values.modality4;
+      subfigure.modalities = values.modalities;
+      //subfigure.modality1 = values.modality1;
+      //subfigure.modality2 = values.modality2;
+      //subfigure.modality3 = values.modality3;
+      //subfigure.modality4 = values.modality4;
       subfigure.needsCropping = values.needsCropping;
       subfigure.isCompound = values.isCompound;
       subfigure.observations = values.observations;
@@ -106,4 +107,44 @@ exports.updateSubfigure = function(req, res, next) {
     })
 
   })
+}
+
+exports.updateAllSubfigures = function(req, res, next) {
+  const figureId = req.body.figureId;
+  const values = req.body.values;
+
+  console.log(figureId);
+  console.log(values);
+
+  Figure.updateMany(
+    {
+      figureId: figureId,
+      type: 'Subfigure',
+    },
+    {
+      $set: {
+        modalities: values.modalities,
+        state: STATE_REVIEWED,
+      }
+    },
+    (err, modInfo) => {
+      if (err) res.send({error: 'Error updating the images' });
+      // Now update the main Figure
+      Figure.findById(figureId, (err2, figure) => {
+        if (err2) res.send({error: 'Error retrieving the main figure' });
+        figure.state = STATE_REVIEWED;
+        figure.save((err3, savedFigure) => {
+          if (err3) res.send({error: 'Error update the main figure' });
+          // retrieve all the updated subfigures
+          Figure.find({'figureId': savedFigure._id}, (err4, subfigures) => {
+            if (err4) res.send({error: 'Error retrieving subfigures' });
+            res.send({
+              'figure': savedFigure,
+              'subfigures': subfigures
+            });
+          })
+        });
+      });
+    }
+  );
 }

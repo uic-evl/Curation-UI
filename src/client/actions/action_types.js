@@ -40,6 +40,8 @@ export const SELECT_FIGURE_X = 'select_figure_x';
 export const SELECT_SUBFIGURE_X = 'select_subfigure_x';
 export const UPDATE_SUBFIGURE = 'update_subfigure';
 export const UPDATE_SUBFIGURE_SUCCESS = 'update_subfigure_success';
+export const UPDATE_ALL_SUBFIGURES = 'update_all_subfigures';
+export const UPDATE_ALL_SUBFIGURES_SUCCESS = 'update_all_subfigures_sucess';
 
 // tasks
 export const OPEN_TASK = 'open_task';

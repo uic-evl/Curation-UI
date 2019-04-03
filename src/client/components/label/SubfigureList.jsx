@@ -39,6 +39,8 @@ class SubfigureList extends Component {
       let state = 'Reviewed';
       if (figure.state === 'To Review') {
         state = 'Unreviewed';
+      } else if (figure.state === 'Skipped') {
+        state = 'Skipped';
       }
 
       return (

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const modalitySchema = require('../models/Modality');
+const { Modality } = require('./Modality');
 
 const figureSchema = new Schema({
     name: {
@@ -74,8 +74,11 @@ const figureSchema = new Schema({
     subfigures: {
       type: Array, "default": [],
     },
-    modalities: [modalitySchema],
+    modalities: [Modality.schema],
 });
+
 
 const FigureModel = mongoose.model('figure', figureSchema);
 module.exports = FigureModel;
+
+//  modalities: [{type: mongoose.Schema.Types.Object, ref: 'modalities'}],

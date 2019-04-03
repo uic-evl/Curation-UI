@@ -24,6 +24,7 @@ module.exports = function(app) {
   app.get('/api/training/:previous', Labeling.getNextImage);
   app.patch('/api/training/:id', Labeling.updateImage);
   app.patch('/api/updateSubfigure/', DocumentLabeling.updateSubfigure);
+  app.patch('/api/updateAllSubfigures/', DocumentLabeling.updateAllSubfigures);
 
   // Role and groups management
   app.patch('/api/addRole', Security.addRole);

@@ -165,7 +165,7 @@ class LabelDocument extends Component {
               </Grid>
               <Grid className="md-grid--no-spacing">
                 <Cell size={7}>
-                  <SubImageModList modalities={modalities} />
+                  <SubImageModList figure={selectedSubfigure} modalities={modalities} />
                 </Cell>
                 <Cell size={5}>
                   <img src={imageUrl} alt={selectedSubfigure.name} />

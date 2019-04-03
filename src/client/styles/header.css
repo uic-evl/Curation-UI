@@ -67,6 +67,10 @@
   height: 30px;
 }
 
+.alternate-color {
+  background-color: #F2F0F0;
+}
+
 .figure-header-2 {
   height: 30px !important;
 }

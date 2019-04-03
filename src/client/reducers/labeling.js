@@ -8,6 +8,7 @@ import {
   SELECT_FIGURE_X,
   SELECT_SUBFIGURE_X,
   UPDATE_SUBFIGURE_SUCCESS,
+  UPDATE_ALL_SUBFIGURES_SUCCESS,
 } from 'client/actions/action_types';
 
 export default function (state = null, action) {
@@ -75,6 +76,27 @@ export default function (state = null, action) {
         'selectedFigure': selectedFigure,
         'selectedSubfigure': selectedSubfigure,
       };
+
+    case UPDATE_ALL_SUBFIGURES_SUCCESS:
+      debugger;
+      selectedFigure = action.payload.data.figure;
+      selectedFigure.subfigures = action.payload.data.subfigures;
+
+      const savedFigures2 = state.figures;
+      for (const i in savedFigures2) {
+        if (savedFigures2[i]._id === selectedFigure._id) {
+          savedFigures2[i] = selectedFigure;
+          break;
+        }
+      }
+
+      return {
+        'document': state.document,
+        'figures': savedFigures2,
+        'selectedFigure': selectedFigure,
+        'selectedSubfigure': state.selectedFigure.subfigures[0],
+      };
+
     default:
       return state;
   }

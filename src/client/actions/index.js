@@ -43,6 +43,8 @@ import {
   FINISH_TASK,
   FINISH_TASK_SUCCESS,
   OPEN_TASK,
+  UPDATE_ALL_SUBFIGURES,
+  UPDATE_ALL_SUBFIGURES_SUCCESS,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
@@ -395,7 +397,24 @@ export function updateSubfigure(id, values, callback) {
         callback();
       })
       .catch((error) => {
-        console.log('error adding user');
+        console.log('error updating figure');
+        console.log(error);
+      });
+  };
+}
+
+export function updateAllSubfigures(figureId, values, callback) {
+  return (dispatch) => {
+    dispatch({ type: UPDATE_ALL_SUBFIGURES });
+    axios.patch(`${API_URL}updateAllSubfigures`, { 'figureId': figureId, 'values': values })
+      .then((res) => {
+        dispatch({ type: UPDATE_ALL_SUBFIGURES_SUCCESS, payload: res });
+      })
+      .then(() => {
+        callback();
+      })
+      .catch((error) => {
+        console.log('error updating subfigures');
         console.log(error);
       });
   };
