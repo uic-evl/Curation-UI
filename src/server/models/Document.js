@@ -11,6 +11,10 @@ const documentSchema = new Schema({
       required: true,
     },
     entityId: { type: Schema.ObjectId },
+    uri: {
+      type: String,
+      required: true,
+    }
 });
 
 const DocumentModel = mongoose.model('document', documentSchema);

@@ -29,7 +29,7 @@ exports.insertFromPipe = function(req, res, next) {
         let subfigures = figure.subfigures;
         for (let subfigure of subfigures) {
           let createdSubfigure = yield saveSubfigure(subfigure, createdDoc._id, createdFigure._id);
-          console.log(createdSubfigure);
+          //console.log(createdSubfigure);
         }
       };
 
@@ -64,7 +64,7 @@ exports.insertFromPipe = function(req, res, next) {
       caption: figure.caption
     });
     newFigure.save((err, createdFigure) => {
-      console.log(err)
+      if (err) console.log(err);
       it.next(createdFigure);
     })
   }
@@ -80,7 +80,7 @@ exports.insertFromPipe = function(req, res, next) {
     });
 
     newSubfigure.save((err, createdSubfigure) => {
-      console.log(err)
+      if (err) console.log(err);
       it.next(createdSubfigure);
     })
   }
