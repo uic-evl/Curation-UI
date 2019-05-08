@@ -57,6 +57,22 @@ const figureSchema = new Schema({
       type: Boolean,
       "default": false
     },
+    isOvercropped: {
+      type: Boolean,
+      "default": false
+    },
+    isMissingSubfigures: {
+      type: Boolean,
+      "default": false
+    },
+    isMissingPanels: {
+      type: Boolean,
+      "default": false
+    },
+    numberSubpanes: {
+      type: Number,
+      "default": 1
+    },
     docId: {
       type: Schema.ObjectId,
       required: true,

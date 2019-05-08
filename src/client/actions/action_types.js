@@ -42,6 +42,8 @@ export const UPDATE_SUBFIGURE = 'update_subfigure';
 export const UPDATE_SUBFIGURE_SUCCESS = 'update_subfigure_success';
 export const UPDATE_ALL_SUBFIGURES = 'update_all_subfigures';
 export const UPDATE_ALL_SUBFIGURES_SUCCESS = 'update_all_subfigures_sucess';
+export const MARK_FIGURE_MISSING_PANELS = 'udpdate_figure_missing_panels';
+export const MARK_FIGURE_MISSING_PANELS_SUCCESS = 'udpdate_figure_missing_panels_success';
 
 // tasks
 export const OPEN_TASK = 'open_task';

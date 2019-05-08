@@ -17,6 +17,7 @@ const schema = new mongoose.Schema({
     modality4: { type: String },
     columnName: { type: String },
     simplify: { type: String },
+    order: { type: Number }
   }
 });
 

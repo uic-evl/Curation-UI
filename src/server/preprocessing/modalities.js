@@ -6,6 +6,7 @@ const modalities = [
     'modality4': '',
     'columnName': 'Plate',
     'simplify': 'Plate',
+    'order': 1,
   },
   {
     'modality1': 'Experimental',
@@ -14,6 +15,7 @@ const modalities = [
     'modality4': '',
     'columnName': 'Gel',
     'simplify': 'Western',
+    'order': 1,
   },
   {
     'modality1': 'Experimental',
@@ -22,6 +24,7 @@ const modalities = [
     'modality4': '',
     'columnName': 'Gel',
     'simplify': 'Northern',
+    'order': 2,
   },
   {
     'modality1': 'Experimental',
@@ -30,6 +33,7 @@ const modalities = [
     'modality4': '',
     'columnName': 'Gel',
     'simplify': 'RT_PCR',
+    'order': 3,
   },
   {
     'modality1': 'Experimental',
@@ -38,6 +42,7 @@ const modalities = [
     'modality4': 'Whole Mount Embryo',
     'columnName': 'Light',
     'simplify': 'Whole Mount',
+    'order': 1,
   },
   {
     'modality1': 'Experimental',
@@ -46,6 +51,7 @@ const modalities = [
     'modality4': 'In Situ Hybridization',
     'columnName': 'Light',
     'simplify': 'InSitu',
+    'order': 2,
   },
   {
     'modality1': 'Experimental',
@@ -54,13 +60,15 @@ const modalities = [
     'modality4': 'Other LM',
     'columnName': 'Light',
     'simplify': 'Other',
+    'order': 3,
   },{
     'modality1': 'Experimental',
     'modality2': 'Microscopy',
     'modality3': 'Electron',
     'modality4': 'Transmission EM',
     'columnName': 'Electron',
-    'simplify': 'Transmission',    
+    'simplify': 'Transmission',
+    'order': 1,
   },{
     'modality1': 'Experimental',
     'modality2': 'Microscopy',
@@ -68,6 +76,7 @@ const modalities = [
     'modality4': 'Scanning EM',
     'columnName': 'Electron',
     'simplify': 'Scanning',
+    'order': 2,
   },{
     'modality1': 'Experimental',
     'modality2': 'Microscopy',
@@ -75,6 +84,7 @@ const modalities = [
     'modality4': 'Whole Mount Embryo',
     'columnName': 'Fluorescence',
     'simplify': 'Whole Mount',
+    'order': 3,
   },{
     'modality1': 'Experimental',
     'modality2': 'Microscopy',
@@ -82,6 +92,7 @@ const modalities = [
     'modality4': 'Reporter Genes and Immunohistochemistry',
     'columnName': 'Fluorescence',
     'simplify': 'Reporter Genes & IHC',
+    'order': 2,
   },{
     'modality1': 'Experimental',
     'modality2': 'Microscopy',
@@ -89,6 +100,7 @@ const modalities = [
     'modality4': 'EFIC',
     'columnName': 'Fluorescence',
     'simplify': 'EFIC',
+    'order': 1,
   },
   {
     'modality1': 'Experimental',
@@ -97,6 +109,7 @@ const modalities = [
     'modality4': 'Other FM',
     'columnName': 'Fluorescence',
     'simplify': 'Other',
+    'order': 4,
   },{
     'modality1': 'Other',
     'modality2': '',
@@ -104,6 +117,7 @@ const modalities = [
     'modality4': '',
     'columnName': 'Other',
     'simplify': 'Other',
+    'order': 1,
   },{
     'modality1': 'Organs and Organisms',
     'modality2': 'X-Ray',
@@ -111,6 +125,7 @@ const modalities = [
     'modality4': '',
     'columnName': 'Organisms',
     'simplify': 'X-Ray',
+    'order': 3,
   },{
     'modality1': 'Organs and Organisms',
     'modality2': 'MRI and CT',
@@ -118,6 +133,7 @@ const modalities = [
     'modality4': '',
     'columnName': 'Organisms',
     'simplify': 'MRI & CT',
+    'order': 1,
   },{
     'modality1': 'Organs and Organisms',
     'modality2': 'Photographs',
@@ -125,48 +141,47 @@ const modalities = [
     'modality4': '',
     'columnName': 'Organisms',
     'simplify': 'Photos',
+    'order': 2,
   },{
     'modality1': 'Molecular Structure',
     'modality2': 'Macromolecule Sequence',
     'modality3': 'DNA',
     'modality4': '',
     'columnName': 'Molecular Structure',
-    'simplify': 'DNA',
+    'simplify': 'DNA Seq',
+    'order': 1,
   },{
     'modality1': 'Molecular Structure',
     'modality2': 'Macromolecule Sequence',
     'modality3': 'Protein',
     'modality4': '',
     'columnName': 'Molecular Structure',
-    'simplify': 'Protein',
+    'simplify': 'Protein Seq',
+    'order': 2,
   },{
     'modality1': 'Molecular Structure',
     'modality2': '3D Structure',
     'modality3': '',
     'modality4': '',
     'columnName': 'Molecular Structure',
-    'simplify': '3D',
+    'simplify': '3D Struc',
+    'order': 3,
   },{
     'modality1': 'Molecular Structure',
     'modality2': 'Chemical Structure',
     'modality3': '',
     'modality4': '',
     'columnName': 'Molecular Structure',
-    'simplify': 'Chemical Structure',
-  },{
-    'modality1': 'Graphics',
-    'modality2': 'Diagram',
-    'modality3': '',
-    'modality4': '',
-    'columnName': 'Graphics',
-    'simplify': 'Diagram',
-  },{
+    'simplify': 'Chemical Struc',
+    'order': 4,
+  },,{
     'modality1': 'Graphics',
     'modality2': 'Bar Chart',
     'modality3': '',
     'modality4': '',
     'columnName': 'Graphics',
     'simplify': 'Bar Chart',
+    'order': 1,
   },{
     'modality1': 'Graphics',
     'modality2': 'Line Chart',
@@ -174,6 +189,7 @@ const modalities = [
     'modality4': '',
     'columnName': 'Graphics',
     'simplify': 'Line Chart',
+    'order': 2,
   },{
     'modality1': 'Graphics',
     'modality2': 'Scatterplot',
@@ -181,13 +197,23 @@ const modalities = [
     'modality4': '',
     'columnName': 'Graphics',
     'simplify': 'Scatterplot',
+    'order': 3,
   },{
     'modality1': 'Graphics',
-    'modality2': 'Scatterplot',
+    'modality2': 'Pathway',
     'modality3': '',
     'modality4': '',
     'columnName': 'Graphics',
-    'simplify': 'Other',
+    'simplify': 'Pathway',
+    'order': 4,
+  },{
+    'modality1': 'Graphics',
+    'modality2': 'Other Diagram',
+    'modality3': '',
+    'modality4': '',
+    'columnName': 'Graphics',
+    'simplify': 'Other Diagram',
+    'order': 5,
   }
 ]
 

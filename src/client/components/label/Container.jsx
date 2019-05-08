@@ -6,6 +6,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,12 +18,14 @@ import {
   Paper,
   Toolbar,
   Snackbar,
+  SelectionControl,
 } from 'react-md';
 import {
   fetchDocument,
   fetchModalities,
   openTask,
   finishTask,
+  updateFigureMissingPanels,
 } from 'client/actions';
 import requireAuth from 'client/components/auth/requireAuth';
 import DocumentTitle from 'client/components/label/Header';
@@ -38,6 +41,7 @@ class LabelDocument extends Component {
   constructor(props) {
     super(props);
     this.onClickFinishTask = this.onClickFinishTask.bind(this);
+    this.onChangeIsMissingPanels = this.onChangeIsMissingPanels.bind(this);
 
     this.state = {
       toasts: [],
@@ -66,6 +70,13 @@ class LabelDocument extends Component {
       console.log('not reviewed');
       this.toastSubmit('You need to review all the figures and subfigures');
     }
+  }
+
+  onChangeIsMissingPanels(value) {
+    const { updateFigureMissingPanels, selectedFigure } = this.props;
+    updateFigureMissingPanels(selectedFigure._id, value, () => {
+      this.toastSubmit('Figure updated');
+    });
   }
 
   addToast = (text, action, autohide: true) => {
@@ -144,6 +155,17 @@ class LabelDocument extends Component {
                 <div className="md-cell--12 figure-caption-name">
                   {`Fig. Page ${selectedFigure.name}`}
                 </div>
+                <div className="md-cell--12 figure-caption-name">
+                  <SelectionControl
+                    id="chbx-missing-panels"
+                    type="checkbox"
+                    label="Figure missing panels"
+                    name="lights"
+                    className="md-cell md-cell--12 custom-input-field"
+                    value={selectedFigure.isMissingPanels}
+                    onChange={this.onChangeIsMissingPanels}
+                  />
+                </div>
               </Cell>
               <Cell size={12} className="md-cell md-cell--12 md-cell--bottom">
                 <FigureList />
@@ -203,6 +225,7 @@ LabelDocument.propTypes = {
   username: PropTypes.string,
   userId: PropTypes.string,
   organization: PropTypes.string,
+  updateFigureMissingPanels: PropTypes.func,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -246,4 +269,5 @@ export default connect(mapStateToProps, {
   fetchModalities,
   openTask,
   finishTask,
+  updateFigureMissingPanels,
 })(requireAuth(LabelDocument, 'labelDocument'));
