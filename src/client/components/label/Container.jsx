@@ -7,6 +7,8 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -19,6 +21,7 @@ import {
   Toolbar,
   Snackbar,
   SelectionControl,
+  DialogContainer,
 } from 'react-md';
 import {
   fetchDocument,
@@ -47,6 +50,7 @@ class LabelDocument extends Component {
       toasts: [],
       autohide: true,
       toastMessage: true,
+      dialogVisible: false,
     };
   }
 
@@ -96,6 +100,14 @@ class LabelDocument extends Component {
     this.addToast(message);
   }
 
+  hideDialog = () => {
+    this.setState({ dialogVisible: false });
+  }
+
+  showDialog = () => {
+    this.setState({ dialogVisible: true });
+  }
+
   validateTaskDone() {
     const { figures } = this.props;
     const STATE_TO_REVIEW = 'To Review';
@@ -120,10 +132,24 @@ class LabelDocument extends Component {
     }
 
     const { toasts, autohide, toastMessage } = this.state;
+    const { dialogVisible } = this.state;
     const { selectedFigure, selectedSubfigure } = this.props;
     const pdfUri = `/images${document.uri}`;
     const imageUrl = `/images${selectedSubfigure.uri}`;
     const figureUrl = `/images${selectedFigure.uri}`;
+
+    // temp fix for missing attribute
+    if (selectedFigure.isMissingPanels === undefined) {
+      selectedFigure.isMissingPanels = false;
+    }
+
+    const dialogActions = [
+      {
+        onClick: this.hideDialog,
+        primary: true,
+        children: 'Close',
+      },
+    ];
 
     return (
       <div className="md-grid--no-spacing">
@@ -150,7 +176,7 @@ class LabelDocument extends Component {
             <Grid className="md-grid--no-spacing">
               <Cell size={12}>
                 <Media aspectRatio="1-1">
-                  <img src={figureUrl} alt={selectedFigure.name} />
+                  <img src={figureUrl} alt={selectedFigure.name} onClick={this.showDialog} />
                 </Media>
                 <div className="md-cell--12 figure-caption-name">
                   {`Fig. Page ${selectedFigure.name}`}
@@ -160,9 +186,9 @@ class LabelDocument extends Component {
                     id="chbx-missing-panels"
                     type="checkbox"
                     label="Figure missing panels"
-                    name="lights"
+                    name="chbx-missing-panels"
                     className="md-cell md-cell--12 custom-input-field"
-                    value={selectedFigure.isMissingPanels}
+                    checked={selectedFigure.isMissingPanels}
                     onChange={this.onChangeIsMissingPanels}
                   />
                 </div>
@@ -202,6 +228,19 @@ class LabelDocument extends Component {
           autohide={autohide}
           onDismiss={this.dismissToast}
         />
+
+        <DialogContainer
+          id="dc-large-figure"
+          visible={dialogVisible}
+          title={selectedFigure.name}
+          onHide={this.hideDialog}
+          modal
+          actions={dialogActions}
+        >
+          <Media aspectRatio="1-1">
+            <img src={figureUrl} alt={selectedFigure.name} />
+          </Media>
+        </DialogContainer>
       </div>
     );
   }
