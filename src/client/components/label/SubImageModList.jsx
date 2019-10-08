@@ -338,13 +338,18 @@ class SubImageModList extends Component {
       i += 1;
 
       const values = _.filter(modalities, { columnName: row });
+      let rowLabel = row;
+      if (values.length > 0) {
+        rowLabel = values[0].columnLabel;
+      }
+
       while (values.length < maxCols) {
         values.push(null);
       }
 
       return (
         <TableRow key={row} className={rowStyle}>
-          <TableColumn className="selection-table selected-td" plain>{row}</TableColumn>
+          <TableColumn className="selection-table selected-td" plain>{rowLabel}</TableColumn>
           {this.renderCols(values)}
         </TableRow>
       );

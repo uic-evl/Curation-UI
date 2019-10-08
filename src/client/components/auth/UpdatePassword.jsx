@@ -67,7 +67,7 @@ class UpdatePassword extends Component {
           {errorMessage}
         </div>
         <Button flat primary type="submit" className="md-cell--right">
-          {'Update Password'}
+          `&apos;`Update Password`&apos;`
         </Button>
         <Snackbar
           id="message-snackbar"
