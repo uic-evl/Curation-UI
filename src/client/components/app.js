@@ -75,7 +75,7 @@ class App extends PureComponent {
         <Toolbar
           colored
           fixed
-          title="Routing Example"
+          title="Curation"
           nav={<Button icon onClick={this.showDrawer}>menu</Button>}
           actions={<SignButtons />}
         />

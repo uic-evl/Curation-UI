@@ -67,6 +67,7 @@ exports.updateSubfigure = function(req, res, next) {
       subfigure.isOvercropped = values.isOvercropped;
       subfigure.isMissingSubfigures = values.isMissingSubfigures;
       subfigure.numberSubpanes = values.numberSubpanes;
+      subfigure.closeUp = values.closeUp;
       subfigure.state = STATE_REVIEWED;
     }
 

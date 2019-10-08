@@ -88,6 +88,7 @@ class SubImageModList extends Component {
       autohide: true,
       toastMessage: '',
       numberSubpanes: 1,
+      closeUp: false,
     };
 
     this.onChangeCompound = this.onChangeCompound.bind(this);
@@ -96,6 +97,7 @@ class SubImageModList extends Component {
     this.onChangeIsOvercropped = this.onChangeIsOvercropped.bind(this);
     this.onChangeNeedsIsMissingSubfigures = this.onChangeNeedsIsMissingSubfigures.bind(this);
     this.onChangeNumberSubpanes = this.onChangeNumberSubpanes.bind(this);
+    this.onChangeIsCloseUp = this.onChangeIsCloseUp.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onSkip = this.onSkip.bind(this);
     this.onChangeApplyToAll = this.onChangeApplyToAll.bind(this);
@@ -149,6 +151,7 @@ class SubImageModList extends Component {
 
       let { observations, needsCropping, isCompound } = figure;
       let { isOvercropped, isMissingSubfigures, numberSubpanes } = figure;
+      let { closeUp } = figure;
 
       if (observations === undefined) {
         observations = '';
@@ -168,6 +171,9 @@ class SubImageModList extends Component {
       if (numberSubpanes === undefined) {
         numberSubpanes = 1;
       }
+      if (closeUp === undefined) {
+        closeUp = false;
+      }
 
       if (countSelected === 0 && applyToAll) {
         applyToAll = false;
@@ -183,6 +189,7 @@ class SubImageModList extends Component {
         observations,
         countSelected,
         applyToAll,
+        closeUp,
       });
     }
   }
@@ -233,6 +240,10 @@ class SubImageModList extends Component {
     this.setState({ numberSubpanes: value });
   }
 
+  onChangeIsCloseUp(value) {
+    this.setState({ closeUp: value });
+  }
+
   onSave() {
     const { applyToAll } = this.state;
     this.save(applyToAll);
@@ -266,7 +277,7 @@ class SubImageModList extends Component {
   getValues(matrixIds) {
     const { modalities } = this.props;
     const values = _.pick(this.state, ['observations', 'isCompound', 'needsCropping',
-      'isOvercropped', 'isMissingSubfigures', 'numberSubpanes']);
+      'isOvercropped', 'isMissingSubfigures', 'numberSubpanes', 'closeUp']);
     const pickedModalities = [];
     matrixIds.forEach((_id) => {
       const modality = _.filter(modalities, { '_id': _id });
@@ -385,7 +396,7 @@ class SubImageModList extends Component {
   render() {
     const { observations, isCompound, needsCropping } = this.state;
     const { isOvercropped, isMissingSubfigures, numberSubpanes } = this.state;
-    const { applyToAll, countSelected } = this.state;
+    const { applyToAll, countSelected, closeUp } = this.state;
     const { toasts, autohide } = this.state;
 
     return (
@@ -463,6 +474,15 @@ class SubImageModList extends Component {
               onChange={this.onChangeNeedsIsMissingSubfigures}
               tooltipLabel="Parent figure is complete but there are missing subfigures"
               tooltipPosition="top"
+            />
+            <TooltipCheckbox
+              id="chbox-close-up"
+              type="checkbox"
+              label="Is close-up?"
+              name="lights"
+              className="md-cell md-cell--12 custom-input-field"
+              checked={closeUp}
+              onChange={this.onChangeIsCloseUp}
             />
           </Cell>
           <Cell size={4}>

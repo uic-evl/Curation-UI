@@ -69,6 +69,10 @@ const figureSchema = new Schema({
       type: Boolean,
       "default": false
     },
+    closeUp: {
+      type: Boolean,
+      "default": false
+    },
     numberSubpanes: {
       type: Number,
       "default": 1
