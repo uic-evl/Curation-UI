@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
+/* eslint-disable no-undef */
 import _ from 'lodash';
 import axios from 'axios';
 import {
@@ -53,8 +54,7 @@ import TEST_FIGURES from 'client/data/test_figures';
 import TEST_SUBFIGURES from 'client/data/test_subfigures';
 import TEST_ELEMENTS from 'client/data/test_elements';
 
-const API_URL = 'https://localhost:3020/api/';
-// const API_URL = process.env.API_URL;
+const API_URL = process.env.API_URL;
 
 export function fetchElement(id) {
   const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });

@@ -433,6 +433,15 @@ class SubImageModList extends Component {
         <Grid className="md-grid--no-spacing">
           <Cell size={8}>
             <TooltipCheckbox
+              id="chbox-close-up"
+              type="checkbox"
+              label="Close-up image"
+              name="lights"
+              className="md-cell md-cell--12 custom-input-field"
+              checked={closeUp}
+              onChange={this.onChangeIsCloseUp}
+            />
+            <TooltipCheckbox
               id="chbox-compound"
               label="Compound image - should be further separated"
               name="chbox-compound"
@@ -474,15 +483,6 @@ class SubImageModList extends Component {
               onChange={this.onChangeNeedsIsMissingSubfigures}
               tooltipLabel="Parent figure is complete but there are missing subfigures"
               tooltipPosition="top"
-            />
-            <TooltipCheckbox
-              id="chbox-close-up"
-              type="checkbox"
-              label="Is close-up?"
-              name="lights"
-              className="md-cell md-cell--12 custom-input-field"
-              checked={closeUp}
-              onChange={this.onChangeIsCloseUp}
             />
           </Cell>
           <Cell size={4}>

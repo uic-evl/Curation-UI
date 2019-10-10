@@ -6,7 +6,6 @@ const HtmlWebpackTemplate = require('html-webpack-template');
 const autoprefixer = require('autoprefixer');
 const output_path = 'dist';
 
-
 module.exports = {
   mode: 'development',
   entry: ['./src/client/index.jsx'],
@@ -99,6 +98,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         'PUBLIC_PATH': JSON.stringify('images'),
+        'API_URL': JSON.stringify(process.env.API_URL),
       }
     }),
     new MiniCssExtractPlugin({
