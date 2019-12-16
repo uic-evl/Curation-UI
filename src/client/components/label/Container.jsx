@@ -66,6 +66,7 @@ class LabelDocument extends Component {
     if (this.validateTaskDone()) {
       const { task, username, userId } = this.props;
       const { history, finishTask } = this.props;
+      
       finishTask(task, username, userId, () => {
         console.log('Task finished');
         history.push('/inbox');
@@ -175,9 +176,11 @@ class LabelDocument extends Component {
           <Cell size={2} className="md-grid--no-spacing">
             <Grid className="md-grid--no-spacing">
               <Cell size={12}>
-                <Media aspectRatio="1-1">
-                  <img src={figureUrl} alt={selectedFigure.name} onClick={this.showDialog} />
-                </Media>
+                <div className="md-cell--12 figure-thumbnail">
+                  <Media aspectRatio="1-1">
+                    <img src={figureUrl} alt={selectedFigure.name} onClick={this.showDialog} />
+                  </Media>
+                </div>
                 <div className="md-cell--12 figure-caption-name">
                   {`Fig. Page ${selectedFigure.name}`}
                 </div>
