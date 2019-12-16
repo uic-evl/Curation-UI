@@ -66,7 +66,7 @@ class LabelDocument extends Component {
     if (this.validateTaskDone()) {
       const { task, username, userId } = this.props;
       const { history, finishTask } = this.props;
-      
+
       finishTask(task, username, userId, () => {
         console.log('Task finished');
         history.push('/inbox');
