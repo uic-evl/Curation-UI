@@ -60,5 +60,5 @@ module.exports = function(app) {
 
 
   // Figures
-  app.get('/api/figures/:state', Figures.fetchFigures);
+  app.get('/api/fetchFigures/:state', Figures.fetchFigures);
 }
