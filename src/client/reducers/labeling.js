@@ -9,6 +9,7 @@ import {
   SELECT_SUBFIGURE_X,
   UPDATE_SUBFIGURE_SUCCESS,
   UPDATE_ALL_SUBFIGURES_SUCCESS,
+  MARK_FIGURE_MISSING_PANELS_SUCCESS,
 } from 'client/actions/action_types';
 
 export default function (state = null, action) {
@@ -102,6 +103,24 @@ export default function (state = null, action) {
         'figures': savedFigures2,
         'selectedFigure': selectedFigure,
         'selectedSubfigure': selectedSubfigure,
+      };
+
+    case MARK_FIGURE_MISSING_PANELS_SUCCESS:
+      selectedFigure = action.payload.data.selectedFigure;
+      selectedFigure.subfigures = state.selectedFigure.subfigures;
+      const savedFigures3 = state.figures;
+      for (const i in savedFigures3) {
+        if (savedFigures3[i]._id === selectedFigure._id) {
+          savedFigures3[i] = selectedFigure;
+          break;
+        }
+      }
+
+      return {
+        'document': state.document,
+        'figures': savedFigures3,
+        'selectedFigure': selectedFigure,
+        'selectedSubfigure': state.selectedSubfigure,
       };
 
     default:

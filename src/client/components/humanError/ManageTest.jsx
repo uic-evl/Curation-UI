@@ -74,7 +74,7 @@ class ManageTest extends Component {
             onClick={this.onClickCreateTest}
             disabled={!user}
           >
-            {'Create Test'}
+            `&apos;`Create Test`&apos;`
           </Button>
         </div>
       </div>

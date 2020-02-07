@@ -6,6 +6,9 @@
 /* eslint-disable no-console */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,12 +20,15 @@ import {
   Paper,
   Toolbar,
   Snackbar,
+  SelectionControl,
+  DialogContainer,
 } from 'react-md';
 import {
   fetchDocument,
   fetchModalities,
   openTask,
   finishTask,
+  updateFigureMissingPanels,
 } from 'client/actions';
 import requireAuth from 'client/components/auth/requireAuth';
 import DocumentTitle from 'client/components/label/Header';
@@ -38,11 +44,13 @@ class LabelDocument extends Component {
   constructor(props) {
     super(props);
     this.onClickFinishTask = this.onClickFinishTask.bind(this);
+    this.onChangeIsMissingPanels = this.onChangeIsMissingPanels.bind(this);
 
     this.state = {
       toasts: [],
       autohide: true,
       toastMessage: true,
+      dialogVisible: false,
     };
   }
 
@@ -58,6 +66,7 @@ class LabelDocument extends Component {
     if (this.validateTaskDone()) {
       const { task, username, userId } = this.props;
       const { history, finishTask } = this.props;
+
       finishTask(task, username, userId, () => {
         console.log('Task finished');
         history.push('/inbox');
@@ -66,6 +75,13 @@ class LabelDocument extends Component {
       console.log('not reviewed');
       this.toastSubmit('You need to review all the figures and subfigures');
     }
+  }
+
+  onChangeIsMissingPanels(value) {
+    const { updateFigureMissingPanels, selectedFigure } = this.props;
+    updateFigureMissingPanels(selectedFigure._id, value, () => {
+      this.toastSubmit('Figure updated');
+    });
   }
 
   addToast = (text, action, autohide: true) => {
@@ -83,6 +99,14 @@ class LabelDocument extends Component {
 
   toastSubmit = (message) => {
     this.addToast(message);
+  }
+
+  hideDialog = () => {
+    this.setState({ dialogVisible: false });
+  }
+
+  showDialog = () => {
+    this.setState({ dialogVisible: true });
   }
 
   validateTaskDone() {
@@ -109,10 +133,24 @@ class LabelDocument extends Component {
     }
 
     const { toasts, autohide, toastMessage } = this.state;
+    const { dialogVisible } = this.state;
     const { selectedFigure, selectedSubfigure } = this.props;
     const pdfUri = `/images${document.uri}`;
     const imageUrl = `/images${selectedSubfigure.uri}`;
     const figureUrl = `/images${selectedFigure.uri}`;
+
+    // temp fix for missing attribute
+    if (selectedFigure.isMissingPanels === undefined) {
+      selectedFigure.isMissingPanels = false;
+    }
+
+    const dialogActions = [
+      {
+        onClick: this.hideDialog,
+        primary: true,
+        children: 'Close',
+      },
+    ];
 
     return (
       <div className="md-grid--no-spacing">
@@ -138,11 +176,24 @@ class LabelDocument extends Component {
           <Cell size={2} className="md-grid--no-spacing">
             <Grid className="md-grid--no-spacing">
               <Cell size={12}>
-                <Media aspectRatio="1-1">
-                  <img src={figureUrl} alt={selectedFigure.name} />
-                </Media>
+                <div className="md-cell--12 figure-thumbnail">
+                  <Media aspectRatio="1-1">
+                    <img src={figureUrl} alt={selectedFigure.name} onClick={this.showDialog} />
+                  </Media>
+                </div>
                 <div className="md-cell--12 figure-caption-name">
                   {`Fig. Page ${selectedFigure.name}`}
+                </div>
+                <div className="md-cell--12 figure-caption-name">
+                  <SelectionControl
+                    id="chbx-missing-panels"
+                    type="checkbox"
+                    label="Figure missing panels"
+                    name="chbx-missing-panels"
+                    className="md-cell md-cell--12 custom-input-field"
+                    checked={selectedFigure.isMissingPanels}
+                    onChange={this.onChangeIsMissingPanels}
+                  />
                 </div>
               </Cell>
               <Cell size={12} className="md-cell md-cell--12 md-cell--bottom">
@@ -180,6 +231,19 @@ class LabelDocument extends Component {
           autohide={autohide}
           onDismiss={this.dismissToast}
         />
+
+        <DialogContainer
+          id="dc-large-figure"
+          visible={dialogVisible}
+          title={selectedFigure.name}
+          onHide={this.hideDialog}
+          modal
+          actions={dialogActions}
+        >
+          <Media aspectRatio="1-1">
+            <img src={figureUrl} alt={selectedFigure.name} />
+          </Media>
+        </DialogContainer>
       </div>
     );
   }
@@ -203,6 +267,7 @@ LabelDocument.propTypes = {
   username: PropTypes.string,
   userId: PropTypes.string,
   organization: PropTypes.string,
+  updateFigureMissingPanels: PropTypes.func,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -246,4 +311,5 @@ export default connect(mapStateToProps, {
   fetchModalities,
   openTask,
   finishTask,
+  updateFigureMissingPanels,
 })(requireAuth(LabelDocument, 'labelDocument'));

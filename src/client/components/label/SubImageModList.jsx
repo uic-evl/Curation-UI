@@ -27,8 +27,28 @@ import {
   Toolbar,
   Button,
   Snackbar,
+  SelectField,
 } from 'react-md';
+import TooltipCheckbox from 'client/components/form/tooltippedCheckbox';
 import { updateSubfigure, updateAllSubfigures } from 'client/actions';
+
+const NUMBER_SUBPANES = [
+  { label: '1', value: 1 },
+  { label: '2', value: 2 },
+  { label: '3', value: 3 },
+  { label: '4', value: 4 },
+  { label: '5', value: 5 },
+  { label: '6', value: 6 },
+  { label: '7', value: 7 },
+  { label: '8', value: 8 },
+  { label: '9', value: 9 },
+  { label: '10', value: 10 },
+  { label: '11', value: 11 },
+  { label: '12', value: 12 },
+  { label: '13', value: 13 },
+  { label: '14', value: 14 },
+  { label: '15', value: 15 },
+];
 
 class SubImageModList extends Component {
   constructor(props) {
@@ -41,13 +61,8 @@ class SubImageModList extends Component {
     let ordModalities = [];
     for (let i = 0; i < order.length; i++) {
       const columnName = order[i];
-      const values = _.filter(modalities, { columnName });
-      const index = _.findIndex(values, { simplify: 'Other' });
-      // Put Others at the end
-      if (index !== -1) {
-        const other = values.splice(index, 1);
-        values.push(other[0]);
-      }
+      let values = _.filter(modalities, { columnName });
+      values = _.orderBy(values, ['order'], ['asc']);
       // Get max size to know the number of columns
       if (values.length > maxSize) {
         maxSize = values.length;
@@ -64,17 +79,25 @@ class SubImageModList extends Component {
       maxCols: maxSize,
       isCompound: false,
       needsCropping: false,
+      isOvercropped: false,
+      isMissingSubfigures: false,
       observations: '',
       applyToAll: false,
       countSelected: 0,
       toasts: [],
       autohide: true,
       toastMessage: '',
+      numberSubpanes: 1,
+      closeUp: false,
     };
 
     this.onChangeCompound = this.onChangeCompound.bind(this);
     this.onChangeObservations = this.onChangeObservations.bind(this);
     this.onChangeNeedsCropping = this.onChangeNeedsCropping.bind(this);
+    this.onChangeIsOvercropped = this.onChangeIsOvercropped.bind(this);
+    this.onChangeNeedsIsMissingSubfigures = this.onChangeNeedsIsMissingSubfigures.bind(this);
+    this.onChangeNumberSubpanes = this.onChangeNumberSubpanes.bind(this);
+    this.onChangeIsCloseUp = this.onChangeIsCloseUp.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onSkip = this.onSkip.bind(this);
     this.onChangeApplyToAll = this.onChangeApplyToAll.bind(this);
@@ -85,8 +108,20 @@ class SubImageModList extends Component {
   componentDidMount() {
     const { figure } = this.props;
     const { modalities, needsCropping, isCompound } = figure;
+    let { isOvercropped, isMissingSubfigures, numberSubpanes } = figure;
     const { observations } = figure;
     const { matrix } = this.state;
+
+    // safety check
+    if (isOvercropped === undefined) {
+      isOvercropped = false;
+    }
+    if (isMissingSubfigures === undefined) {
+      isMissingSubfigures = false;
+    }
+    if (numberSubpanes === undefined) {
+      numberSubpanes = 1;
+    }
 
     modalities.forEach((mod) => { matrix[mod._id] = { 'value': true }; });
     const countSelected = modalities.length;
@@ -96,6 +131,9 @@ class SubImageModList extends Component {
       isCompound,
       observations,
       countSelected,
+      isOvercropped,
+      isMissingSubfigures,
+      numberSubpanes,
     });
   }
 
@@ -112,6 +150,9 @@ class SubImageModList extends Component {
       countSelected = figModalities.length;
 
       let { observations, needsCropping, isCompound } = figure;
+      let { isOvercropped, isMissingSubfigures, numberSubpanes } = figure;
+      let { closeUp } = figure;
+
       if (observations === undefined) {
         observations = '';
       }
@@ -120,6 +161,18 @@ class SubImageModList extends Component {
       }
       if (isCompound === undefined) {
         isCompound = false;
+      }
+      if (isOvercropped === undefined) {
+        isOvercropped = false;
+      }
+      if (isMissingSubfigures === undefined) {
+        isMissingSubfigures = false;
+      }
+      if (numberSubpanes === undefined) {
+        numberSubpanes = 1;
+      }
+      if (closeUp === undefined) {
+        closeUp = false;
       }
 
       if (countSelected === 0 && applyToAll) {
@@ -130,9 +183,13 @@ class SubImageModList extends Component {
         matrix,
         needsCropping,
         isCompound,
+        isOvercropped,
+        isMissingSubfigures,
+        numberSubpanes,
         observations,
         countSelected,
         applyToAll,
+        closeUp,
       });
     }
   }
@@ -171,6 +228,22 @@ class SubImageModList extends Component {
     this.setState({ needsCropping: value });
   }
 
+  onChangeIsOvercropped(value) {
+    this.setState({ isOvercropped: value });
+  }
+
+  onChangeNeedsIsMissingSubfigures(value) {
+    this.setState({ isMissingSubfigures: value });
+  }
+
+  onChangeNumberSubpanes(value) {
+    this.setState({ numberSubpanes: value });
+  }
+
+  onChangeIsCloseUp(value) {
+    this.setState({ closeUp: value });
+  }
+
   onSave() {
     const { applyToAll } = this.state;
     this.save(applyToAll);
@@ -203,7 +276,8 @@ class SubImageModList extends Component {
 
   getValues(matrixIds) {
     const { modalities } = this.props;
-    const values = _.pick(this.state, ['observations', 'isCompound', 'needsCropping']);
+    const values = _.pick(this.state, ['observations', 'isCompound', 'needsCropping',
+      'isOvercropped', 'isMissingSubfigures', 'numberSubpanes', 'closeUp']);
     const pickedModalities = [];
     matrixIds.forEach((_id) => {
       const modality = _.filter(modalities, { '_id': _id });
@@ -275,13 +349,18 @@ class SubImageModList extends Component {
       i += 1;
 
       const values = _.filter(modalities, { columnName: row });
+      let rowLabel = row;
+      if (values.length > 0) {
+        rowLabel = values[0].columnLabel;
+      }
+
       while (values.length < maxCols) {
         values.push(null);
       }
 
       return (
         <TableRow key={row} className={rowStyle}>
-          <TableColumn className="selection-table selected-td" plain>{row}</TableColumn>
+          <TableColumn className="selection-table selected-td" plain>{rowLabel}</TableColumn>
           {this.renderCols(values)}
         </TableRow>
       );
@@ -316,7 +395,8 @@ class SubImageModList extends Component {
 
   render() {
     const { observations, isCompound, needsCropping } = this.state;
-    const { applyToAll, countSelected } = this.state;
+    const { isOvercropped, isMissingSubfigures, numberSubpanes } = this.state;
+    const { applyToAll, countSelected, closeUp } = this.state;
     const { toasts, autohide } = this.state;
 
     return (
@@ -351,29 +431,69 @@ class SubImageModList extends Component {
         </DataTable>
         <div>Subfigure Observations</div>
         <Grid className="md-grid--no-spacing">
-          <Cell size={4}>
-            <SelectionControl
-              id="is-compound"
+          <Cell size={8}>
+            <TooltipCheckbox
+              id="chbox-close-up"
               type="checkbox"
-              label="Compound image?"
+              label="Close-up image"
               name="lights"
+              className="md-cell md-cell--12 custom-input-field"
+              checked={closeUp}
+              onChange={this.onChangeIsCloseUp}
+            />
+            <TooltipCheckbox
+              id="chbox-compound"
+              label="Compound image - should be further separated"
+              name="chbox-compound"
               className="md-cell md-cell--12 custom-input-field"
               checked={isCompound}
               onChange={this.onChangeCompound}
+              tooltipLabel="e.g. Panel A and Panel B are still shown together"
+              tooltipPosition="top"
             />
-          </Cell>
-          <Cell size={4}>
-            <SelectionControl
-              id="figure-cropping"
+            <TooltipCheckbox
+              id="chbox-cropping"
               type="checkbox"
-              label="Needs cropping?"
-              name="lights"
+              label="Should be further cropped"
+              name="chbox-cropping"
               className="md-cell md-cell--12 custom-input-field"
               checked={needsCropping}
               onChange={this.onChangeNeedsCropping}
+              tooltipLabel="Margins are too wide"
+              tooltipPosition="top"
+            />
+            <TooltipCheckbox
+              id="chbox-overcropped"
+              type="checkbox"
+              label="Over-cropped"
+              name="lights"
+              className="md-cell md-cell--12 custom-input-field"
+              checked={isOvercropped}
+              onChange={this.onChangeIsOvercropped}
+              tooltipLabel="Areas of the image were over-cropped"
+              tooltipPosition="top"
+            />
+            <TooltipCheckbox
+              id="chbox-missing-subfigures"
+              type="checkbox"
+              label="Missing subfigures"
+              name="lights"
+              className="md-cell md-cell--12 custom-input-field"
+              checked={isMissingSubfigures}
+              onChange={this.onChangeNeedsIsMissingSubfigures}
+              tooltipLabel="Parent figure is complete but there are missing subfigures"
+              tooltipPosition="top"
             />
           </Cell>
           <Cell size={4}>
+            <SelectField
+              id="ddl-numberSubpanes"
+              label="Number subpanes"
+              className="md-cell md-cell--12 custom-input-field"
+              menuItems={NUMBER_SUBPANES}
+              value={numberSubpanes}
+              onChange={this.onChangeNumberSubpanes}
+            />
             <TextField
               id="observations"
               label="Comments"

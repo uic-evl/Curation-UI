@@ -1,10 +1,19 @@
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
-import React, { Component } from 'react';
-import { NavigationDrawer, SVGIcon } from 'react-md';
-import { Route, Switch } from 'react-router-dom';
+import React, { PureComponent } from 'react';
+import {
+  NavigationDrawer,
+  SVGIcon,
+  Drawer,
+  Toolbar,
+  Button,
+} from 'react-md';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { Route, Switch, Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
+import NavItemLink from 'client/components/form/NavItemLink';
 import ElementContainer from 'client/containers/element_container';
 import TrainingContainer from 'client/containers/training_container';
 import SignIn from 'client/components/auth/SignIn';
@@ -22,90 +31,86 @@ import menu from 'client/icons/menu.svg';
 import arrowBack from 'client/icons/arrow_back.svg';
 import SignButtons from 'client/components/auth/SignButtons';
 
-export default class App extends Component {
+const navItems = [
+  {
+    label: 'Inbox',
+    to: '/inbox',
+    exact: true,
+    icon: 'inbox',
+  },
+];
+
+
+class App extends PureComponent {
   constructor() {
     super();
 
-    // Update the items so they have an onClick handler to change the current page
-    this.navItems = inboxListItems.map((item) => {
-      if (item.divider) {
-        return item;
-      }
-
-      return {
-        ...item,
-        onClick: () => this.setPage(item.key, item.primaryText),
-      };
-    });
-
     this.state = {
-      renderNode: null,
       visible: false,
-      key: inboxListItems[0].key,
-      page: inboxListItems[0].primaryText,
     };
   }
 
-  setPage(key, page) {
-    this.navItems = this.navItems.map((item) => {
-      if (item.divider) {
-        return item;
-      }
-
-      return {
-        ...item,
-        active: item.key === key,
-      };
-    });
-
-    this.setState({ key, page });
+  componentDidMount() {
+    // Need to set the renderNode since the drawer uses an overlay
+    this.dialog = document.getElementById('drawer-routing-example-dialog');
   }
 
-  show() {
+  showDrawer = () => {
     this.setState({ visible: true });
-  }
+  };
 
-  hide() {
-    this.setState({ visible: false, renderNode: null });
-  }
+  hideDrawer = () => {
+    this.setState({ visible: false });
+  };
 
-  handleShow() {
-    this.setState({ renderNode: document.getElementById('navigation-drawer-demo') });
+  handleVisibility = (visible) => {
+    this.setState({ visible });
   }
 
   render() {
-    const { visible, page, renderNode } = this.state;
+    const { visible } = this.state;
 
     return (
-      <NavigationDrawer
-        renderNode={renderNode}
-        navItems={this.navItems}
-        mobileDrawerType={NavigationDrawer.DrawerTypes.TEMPORARY_MINI}
-        tabletDrawerType={NavigationDrawer.DrawerTypes.PERSISTENT_MINI}
-        desktopDrawerType={NavigationDrawer.DrawerTypes.PERSISTENT_MINI}
-        toolbarTitle="Curation Project"
-        contentId="main-demo-content"
-        temporaryIcon={<SVGIcon use={menu.url} />}
-        persistentIcon={<SVGIcon use={arrowBack.url} />}
-        contentClassName="md-grid"
-        toolbarActions={<SignButtons />}
-      >
-
-        <Switch>
-          <Route path="/document/:id" component={ElementContainer} />
-          <Route path="/training" component={TrainingContainer} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signout" component={SignOut} />
-          <Route path="/manageTest" component={ManageTest} />
-          <Route path="/classificationTest/:id" component={ClassificationTest} />
-          <Route path="/updatePassword/:id" component={UpdatePassword} />
-          <Route path="/verify/:token" component={Verify} />
-          <Route path="/management" component={Management} />
-          <Route path="/inbox" component={Inbox} />
-          <Route path="/label/:id/:taskId" component={LabelDocument} />
-          <Route path="/" component={ElementContainer} />
-        </Switch>
-      </NavigationDrawer>
+      <div>
+        <Toolbar
+          colored
+          fixed
+          title="Curation"
+          nav={<Button icon onClick={this.showDrawer}>menu</Button>}
+          actions={<SignButtons />}
+        />
+        <CSSTransitionGroup
+          component="div"
+          transitionName="md-cross-fade"
+          transitionEnterTimeout={300}
+          transitionLeave={false}
+          className="md-toolbar-relative md-grid"
+        >
+          <Switch>
+            <Route path="/document/:id" component={ElementContainer} />
+            <Route path="/training" component={TrainingContainer} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signout" component={SignOut} />
+            <Route path="/manageTest" component={ManageTest} />
+            <Route path="/classificationTest/:id" component={ClassificationTest} />
+            <Route path="/updatePassword/:id" component={UpdatePassword} />
+            <Route path="/verify/:token" component={Verify} />
+            <Route path="/management" component={Management} />
+            <Route path="/inbox" component={Inbox} />
+            <Route path="/label/:id/:taskId" component={LabelDocument} />
+            <Route path="/" component={ElementContainer} />
+          </Switch>
+        </CSSTransitionGroup>
+        <Drawer
+          type={Drawer.DrawerTypes.TEMPORARY}
+          visible={visible}
+          onVisibilityChange={this.handleVisibility}
+          renderNode={this.dialog}
+          navItems={navItems.map(props => <NavItemLink {...props} key={props.to} />)}
+        />
+      </div>
     );
   }
 }
+
+export default withRouter(App);

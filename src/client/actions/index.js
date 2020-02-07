@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
+/* eslint-disable no-undef */
 import _ from 'lodash';
 import axios from 'axios';
 import {
@@ -45,13 +46,15 @@ import {
   OPEN_TASK,
   UPDATE_ALL_SUBFIGURES,
   UPDATE_ALL_SUBFIGURES_SUCCESS,
+  MARK_FIGURE_MISSING_PANELS,
+  MARK_FIGURE_MISSING_PANELS_SUCCESS,
 } from 'client/actions/action_types';
 import TEST_DOCUMENTS from 'client/data/test_documents';
 import TEST_FIGURES from 'client/data/test_figures';
 import TEST_SUBFIGURES from 'client/data/test_subfigures';
 import TEST_ELEMENTS from 'client/data/test_elements';
 
-const API_URL = 'https://localhost:3020/api/';
+const API_URL = process.env.API_URL;
 
 export function fetchElement(id) {
   const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });
@@ -415,6 +418,23 @@ export function updateAllSubfigures(figureId, subfigureId, values, callback) {
       })
       .catch((error) => {
         console.log('error updating subfigures');
+        console.log(error);
+      });
+  };
+}
+
+export function updateFigureMissingPanels(id, isMissingPanels, callback) {
+  return (dispatch) => {
+    dispatch({ type: MARK_FIGURE_MISSING_PANELS });
+    axios.patch(`${API_URL}markFigureMissingPanels`, { 'id': id, 'isMissingPanels': isMissingPanels })
+      .then((res) => {
+        dispatch({ type: MARK_FIGURE_MISSING_PANELS_SUCCESS, payload: res });
+      })
+      .then(() => {
+        callback();
+      })
+      .catch((error) => {
+        console.log('error updating figure');
         console.log(error);
       });
   };

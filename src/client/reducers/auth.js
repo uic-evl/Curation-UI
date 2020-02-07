@@ -15,6 +15,7 @@ export default function (state = INITIAL_STATE, action) {
         roles: action.payload.roles,
         access: action.payload.access,
         organization: action.payload.organization,
+        userId: action.payload.userId,
       };
     case AUTH_ERROR:
       return { ...state, errorMessage: action.payload };

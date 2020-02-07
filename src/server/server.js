@@ -15,12 +15,6 @@ const compiler = webpack(webpackConfig);
 const router = require('./router');
 const { mongoose } = require('./db/mongoose');
 
-// SSL Certificate
-var privateKey = fs.readFileSync(process.env.PK, 'utf8');
-var certificate = fs.readFileSync(process.env.CRT, 'utf8');
-var ca = fs.readFileSync(process.env.CA).toString();
-var credentials = {key: privateKey, cert: certificate, ca:ca};
-
 // Server Setup
 const app = express();
 const port = process.env.PORT || 3050;
@@ -43,13 +37,21 @@ app.get('*', (req, res, next) => {
   });
 });
 
-var httpsServer = https.createServer(credentials, app);
-httpsServer.listen(port, () => {
-  console.log('Starting curation-ui backend on port ' + port);
-})
+// SSL Certificate
+const useHttps = (process.env.CURATION_HTTPS === 'true');
 
-/*
-app.listen(port, () => {
-  console.log('Starting curation-ui backend on port ' + port);
-});
-*/
+if (useHttps) {
+  const privateKey = fs.readFileSync(process.env.PK, 'utf8');
+  const certificate = fs.readFileSync(process.env.CRT, 'utf8');
+  const ca = fs.readFileSync(process.env.CA).toString();
+  const credentials = {key: privateKey, cert: certificate, ca:ca};
+  
+  const httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(port, () => {
+    console.log('Starting curation-ui backend on port ' + port);
+  });
+} else {
+  app.listen(port, () => {
+    console.log('Starting curation-ui backend on port ' + port);
+  });
+}

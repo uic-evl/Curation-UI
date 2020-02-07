@@ -61,13 +61,13 @@ exports.updateSubfigure = function(req, res, next) {
       subfigure.state = STATE_SKIPPED;
     } else {
       subfigure.modalities = values.modalities;
-      //subfigure.modality1 = values.modality1;
-      //subfigure.modality2 = values.modality2;
-      //subfigure.modality3 = values.modality3;
-      //subfigure.modality4 = values.modality4;
       subfigure.needsCropping = values.needsCropping;
       subfigure.isCompound = values.isCompound;
       subfigure.observations = values.observations;
+      subfigure.isOvercropped = values.isOvercropped;
+      subfigure.isMissingSubfigures = values.isMissingSubfigures;
+      subfigure.numberSubpanes = values.numberSubpanes;
+      subfigure.closeUp = values.closeUp;
       subfigure.state = STATE_REVIEWED;
     }
 
@@ -149,4 +149,22 @@ exports.updateAllSubfigures = function(req, res, next) {
       });
     }
   );
+}
+
+exports.markFigureMissingPanels = function(req, res, next) {
+  const id = req.body.id;
+  const isMissingPanels = req.body.isMissingPanels;
+
+  Figure.findById(id, (err, figure) => {
+    if (err) res.send({error: 'Error retrieving the figure' });
+
+    figure.isMissingPanels = isMissingPanels;
+    figure.save((err2, savedFigure) => {
+      if (err2) res.send({error: 'Error saving the figure' });
+      res.send({
+        'selectedFigure': savedFigure,
+        'message': 'Figure updated'
+      });
+    })
+  });
 }

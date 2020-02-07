@@ -45,7 +45,7 @@ class SignIn extends Component {
           {errorMessage}
         </div>
         <Button flat primary type="submit" className="md-cell--right">
-          {'Sign In'}
+          `&apos;`Sign In`&apos;`
         </Button>
       </form>
     );

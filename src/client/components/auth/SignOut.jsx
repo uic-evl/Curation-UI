@@ -12,7 +12,7 @@ class Signout extends Component {
   render() {
     return (
       <div>
-        {'Sorry to see you go'}
+        `&apos;`Sorry to see you go`&apos;`
       </div>
     );
   }

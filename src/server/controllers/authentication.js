@@ -35,9 +35,8 @@ function sendWelcomeEmail(email, token) {
 
 exports.signin = function(req, res, next) {
   // If user is authenticated, give them the token
-  console.log(req.user);
   res.send({
-    user_id: req.user._id,
+    userId: req.user._id,
     username: req.user.username,
     roles: req.user.roles,
     access: req.user.access,

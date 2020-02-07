@@ -16,7 +16,9 @@ const schema = new mongoose.Schema({
     modality3: { type: String },
     modality4: { type: String },
     columnName: { type: String },
+    columnLabel: { type: String },
     simplify: { type: String },
+    order: { type: Number }
   }
 });
 

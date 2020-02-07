@@ -8,6 +8,7 @@ const Tasks = require('./controllers/tasks');
 const Pipeline = require('./controllers/pipeline');
 const DocumentLabeling = require('./controllers/docLabeling');
 const passportService = require('./services/passport');
+const Figures = require('./controllers/figures');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
@@ -25,6 +26,7 @@ module.exports = function(app) {
   app.patch('/api/training/:id', Labeling.updateImage);
   app.patch('/api/updateSubfigure/', DocumentLabeling.updateSubfigure);
   app.patch('/api/updateAllSubfigures/', DocumentLabeling.updateAllSubfigures);
+  app.patch('/api/markFigureMissingPanels/', DocumentLabeling.markFigureMissingPanels);
 
   // Role and groups management
   app.patch('/api/addRole', Security.addRole);
@@ -57,4 +59,6 @@ module.exports = function(app) {
   app.patch('/api/sendPipeTask', Pipeline.sendPipeTask);
 
 
+  // Figures
+  app.get('/api/figures/:state', Figures.fetchFigures);
 }

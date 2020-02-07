@@ -8,7 +8,7 @@
 }
 
 .subfigure-list {
-  white-space: nowrap;
+  /* white-space: nowrap; Causing interface to break when many items appear*/
   overflow: hidden;
   overflow-x: scroll;
 }
@@ -90,4 +90,8 @@
   width: 30px !important;
   padding: 5px !important;
   /*padding-right: 0px !important;*/
+}
+
+.figure-thumbnail {
+  max-width: 280px;
 }
