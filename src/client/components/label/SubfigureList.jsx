@@ -1,15 +1,11 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-debugger */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { selectSubfigureX } from 'client/actions';
-import {
-  List,
-  ListItem,
-  Subheader,
-} from 'react-md';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { selectSubfigureX } from "client/actions";
+import { List, ListItem, Subheader } from "react-md";
 
 class SubfigureList extends Component {
   constructor(props) {
@@ -36,11 +32,11 @@ class SubfigureList extends Component {
   renderFigures() {
     const { figures } = this.props;
     return figures.map((figure) => {
-      let state = 'Reviewed';
-      if (figure.state === 'To Review') {
-        state = 'Unreviewed';
-      } else if (figure.state === 'Skipped') {
-        state = 'Skipped';
+      let state = "Reviewed";
+      if (figure.state === "To Review") {
+        state = "Unreviewed";
+      } else if (figure.state === "Skipped") {
+        state = "Skipped";
       }
 
       return (
@@ -74,8 +70,8 @@ SubfigureList.propTypes = {
 
 function mapStateToProps(props) {
   return {
-    'figures': props.labeling.selectedFigure.subfigures,
-    'selectedFigure': props.labeling.selectedSubfigure,
+    figures: props.labeling.selectedFigure.subfigures,
+    selectedFigure: props.labeling.selectedSubfigure,
   };
 }
 
