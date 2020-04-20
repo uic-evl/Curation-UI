@@ -47,6 +47,26 @@ class Inbox extends Component {
         value: "juantrelles",
         label: "Juan Trelles",
       },
+      {
+        value: "shatkay",
+        label: "Hagit Shatkay",
+      },
+      {
+        value: "cynthia.smith",
+        label: "Cynthia Smith",
+      },
+      {
+        value: "pengyuan",
+        label: "Pengyuan Li",
+      },
+      {
+        value: "martin.ringwald",
+        label: "Martin Ringwald",
+      },
+      {
+        value: "gmarai",
+        label: "Liz Marai",
+      },
     ];
 
     this.state = {
