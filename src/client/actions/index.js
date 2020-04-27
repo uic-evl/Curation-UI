@@ -4,8 +4,11 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
-import _ from 'lodash';
-import axios from 'axios';
+/* eslint-disable quotes */
+/* eslint-disable object-shorthand */
+
+import _ from "lodash";
+import axios from "axios";
 import {
   FETCH_ELEMENT,
   SELECT_DOCUMENT,
@@ -48,17 +51,17 @@ import {
   UPDATE_ALL_SUBFIGURES_SUCCESS,
   MARK_FIGURE_MISSING_PANELS,
   MARK_FIGURE_MISSING_PANELS_SUCCESS,
-} from 'client/actions/action_types';
-import TEST_DOCUMENTS from 'client/data/test_documents';
-import TEST_FIGURES from 'client/data/test_figures';
-import TEST_SUBFIGURES from 'client/data/test_subfigures';
-import TEST_ELEMENTS from 'client/data/test_elements';
+} from "client/actions/action_types";
+import TEST_DOCUMENTS from "client/data/test_documents";
+import TEST_FIGURES from "client/data/test_figures";
+import TEST_SUBFIGURES from "client/data/test_subfigures";
+import TEST_ELEMENTS from "client/data/test_elements";
 
 const API_URL = process.env.API_URL;
 
 export function fetchElement(id) {
-  const element = _.find(TEST_ELEMENTS, { 'id': `${id}` });
-  const documents = _.filter(TEST_DOCUMENTS, { 'pid': `${id}` });
+  const element = _.find(TEST_ELEMENTS, { id: `${id}` });
+  const documents = _.filter(TEST_DOCUMENTS, { pid: `${id}` });
 
   return {
     type: FETCH_ELEMENT,
@@ -70,7 +73,7 @@ export function fetchElement(id) {
 }
 
 export function selectDocument(document) {
-  const figures = _.filter(TEST_FIGURES, { 'document_id': `${document.id}` });
+  const figures = _.filter(TEST_FIGURES, { document_id: `${document.id}` });
 
   return {
     type: SELECT_DOCUMENT,
@@ -82,7 +85,7 @@ export function selectDocument(document) {
 }
 
 export function selectFigure(figure) {
-  const subfigures = _.filter(TEST_SUBFIGURES, { 'figure_id': `${figure.id}` });
+  const subfigures = _.filter(TEST_SUBFIGURES, { figure_id: `${figure.id}` });
   let selectedSubfigure = null;
   if (subfigures.length > 0) {
     selectedSubfigure = subfigures[0];
@@ -126,7 +129,8 @@ export function fetchModalities() {
 }
 
 export function updateTrainingImage(id, values, callback) {
-  const request = axios.patch(`${API_URL}training/${id}`, values)
+  const request = axios
+    .patch(`${API_URL}training/${id}`, values)
     .then(() => callback());
 
   return {
@@ -139,19 +143,19 @@ export const signup = (formProps, callback) => async (dispatch) => {
   try {
     const response = await axios.post(`${API_URL}signup/`, formProps);
     dispatch({ type: AUTH_USER, payload: response.data.token });
-    localStorage.setItem('token', response.data.token);
+    localStorage.setItem("token", response.data.token);
     callback();
   } catch (e) {
-    dispatch({ type: AUTH_ERROR, payload: 'Email in use' });
+    dispatch({ type: AUTH_ERROR, payload: "Email in use" });
   }
 };
 
 export const signout = () => {
-  localStorage.removeItem('token');
+  localStorage.removeItem("token");
 
   return {
     type: AUTH_USER,
-    payload: '',
+    payload: "",
   };
 };
 
@@ -159,15 +163,15 @@ export const signin = (formProps, callback) => async (dispatch) => {
   try {
     const response = await axios.post(`${API_URL}signin/`, formProps);
     dispatch({ type: AUTH_USER, payload: response.data });
-    localStorage.setItem('token', response.data.token);
-    localStorage.setItem('access', response.data.access);
-    localStorage.setItem('username', response.data.username);
-    localStorage.setItem('roles', response.data.roles);
-    localStorage.setItem('organization', response.data.organization);
-    localStorage.setItem('userId', response.data.user_id);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("access", response.data.access);
+    localStorage.setItem("username", response.data.username);
+    localStorage.setItem("roles", response.data.roles);
+    localStorage.setItem("organization", response.data.organization);
+    localStorage.setItem("userId", response.data.user_id);
     callback();
   } catch (e) {
-    dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
+    dispatch({ type: AUTH_ERROR, payload: "Invalid login credentials" });
   }
 };
 
@@ -182,7 +186,8 @@ export function fetchAvailableUserTest(groupName) {
 }
 
 export function createClassificationTest(username, callback) {
-  const request = axios.patch(`${API_URL}createTest`, { curator: username })
+  const request = axios
+    .patch(`${API_URL}createTest`, { curator: username })
     .then(() => callback());
 
   return {
@@ -203,19 +208,37 @@ export function fetchTests() {
 
 export function fetchTasks(username) {
   const url = `${API_URL}getTasks/${username}`;
+
+  return (dispatch) => {
+    axios
+      .get(url)
+      .then((res) => {
+        dispatch({
+          type: FETCH_TASKS,
+          payload: res,
+        });
+      })
+      .catch((error) => {
+        console.log("error fetching tasks");
+        console.log(error);
+      });
+  };
+
+  /*
+  debugger;
   const request = axios.get(url);
 
   return {
     type: FETCH_TASKS,
     payload: request,
-  };
+  }; */
 }
 
 export function fetchNextTestImage(taskId, username, previousId) {
   const values = { username, taskId };
-  let service = 'getNextTestImage';
+  let service = "getNextTestImage";
   if (previousId) {
-    service = 'getPreviousTestImage';
+    service = "getPreviousTestImage";
     values.previous_id = previousId;
   }
 
@@ -227,7 +250,8 @@ export function fetchNextTestImage(taskId, username, previousId) {
 }
 
 export function updateUserTestImage(image, callback) {
-  const request = axios.patch(`${API_URL}updateUserTestImage`, { image })
+  const request = axios
+    .patch(`${API_URL}updateUserTestImage`, { image })
     .then(() => callback());
   return {
     type: UPDATE_USER_TEST_IMAGE,
@@ -246,9 +270,11 @@ export function verifyUser(token, callback) {
 }
 
 export function updatePassword(id, password, callback) {
-  const request = axios.patch(`${API_URL}updatePassword`, { '_id': id, 'password': password }).then((response) => {
-    callback(response.data.message);
-  });
+  const request = axios
+    .patch(`${API_URL}updatePassword`, { _id: id, password: password })
+    .then((response) => {
+      callback(response.data.message);
+    });
 
   return {
     type: UPDATE_PASSWORD,
@@ -295,7 +321,8 @@ export function createGroup(name, organization, supervisor, type, callback) {
       supervisor,
     };
     dispatch({ type: CREATE_GROUP });
-    axios.patch(`${API_URL}createGroup`, values)
+    axios
+      .patch(`${API_URL}createGroup`, values)
       .then((res) => {
         // mapstatetoprops on container, catch event and hide pop up
         dispatch({ type: CREATE_GROUP_SUCCESS, payload: res });
@@ -304,7 +331,7 @@ export function createGroup(name, organization, supervisor, type, callback) {
         callback();
       })
       .catch((error) => {
-        console.log('error creating group');
+        console.log("error creating group");
         console.log(error);
       });
   };
@@ -313,12 +340,13 @@ export function createGroup(name, organization, supervisor, type, callback) {
 export function addUserToRole(userId, role) {
   return (dispatch) => {
     dispatch({ type: ADD_USER_TO_ROLE });
-    axios.patch(`${API_URL}addRole`, { _id: userId, roles: [role] })
+    axios
+      .patch(`${API_URL}addRole`, { _id: userId, roles: [role] })
       .then((res) => {
         dispatch({ type: ADD_USER_TO_ROLE_SUCCESS, payload: res });
       })
       .catch((error) => {
-        console.log('error adding user to role');
+        console.log("error adding user to role");
         console.log(error);
       });
   };
@@ -330,12 +358,13 @@ export function addUserToRole(userId, role) {
 export function removeUserFromRoles(userId, roles) {
   return (dispatch) => {
     dispatch({ type: REMOVE_USER_FROM_ROLE });
-    axios.patch(`${API_URL}removeRole`, { _id: userId, roles })
+    axios
+      .patch(`${API_URL}removeRole`, { _id: userId, roles })
       .then((res) => {
         dispatch({ type: REMOVE_USER_FROM_ROLE_SUCCESS, payload: res });
       })
       .catch((error) => {
-        console.log('error removing role');
+        console.log("error removing role");
         console.log(error);
       });
   };
@@ -347,11 +376,12 @@ export function createUser(email, organization, username, callback) {
       email,
       organization,
       username,
-      'password': '1234', // TODO: change for a random sequence
+      password: "1234", // TODO: change for a random sequence
     };
 
     dispatch({ type: CREATE_USER });
-    axios.patch(`${API_URL}signup`, user)
+    axios
+      .patch(`${API_URL}signup`, user)
       .then((res) => {
         dispatch({ type: CREATE_USER_SUCCESS, payload: res });
       })
@@ -359,7 +389,7 @@ export function createUser(email, organization, username, callback) {
         callback();
       })
       .catch((error) => {
-        console.log('error adding user');
+        console.log("error adding user");
         console.log(error);
       });
   };
@@ -392,7 +422,8 @@ export function selectSubfigureX(selectedSubfigure) {
 export function updateSubfigure(id, values, callback) {
   return (dispatch) => {
     dispatch({ type: UPDATE_SUBFIGURE });
-    axios.patch(`${API_URL}updateSubfigure`, { 'id': id, 'values': values })
+    axios
+      .patch(`${API_URL}updateSubfigure`, { id: id, values: values })
       .then((res) => {
         dispatch({ type: UPDATE_SUBFIGURE_SUCCESS, payload: res });
       })
@@ -400,7 +431,7 @@ export function updateSubfigure(id, values, callback) {
         callback();
       })
       .catch((error) => {
-        console.log('error updating figure');
+        console.log("error updating figure");
         console.log(error);
       });
   };
@@ -409,7 +440,12 @@ export function updateSubfigure(id, values, callback) {
 export function updateAllSubfigures(figureId, subfigureId, values, callback) {
   return (dispatch) => {
     dispatch({ type: UPDATE_ALL_SUBFIGURES });
-    axios.patch(`${API_URL}updateAllSubfigures`, { 'figureId': figureId, 'values': values, 'subfigureId': subfigureId })
+    axios
+      .patch(`${API_URL}updateAllSubfigures`, {
+        figureId: figureId,
+        values: values,
+        subfigureId: subfigureId,
+      })
       .then((res) => {
         dispatch({ type: UPDATE_ALL_SUBFIGURES_SUCCESS, payload: res });
       })
@@ -417,7 +453,7 @@ export function updateAllSubfigures(figureId, subfigureId, values, callback) {
         callback();
       })
       .catch((error) => {
-        console.log('error updating subfigures');
+        console.log("error updating subfigures");
         console.log(error);
       });
   };
@@ -426,7 +462,11 @@ export function updateAllSubfigures(figureId, subfigureId, values, callback) {
 export function updateFigureMissingPanels(id, isMissingPanels, callback) {
   return (dispatch) => {
     dispatch({ type: MARK_FIGURE_MISSING_PANELS });
-    axios.patch(`${API_URL}markFigureMissingPanels`, { 'id': id, 'isMissingPanels': isMissingPanels })
+    axios
+      .patch(`${API_URL}markFigureMissingPanels`, {
+        id: id,
+        isMissingPanels: isMissingPanels,
+      })
       .then((res) => {
         dispatch({ type: MARK_FIGURE_MISSING_PANELS_SUCCESS, payload: res });
       })
@@ -434,7 +474,7 @@ export function updateFigureMissingPanels(id, isMissingPanels, callback) {
         callback();
       })
       .catch((error) => {
-        console.log('error updating figure');
+        console.log("error updating figure");
         console.log(error);
       });
   };
@@ -451,7 +491,7 @@ export function fetchTask(id) {
 }
 
 export function openTask(id) {
-  const request = axios.patch(`${API_URL}openTask`, { 'id': id });
+  const request = axios.patch(`${API_URL}openTask`, { id: id });
 
   return {
     type: OPEN_TASK,
@@ -462,7 +502,12 @@ export function openTask(id) {
 export function finishTask(task, username, userId, callback) {
   return (dispatch) => {
     dispatch({ type: FINISH_TASK });
-    axios.patch(`${API_URL}finishTask`, { 'task': task, 'username': username, 'userId': userId })
+    axios
+      .patch(`${API_URL}finishTask`, {
+        task: task,
+        username: username,
+        userId: userId,
+      })
       .then((res) => {
         dispatch({ type: FINISH_TASK_SUCCESS, payload: res });
       })
@@ -470,7 +515,7 @@ export function finishTask(task, username, userId, callback) {
         callback();
       })
       .catch((error) => {
-        console.log('error finishing the task');
+        console.log("error finishing the task");
         console.log(error);
       });
   };
