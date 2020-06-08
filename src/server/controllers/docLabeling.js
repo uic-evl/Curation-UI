@@ -70,10 +70,8 @@ exports.updateSubfigure = function (req, res, next) {
       subfigure.closeUp = values.closeUp;
       subfigure.isOverfragmented = values.isOverfragmented;
       subfigure.state = STATE_REVIEWED;
+      subfigure.composition = values.composition;
     }
-
-    console.log("isOverfragmented");
-    console.log(subfigure.isOverfragmented);
 
     subfigure.save((err2, savedSubfigure) => {
       console.log(savedSubfigure);

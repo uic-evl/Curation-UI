@@ -100,6 +100,10 @@ const figureSchema = new Schema({
     type: Array,
     default: [],
   },
+  composition: {
+    type: String,
+    default: null,
+  },
   modalities: [Modality.schema],
 });
 

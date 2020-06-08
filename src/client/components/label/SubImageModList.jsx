@@ -28,6 +28,7 @@ import {
   Button,
   Snackbar,
   SelectField,
+  SelectionControlGroup,
 } from "react-md";
 import TooltipCheckbox from "client/components/form/tooltippedCheckbox";
 import { updateSubfigure, updateAllSubfigures } from "client/actions";
@@ -100,6 +101,7 @@ class SubImageModList extends Component {
       toastMessage: "",
       numberSubpanes: 1,
       closeUp: false,
+      composition: null,
     };
 
     this.onChangeCompound = this.onChangeCompound.bind(this);
@@ -112,6 +114,7 @@ class SubImageModList extends Component {
     );
     this.onChangeNumberSubpanes = this.onChangeNumberSubpanes.bind(this);
     this.onChangeIsCloseUp = this.onChangeIsCloseUp.bind(this);
+    this.onChangeComposition = this.onChangeComposition.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onSkip = this.onSkip.bind(this);
     this.onChangeApplyToAll = this.onChangeApplyToAll.bind(this);
@@ -127,6 +130,7 @@ class SubImageModList extends Component {
       isMissingSubfigures,
       numberSubpanes,
       isOverfragmented,
+      composition,
     } = figure;
     const { observations } = figure;
     const { matrix } = this.state;
@@ -144,6 +148,9 @@ class SubImageModList extends Component {
     if (numberSubpanes === undefined) {
       numberSubpanes = 1;
     }
+    if (composition === undefined) {
+      composition = null;
+    }
 
     modalities.forEach((mod) => {
       matrix[mod._id] = { value: true };
@@ -159,6 +166,7 @@ class SubImageModList extends Component {
       isMissingSubfigures,
       numberSubpanes,
       isOverfragmented,
+      composition,
     });
   }
 
@@ -178,7 +186,7 @@ class SubImageModList extends Component {
 
       let { observations, needsCropping, isCompound } = figure;
       let { isOvercropped, isMissingSubfigures, numberSubpanes } = figure;
-      let { closeUp, isOverfragmented } = figure;
+      let { closeUp, isOverfragmented, composition } = figure;
 
       if (observations === undefined) {
         observations = "";
@@ -204,6 +212,9 @@ class SubImageModList extends Component {
       if (isOverfragmented === undefined) {
         isOverfragmented = false;
       }
+      if (composition === undefined) {
+        composition = null;
+      }
 
       if (countSelected === 0 && applyToAll) {
         applyToAll = false;
@@ -221,6 +232,7 @@ class SubImageModList extends Component {
         countSelected,
         applyToAll,
         closeUp,
+        composition,
       });
     }
   }
@@ -268,7 +280,7 @@ class SubImageModList extends Component {
   }
 
   onChangeNumberSubpanes(value) {
-    this.setState({ numberSubpanes: value });
+    if (value === 1) { this.setState({ numberSubpanes: value, composition: null }); } else { this.setState({ numberSubpanes: value }); }
   }
 
   onChangeIsCloseUp(value) {
@@ -277,6 +289,10 @@ class SubImageModList extends Component {
 
   onChangeIsOverfragmented(value) {
     this.setState({ isOverfragmented: value });
+  }
+
+  onChangeComposition(value) {
+    this.setState({ composition: value });
   }
 
   onSave() {
@@ -291,7 +307,6 @@ class SubImageModList extends Component {
       state: SKIPPED,
     };
     updateSubfigure(figure._id, values, () => {
-      console.log("skipped");
       // this.toastSubmit('Subfigure updated!');
     });
   }
@@ -320,6 +335,7 @@ class SubImageModList extends Component {
       "numberSubpanes",
       "closeUp",
       "isOverfragmented",
+      "composition",
     ]);
     const pickedModalities = [];
     matrixIds.forEach((_id) => {
@@ -357,6 +373,11 @@ class SubImageModList extends Component {
   save(all) {
     const matrixIds = this.getMatrixIds();
     if (this.validate(matrixIds)) {
+      if (this.state.numberSubpanes > 1 && this.state.composition === null) {
+        this.toastSubmit("Indicate the compposition of the multi-panes");
+        return;
+      }
+
       const { updateSubfigure, updateAllSubfigures, figure } = this.props;
       const values = this.getValues(matrixIds);
 
@@ -446,10 +467,31 @@ class SubImageModList extends Component {
     const { observations, isCompound, needsCropping } = this.state;
     const { isOvercropped, isMissingSubfigures, numberSubpanes } = this.state;
     const { applyToAll, countSelected, closeUp } = this.state;
-    const { isOverfragmented } = this.state;
+    const { isOverfragmented, composition } = this.state;
     const { toasts, autohide } = this.state;
 
     const lblNoSubpanes = isCompound ? "Number subfigures" : "Number subpanes";
+
+    let compositionRadios = '';
+
+    if (numberSubpanes !== 1) {
+      compositionRadios = (
+        <SelectionControlGroup
+          id="selection-control-group-radios"
+          name="pane-composition"
+          type="radio"
+          value={composition}
+          controls={[{
+            label: 'Heterogeneous',
+            value: 'Heterogeneous',
+          }, {
+            label: 'Homogeneous',
+            value: 'Homogeneous',
+          }]}
+          onChange={this.onChangeComposition}
+        />
+      );
+    }
 
     return (
       <div>
@@ -559,6 +601,8 @@ class SubImageModList extends Component {
               value={numberSubpanes}
               onChange={this.onChangeNumberSubpanes}
             />
+
+            {compositionRadios}
             <TextField
               id="observations"
               label="Comments"
