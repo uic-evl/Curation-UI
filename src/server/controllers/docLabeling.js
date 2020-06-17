@@ -129,6 +129,13 @@ exports.updateAllSubfigures = function (req, res, next) {
       $set: {
         modalities: values.modalities,
         state: STATE_REVIEWED,
+        needsCropping: values.needsCropping,
+        isCompound: values.isCompound,
+        observations: values.observations,
+        isOvercropped: values.isOvercropped,
+        isMissingSubfigures: values.isMissingSubfigures,
+        numberSubpanes: values.numberSubpanes,
+        closeUp: values.closeUp,
       },
     },
     (err, modInfo) => {

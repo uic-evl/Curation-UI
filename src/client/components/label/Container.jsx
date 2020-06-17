@@ -22,6 +22,7 @@ import {
   Snackbar,
   SelectionControl,
   DialogContainer,
+  Drawer,
 } from 'react-md';
 import {
   fetchDocument,
@@ -45,12 +46,14 @@ class LabelDocument extends Component {
     super(props);
     this.onClickFinishTask = this.onClickFinishTask.bind(this);
     this.onChangeIsMissingPanels = this.onChangeIsMissingPanels.bind(this);
+    this.onClickShowPage = this.onClickShowPage.bind(this);
 
     this.state = {
       toasts: [],
       autohide: true,
       toastMessage: true,
       dialogVisible: false,
+      drawerVisible: false,
     };
   }
 
@@ -77,11 +80,21 @@ class LabelDocument extends Component {
     }
   }
 
+  onClickShowPage() {
+    this.setState({ drawerVisible: true });
+  }
+
   onChangeIsMissingPanels(value) {
     const { updateFigureMissingPanels, selectedFigure } = this.props;
     updateFigureMissingPanels(selectedFigure._id, value, () => {
       this.toastSubmit('Figure updated');
     });
+  }
+
+  getPageUrl = (imgUrl) => {
+    const contents = imgUrl.split('/');
+    const pageNum = contents[3].split("_")[0];
+    return `/images/${contents[1]}/xpdf_${contents[2]}/page${pageNum}.png`;
   }
 
   addToast = (text, action, autohide: true) => {
@@ -108,6 +121,14 @@ class LabelDocument extends Component {
   showDialog = () => {
     this.setState({ dialogVisible: true });
   }
+
+  handleDrawerVisibility = (visible) => {
+    this.setState({ drawerVisible: visible });
+  }
+
+  closeDrawer = () => {
+    this.setState({ drawerVisible: false });
+  };
 
   validateTaskDone() {
     const { figures } = this.props;
@@ -138,6 +159,7 @@ class LabelDocument extends Component {
     const pdfUri = `/images${document.uri}`;
     const imageUrl = `/images${selectedSubfigure.uri}`;
     const figureUrl = `/images${selectedFigure.uri}`;
+    const pageUrl = this.getPageUrl(selectedFigure.uri);
 
     // temp fix for missing attribute
     if (selectedFigure.isMissingPanels === undefined) {
@@ -152,6 +174,8 @@ class LabelDocument extends Component {
       },
     ];
 
+    const closeBtn = <Button icon onClick={this.closeDrawer}>close</Button>;
+
     return (
       <div className="md-grid--no-spacing">
         <Grid className="md-grid--no-spacing">
@@ -160,18 +184,42 @@ class LabelDocument extends Component {
             className="md-cell--12"
             title={<a target="_blank" href={pdfUri} download>{`Document ${document.name}`}</a>}
             actions={
-              (
+              [
+                <Button
+                  raised
+                  secondary
+                  onClick={this.onClickShowPage}
+                >
+                  View PDF Page
+                </Button>,
                 <Button
                   raised
                   primary
                   onClick={this.onClickFinishTask}
                 >
                   Finish Task
-                </Button>
-              )
+                </Button>,
+              ]
             }
           />
         </Grid>
+
+        <Drawer
+          id="simple-drawer-example"
+          type={Drawer.DrawerTypes.TEMPORARY}
+          visible={this.state.drawerVisible}
+          position="right"
+          onVisibilityChange={this.handleDrawerVisibility}
+          header={(
+            <Toolbar
+              nav={closeBtn}
+              className="md-divider-border md-divider-border--bottom"
+            />
+          )}
+        >
+          <img src={pageUrl} alt="" width="554" height="750" />
+        </Drawer>
+
         <Grid className="md-grid">
           <Cell size={2} className="md-grid--no-spacing">
             <Grid className="md-grid--no-spacing">

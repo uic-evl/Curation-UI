@@ -102,6 +102,7 @@ class SubImageModList extends Component {
       numberSubpanes: 1,
       closeUp: false,
       composition: null,
+      multipane: false,
     };
 
     this.onChangeCompound = this.onChangeCompound.bind(this);
@@ -115,6 +116,8 @@ class SubImageModList extends Component {
     this.onChangeNumberSubpanes = this.onChangeNumberSubpanes.bind(this);
     this.onChangeIsCloseUp = this.onChangeIsCloseUp.bind(this);
     this.onChangeComposition = this.onChangeComposition.bind(this);
+    this.onChangeMultipane = this.onChangeMultipane.bind(this);
+
     this.onSave = this.onSave.bind(this);
     this.onSkip = this.onSkip.bind(this);
     this.onChangeApplyToAll = this.onChangeApplyToAll.bind(this);
@@ -152,6 +155,11 @@ class SubImageModList extends Component {
       composition = null;
     }
 
+    let multipane = false;
+    if (composition != null) {
+      multipane = true;
+    }
+
     modalities.forEach((mod) => {
       matrix[mod._id] = { value: true };
     });
@@ -167,6 +175,7 @@ class SubImageModList extends Component {
       numberSubpanes,
       isOverfragmented,
       composition,
+      multipane,
     });
   }
 
@@ -216,6 +225,11 @@ class SubImageModList extends Component {
         composition = null;
       }
 
+      let multipane = false;
+      if (composition != null) {
+        multipane = true;
+      }
+
       if (countSelected === 0 && applyToAll) {
         applyToAll = false;
       }
@@ -233,6 +247,7 @@ class SubImageModList extends Component {
         applyToAll,
         closeUp,
         composition,
+        multipane,
       });
     }
   }
@@ -280,7 +295,7 @@ class SubImageModList extends Component {
   }
 
   onChangeNumberSubpanes(value) {
-    if (value === 1) { this.setState({ numberSubpanes: value, composition: null }); } else { this.setState({ numberSubpanes: value }); }
+    this.setState({ numberSubpanes: value });
   }
 
   onChangeIsCloseUp(value) {
@@ -293,6 +308,14 @@ class SubImageModList extends Component {
 
   onChangeComposition(value) {
     this.setState({ composition: value });
+  }
+
+  onChangeMultipane(value) {
+    if (value) {
+      this.setState({ multipane: value });
+    } else {
+      this.setState({ multipane: value, composition: null });
+    }
   }
 
   onSave() {
@@ -474,7 +497,7 @@ class SubImageModList extends Component {
 
     let compositionRadios = '';
 
-    if (numberSubpanes !== 1) {
+    if (this.state.multipane) {
       compositionRadios = (
         <SelectionControlGroup
           id="selection-control-group-radios"
@@ -601,7 +624,17 @@ class SubImageModList extends Component {
               value={numberSubpanes}
               onChange={this.onChangeNumberSubpanes}
             />
-
+            <TooltipCheckbox
+              id="chbox-multipane"
+              type="checkbox"
+              label="Multipane figure"
+              name="multipane"
+              className="md-cell md-cell--12 custom-input-field"
+              checked={this.state.multipane}
+              onChange={this.onChangeMultipane}
+              tooltipLabel="The figure contains multiple image panes"
+              tooltipPosition="top"
+            />
             {compositionRadios}
             <TextField
               id="observations"
