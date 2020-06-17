@@ -62,6 +62,11 @@ exports.fetchTask = function (req, res, next) {
 
 exports.finishTask = function (req, res, next) {
   const { task, username, userId } = req.body;
+  // Dont use userId because you want to remove from the numberTasks of the original user
+  // It may come null when the not logging in properly
+  console.log(userId);
+  console.log(username);
+  console.log(task);
 
   Tasks.findById(task._id, (err1, userTask) => {
     if (err1) res.send({ message: "Error fetching task" });
@@ -73,9 +78,10 @@ exports.finishTask = function (req, res, next) {
       if (err2) res.send({ message: "Error saving task" });
 
       // now reduce the number of tasks by 1
-      User.findById(userId, (err3, user) => {
+      User.findById(userTask.userId, (err3, user) => {
         if (err3) res.send({ message: "Error retrieving user" });
 
+        console.log(user);
         user.numberTasks -= 1;
         user.save((err4, savedUser) => {
           if (err4) res.send({ message: "Error updating user tasks" });
