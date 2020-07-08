@@ -136,6 +136,7 @@ exports.updateAllSubfigures = function (req, res, next) {
         isMissingSubfigures: values.isMissingSubfigures,
         numberSubpanes: values.numberSubpanes,
         closeUp: values.closeUp,
+        isOverfragmented: values.isOverfragmented,
       },
     },
     (err, modInfo) => {
