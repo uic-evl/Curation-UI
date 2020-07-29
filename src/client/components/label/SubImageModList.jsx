@@ -463,9 +463,13 @@ class SubImageModList extends Component {
 
     return cols.map((col) => {
       if (col) {
+        let tooltip = "";
+        if (col.simplify === "Graph") {
+          tooltip = "e.g. phylogenetic trees, graph pathways";
+        }
         return (
           <TableColumn plain className="selection-table" key={col._id}>
-            <Checkbox
+            <TooltipCheckbox
               id={col._id}
               name={col._id}
               label={col.simplify}
@@ -475,6 +479,8 @@ class SubImageModList extends Component {
               onChange={() => {
                 this.onChangeModality(col._id);
               }}
+              tooltipLabel={tooltip}
+              tooltipPosition="top"
             />
           </TableColumn>
         );
