@@ -1,0 +1,170 @@
+.labeling-container {
+    display: grid;
+
+    grid-template-areas:
+        "header header header"
+        "figures document annotation";
+
+    grid-template-columns: 300px 300px 1fr;
+    grid-template-rows: 30px 1fr;
+    grid-gap: 0px;
+
+    height: 90vh;
+    width: 100%;
+}
+  
+.labeling-container .header {
+    grid-area: header;
+    background-color: black;
+}
+  
+.labeling-container .left-panel {
+    grid-area: figures;
+    background-color: white;
+    border: solid 1px #dfdfdf;
+    overflow: auto;
+}
+
+.labeling-container .document-panel {
+    grid-area: document;
+    background-color: red;
+}
+
+.labeling-container .main-panel {
+    grid-area: annotation;
+    background-color: black;
+    border: solid 1px #dfdfdf;
+}
+
+
+/* Figure List on left panel */
+
+.figure-list-item {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    height: 110px;
+    transition: 0.3s;
+}
+
+.figure-list-item:hover { 
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.figure-list-item .image-container {
+    /* Left side of figure-item card where image is shown*/
+    margin-top: 5px;
+    margin-left: 5px; 
+    position: relative;
+}
+
+.figure-list-item .image-container .summary {
+    /* Container for summary shown on top of image */
+    float: left;
+    position: absolute;
+    width: 100px;
+}
+
+.figure-list-item .image-container .summary .flex-wrapper {
+    /* flex container for image number and color bar */
+    display: flex;
+    flex-direction: row;
+    flex: none ;
+    width: 100%;
+}
+
+.figure-list-item .image-container .summary .flex-wrapper .number {
+    z-index: 1000;
+    background-color: #8da0cb;
+    padding: 5px;
+    color: #FFFFFF;
+    width: 20px;
+    text-align: center;
+    border-radius: 1px;
+    font-size: 10px;
+    font-family: Arial;
+}
+
+.figure-list-item .image-container .summary .flex-wrapper .fig-to-review {
+    background-color: #fc8d62;
+    color: black;
+}
+
+.figure-list-item .image-container .summary .flex-wrapper .states {
+    z-index: 1000;
+    background-color: blue;
+    width: 80px;
+    height: 10px;
+    display: flex;
+    flex: none;
+}
+
+.figure-list-item .item-content {
+    font-family: Arial;
+    font-size: 11px;
+    padding-top: 10px;
+    padding-right: 25px;
+    padding-left: 5px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+.figure-list-item .image-container .summary .flex-wrapper .states .to-review {
+    background-color: #fb8072;
+}
+
+.figure-list-item .image-container .summary .flex-wrapper .states .reviewed {
+    background-color: #8dd3c7;
+}
+
+.figure-list-item .image-container .summary .flex-wrapper .states .skipped {
+    background-color: #ffffb3;
+}
+
+@media  screen and (max-width: 1920px) {
+    .labeling-container {
+        grid-template-columns: 400px 300px 1fr;
+    }
+
+    .figure-list-item {
+        width: 400px;
+    }
+}
+
+@media  screen and (max-width: 1024px) {
+    .labeling-container {
+        grid-template-columns: 130px 300px 1fr;
+    }
+
+    .igure-list-item {
+        width: 110px;
+    }
+
+    .figure-list-item .item-content {
+        display: none;
+    }
+}
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  

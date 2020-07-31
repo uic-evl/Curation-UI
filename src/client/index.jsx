@@ -14,6 +14,7 @@ import 'client/styles/carousel.css';
 import 'client/styles/curation.css';
 import 'client/styles/figure_list.css';
 import 'client/styles/header.css';
+import 'client/styles/labelDocument.css';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, promise)(createStore);
 

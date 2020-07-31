@@ -30,6 +30,7 @@ import inboxListItems from 'client/constants/inboxListItems';
 import menu from 'client/icons/menu.svg';
 import arrowBack from 'client/icons/arrow_back.svg';
 import SignButtons from 'client/components/auth/SignButtons';
+import LabelContainer from 'client/components/label/LabelContainer';
 
 const navItems = [
   {
@@ -98,6 +99,7 @@ class App extends PureComponent {
             <Route path="/management" component={Management} />
             <Route path="/inbox" component={Inbox} />
             <Route path="/label/:id/:taskId" component={LabelDocument} />
+            <Route path="/label2/:id/:taskId" component={LabelContainer} />
             <Route path="/" component={ElementContainer} />
           </Switch>
         </CSSTransitionGroup>
