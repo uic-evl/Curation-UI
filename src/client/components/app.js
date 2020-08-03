@@ -71,7 +71,14 @@ class App extends PureComponent {
   render() {
     const { visible } = this.state;
 
+    if (window.location.pathname.includes('label2')) {
+      return (
+        <div><Route path="/label2/:id/:taskId" component={LabelContainer} /></div>
+      );
+    }
+
     return (
+
       <div>
         <Toolbar
           colored

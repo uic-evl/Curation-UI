@@ -18,7 +18,7 @@ const drawStateBar = (count) => {
     );
 }
 
-const FigureListItem = ({ item, idx }) => {
+const FigureListItem = ({ item, idx, selectedId }) => {
     const [count, setCount] = useState({});
     const numberClass = (item.state == "To Review") ? "number fig-to-review" : "number fig-reviewed";
     const baseUrl = "https://tinman.cis.udel.edu/images";
@@ -31,8 +31,10 @@ const FigureListItem = ({ item, idx }) => {
         setCount(subfigCount);
     }, [item]);
 
+    const figureListItemClass = (selectedId === null && idx === 0 || item._id === selectedId) ? 'figure-list-item figure-list-item-selected' : 'figure-list-item';
+
     return (
-        <div className="figure-list-item">
+        <div className={figureListItemClass}>
             <div className="image-container">
                 <div className="summary">
                     <div className="flex-wrapper">

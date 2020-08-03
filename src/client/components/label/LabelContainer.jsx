@@ -23,6 +23,10 @@ import {
 } from 'client/actions';
 import requireAuth from 'client/components/auth/requireAuth';
 import FigureList2 from './FigureList2';
+import PdfViewer from '../pdfViewer/PdfViewer';
+import Matrix from './Matrix';
+import SubfigureList2 from './SubfigureList2';
+import Observations from './Observations';
 
 class LabelContainer extends Component {
     constructor(props) {
@@ -52,10 +56,19 @@ class LabelContainer extends Component {
             <div className="labeling-container">
                 <header className="header"></header>
                 <section className="left-panel">
-                    {this.props.figures && <FigureList2 figures={this.props.figures} />}
+                    {this.props.figures && <FigureList2 figures={this.props.figures} selectedId={null} />}
                 </section>
-                <section className="document-panel"></section>
-                <section className="main-panel"></section>
+                <section className="document-panel">
+                    <PdfViewer pdfUrl={'https://tinman.cis.udel.edu/images/pP31412244/P31412244.pdf'} />
+                </section>
+                <section className="main-panel">
+                    {this.props.figures && <SubfigureList2 subfigures={this.props.figures[0].subfigures} />}
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                        <div><img src="https://via.placeholder.com/500" width="500" height="500" alt="" /></div>
+                        <Observations />
+                    </div>
+                    <Matrix />
+                </section>
             </div>
         )
     }

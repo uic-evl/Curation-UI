@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+}
+
 .labeling-container {
     display: grid;
 
@@ -5,35 +9,36 @@
         "header header header"
         "figures document annotation";
 
-    grid-template-columns: 300px 300px 1fr;
+    grid-template-columns: 300px 600px 1fr;
     grid-template-rows: 30px 1fr;
     grid-gap: 0px;
 
-    height: 90vh;
+    height: 100vh;
     width: 100%;
 }
   
 .labeling-container .header {
     grid-area: header;
-    background-color: black;
+    background-color: #1e1f26;
 }
   
 .labeling-container .left-panel {
     grid-area: figures;
     background-color: white;
-    border: solid 1px #dfdfdf;
     overflow: auto;
 }
 
 .labeling-container .document-panel {
     grid-area: document;
-    background-color: red;
+    background-color:#2a2c36;
+    width: 100%;
+    overflow: auto;
+    padding: 16px 16px;
 }
 
 .labeling-container .main-panel {
     grid-area: annotation;
-    background-color: black;
-    border: solid 1px #dfdfdf;
+    background-color: #2a2c36;
 }
 
 
@@ -44,6 +49,11 @@
     grid-template-columns: 110px 1fr;
     height: 110px;
     transition: 0.3s;
+}
+
+.figure-list-item-selected {
+    background-color: #2a2c36;
+    color: white;
 }
 
 .figure-list-item:hover { 
@@ -125,17 +135,31 @@
 
 @media  screen and (max-width: 1920px) {
     .labeling-container {
-        grid-template-columns: 400px 300px 1fr;
+        grid-template-columns: 400px 650px 1fr;
     }
 
     .figure-list-item {
-        width: 400px;
+        width: 390px;
+    }
+}
+
+@media  screen and (max-width: 1500px) {
+    .labeling-container {
+        grid-template-columns: 130px 500px 1fr;
+    }
+
+    .igure-list-item {
+        width: 110px;
+    }
+
+    .figure-list-item .item-content {
+        display: none;
     }
 }
 
 @media  screen and (max-width: 1024px) {
     .labeling-container {
-        grid-template-columns: 130px 300px 1fr;
+        grid-template-columns: 130px 400px 1fr;
     }
 
     .igure-list-item {
@@ -168,3 +192,122 @@
     background: #555; 
   }
   
+
+  /* Annotation Matrix */
+  .matrix-row {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    font-family: FreightSans, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    min-width: 550px;
+  }
+  
+  .matrix-row > div {
+    border: 2px solid #fff;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 2rem;
+    line-height: 1.1rem;
+  }
+  
+  .matrix-header {
+    flex: none;
+    background-color: white;
+    width: 150px;
+  }
+  
+  .matrix-elem {
+    flex: 1;
+    background-color: #f3f4f7;
+    cursor: pointer;
+  }
+  
+  .matrix-elem:hover {
+    background-color: orange;
+  }
+  
+  .selected {
+    background-color: orange;
+    font-weight: bold;
+  }
+  
+  .matrix-elem span {
+    min-height: 30px;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .matrix-header span {
+    min-height: 30px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  /* Subfigures List */
+  .subfigures-wrapper {
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    overflow: auto;
+    max-width: 870px;
+  }
+  
+  .subfigures-wrapper > div {
+      flex: 1;
+    border-top: 8px;
+    border-left: 2px;
+    border-right: 2px;
+    border-bottom: 4px;
+    border-color: #000;
+    border-style: solid;
+    border-radius: 10px;
+  /*    border: 4px solid #000;  */
+  }
+  
+  .subfigures-wrapper > div:nth-child(1) {
+    border-top: 8px;
+    border-left: 8px;
+    border-right: 2px;
+    border-bottom: 0px;
+    border-color: #000;
+    border-style: solid;
+  }
+  
+  .subfigures-wrapper > div:hover {
+    border-top: 8px;
+    border-left: 8px;
+    border-right: 8px;
+    border-bottom: 4px;
+    border-color: orange;
+    border-style: solid;
+  }
+  
+  .subfigures-wrapper > div > img {
+  /*   border-radius: 10px; */
+  }
+  
+  .state {
+    height: 5px;
+  }
+  
+  .pending {
+    background-color: #fb8072;
+  }
+  
+  .reviewed {
+    background-color: #8dd3c7;
+  }
+  
+  .skipped {
+    background-color: #ffffb3;
+  }
+  
+
+  /* Observations wrapper */
+
+.observations-wrapper {
+    display: flex;
+    flex-direction: column;
+}
