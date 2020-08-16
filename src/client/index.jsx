@@ -15,6 +15,7 @@ import 'client/styles/curation.css';
 import 'client/styles/figure_list.css';
 import 'client/styles/header.css';
 import 'client/styles/labelDocument.css';
+import 'semantic-ui-css/semantic.min.css';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, promise)(createStore);
 

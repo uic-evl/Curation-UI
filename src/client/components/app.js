@@ -1,46 +1,43 @@
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
-import React, { PureComponent } from 'react';
-import {
-  NavigationDrawer,
-  SVGIcon,
-  Drawer,
-  Toolbar,
-  Button,
-} from 'react-md';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { Route, Switch, Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+/* eslint-disable */
+import React, { PureComponent } from "react";
+import { NavigationDrawer, SVGIcon, Drawer, Toolbar, Button } from "react-md";
+import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
+import { Route, Switch, Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
-import NavItemLink from 'client/components/form/NavItemLink';
-import ElementContainer from 'client/containers/element_container';
-import TrainingContainer from 'client/containers/training_container';
-import SignIn from 'client/components/auth/SignIn';
-import SignOut from 'client/components/auth/SignOut';
-import ManageTest from 'client/components/humanError/ManageTest';
-import Inbox from 'client/components/inbox/Inbox';
-import ClassificationTest from 'client/components/humanError/ClassificationTest';
-import Verify from 'client/components/auth/Verify';
-import UpdatePassword from 'client/components/auth/UpdatePassword';
-import Management from 'client/components/userManagement/Container';
-import LabelDocument from 'client/components/label/Container';
+import NavItemLink from "client/components/form/NavItemLink";
+import ElementContainer from "client/containers/element_container";
+import TrainingContainer from "client/containers/training_container";
+import SignIn from "client/components/auth/SignIn";
+import SignOut from "client/components/auth/SignOut";
+import ManageTest from "client/components/humanError/ManageTest";
+import Inbox from "client/components/inbox/Inbox";
+import ClassificationTest from "client/components/humanError/ClassificationTest";
+import Verify from "client/components/auth/Verify";
+import UpdatePassword from "client/components/auth/UpdatePassword";
+import Management from "client/components/userManagement/Container";
+import LabelDocument from "client/components/label/Container";
 
-import inboxListItems from 'client/constants/inboxListItems';
-import menu from 'client/icons/menu.svg';
-import arrowBack from 'client/icons/arrow_back.svg';
-import SignButtons from 'client/components/auth/SignButtons';
-import LabelContainer from 'client/components/label/LabelContainer';
+import inboxListItems from "client/constants/inboxListItems";
+import menu from "client/icons/menu.svg";
+import arrowBack from "client/icons/arrow_back.svg";
+import SignButtons from "client/components/auth/SignButtons";
+import LabelContainer from "client/components/label/LabelContainer";
+
+import FiguresGrid from "client/components/figuresViewer/FiguresGrid";
+import SeachSubfigures from "client/components/subfigures/SearchSubfigures";
 
 const navItems = [
   {
-    label: 'Inbox',
-    to: '/inbox',
+    label: "Inbox",
+    to: "/inbox",
     exact: true,
-    icon: 'inbox',
+    icon: "inbox",
   },
 ];
-
 
 class App extends PureComponent {
   constructor() {
@@ -53,7 +50,7 @@ class App extends PureComponent {
 
   componentDidMount() {
     // Need to set the renderNode since the drawer uses an overlay
-    this.dialog = document.getElementById('drawer-routing-example-dialog');
+    this.dialog = document.getElementById("drawer-routing-example-dialog");
   }
 
   showDrawer = () => {
@@ -66,25 +63,30 @@ class App extends PureComponent {
 
   handleVisibility = (visible) => {
     this.setState({ visible });
-  }
+  };
 
   render() {
     const { visible } = this.state;
 
-    if (window.location.pathname.includes('label2')) {
+    if (window.location.pathname.includes("label2")) {
       return (
-        <div><Route path="/label2/:id/:taskId" component={LabelContainer} /></div>
+        <div>
+          <Route path="/label2/:id/:taskId" component={LabelContainer} />
+        </div>
       );
     }
 
     return (
-
       <div>
         <Toolbar
           colored
           fixed
           title="Curation"
-          nav={<Button icon onClick={this.showDrawer}>menu</Button>}
+          nav={
+            <Button icon onClick={this.showDrawer}>
+              menu
+            </Button>
+          }
           actions={<SignButtons />}
         />
         <CSSTransitionGroup
@@ -100,13 +102,18 @@ class App extends PureComponent {
             <Route path="/signin" component={SignIn} />
             <Route path="/signout" component={SignOut} />
             <Route path="/manageTest" component={ManageTest} />
-            <Route path="/classificationTest/:id" component={ClassificationTest} />
+            <Route
+              path="/classificationTest/:id"
+              component={ClassificationTest}
+            />
             <Route path="/updatePassword/:id" component={UpdatePassword} />
             <Route path="/verify/:token" component={Verify} />
             <Route path="/management" component={Management} />
             <Route path="/inbox" component={Inbox} />
             <Route path="/label/:id/:taskId" component={LabelDocument} />
             <Route path="/label2/:id/:taskId" component={LabelContainer} />
+            <Route path="/viewer" component={FiguresGrid} />
+            <Route path="/subfigures" component={SeachSubfigures} />
             <Route path="/" component={ElementContainer} />
           </Switch>
         </CSSTransitionGroup>
@@ -115,7 +122,9 @@ class App extends PureComponent {
           visible={visible}
           onVisibilityChange={this.handleVisibility}
           renderNode={this.dialog}
-          navItems={navItems.map(props => <NavItemLink {...props} key={props.to} />)}
+          navItems={navItems.map((props) => (
+            <NavItemLink {...props} key={props.to} />
+          ))}
         />
       </div>
     );

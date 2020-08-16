@@ -1,313 +1,324 @@
 body {
-    margin: 0;
+  margin: 0;
 }
 
 .labeling-container {
-    display: grid;
+  display: grid;
 
-    grid-template-areas:
-        "header header header"
-        "figures document annotation";
+  grid-template-areas:
+    "header header header"
+    "figures document annotation";
 
-    grid-template-columns: 300px 600px 1fr;
-    grid-template-rows: 30px 1fr;
-    grid-gap: 0px;
+  grid-template-columns: 300px 600px 1fr;
+  grid-template-rows: 30px 1fr;
+  grid-gap: 0px;
 
-    height: 100vh;
-    width: 100%;
+  height: 100vh;
+  width: 100%;
 }
-  
+
 .labeling-container .header {
-    grid-area: header;
-    background-color: #1e1f26;
+  grid-area: header;
+  background-color: #1e1f26;
 }
-  
+
 .labeling-container .left-panel {
-    grid-area: figures;
-    background-color: white;
-    overflow: auto;
+  grid-area: figures;
+  background-color: white;
+  overflow: auto;
 }
 
 .labeling-container .document-panel {
-    grid-area: document;
-    background-color:#2a2c36;
-    width: 100%;
-    overflow: auto;
-    padding: 16px 16px;
+  grid-area: document;
+  background-color: #2a2c36;
+  width: 100%;
+  overflow: auto;
+  padding: 16px 16px;
 }
 
 .labeling-container .main-panel {
-    grid-area: annotation;
-    background-color: #2a2c36;
+  grid-area: annotation;
+  background-color: #2a2c36;
 }
-
 
 /* Figure List on left panel */
 
 .figure-list-item {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    height: 110px;
-    transition: 0.3s;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  height: 110px;
+  transition: 0.3s;
 }
 
 .figure-list-item-selected {
-    background-color: #2a2c36;
-    color: white;
+  background-color: #2a2c36;
+  color: white;
 }
 
-.figure-list-item:hover { 
-    cursor: pointer;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+.figure-list-item:hover {
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .figure-list-item .image-container {
-    /* Left side of figure-item card where image is shown*/
-    margin-top: 5px;
-    margin-left: 5px; 
-    position: relative;
+  /* Left side of figure-item card where image is shown*/
+  margin-top: 5px;
+  margin-left: 5px;
+  position: relative;
 }
 
 .figure-list-item .image-container .summary {
-    /* Container for summary shown on top of image */
-    float: left;
-    position: absolute;
-    width: 100px;
+  /* Container for summary shown on top of image */
+  float: left;
+  position: absolute;
+  width: 100px;
 }
 
 .figure-list-item .image-container .summary .flex-wrapper {
-    /* flex container for image number and color bar */
-    display: flex;
-    flex-direction: row;
-    flex: none ;
-    width: 100%;
+  /* flex container for image number and color bar */
+  display: flex;
+  flex-direction: row;
+  flex: none;
+  width: 100%;
 }
 
 .figure-list-item .image-container .summary .flex-wrapper .number {
-    z-index: 1000;
-    background-color: #8da0cb;
-    padding: 5px;
-    color: #FFFFFF;
-    width: 20px;
-    text-align: center;
-    border-radius: 1px;
-    font-size: 10px;
-    font-family: Arial;
+  z-index: 1000;
+  background-color: #8da0cb;
+  padding: 5px;
+  color: #ffffff;
+  width: 20px;
+  text-align: center;
+  border-radius: 1px;
+  font-size: 10px;
+  font-family: Arial;
 }
 
 .figure-list-item .image-container .summary .flex-wrapper .fig-to-review {
-    background-color: #fc8d62;
-    color: black;
+  background-color: #fc8d62;
+  color: black;
 }
 
 .figure-list-item .image-container .summary .flex-wrapper .states {
-    z-index: 1000;
-    background-color: blue;
-    width: 80px;
-    height: 10px;
-    display: flex;
-    flex: none;
+  z-index: 1000;
+  background-color: blue;
+  width: 80px;
+  height: 10px;
+  display: flex;
+  flex: none;
 }
 
 .figure-list-item .item-content {
-    font-family: Arial;
-    font-size: 11px;
-    padding-top: 10px;
-    padding-right: 25px;
-    padding-left: 5px;
-    margin-bottom: 14px;
-    overflow: hidden;
-    text-align: justify;
-    text-justify: inter-word;
-  }
+  font-family: Arial;
+  font-size: 11px;
+  padding-top: 10px;
+  padding-right: 25px;
+  padding-left: 5px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  text-align: justify;
+  text-justify: inter-word;
+}
 
 .figure-list-item .image-container .summary .flex-wrapper .states .to-review {
-    background-color: #fb8072;
+  background-color: #fb8072;
 }
 
 .figure-list-item .image-container .summary .flex-wrapper .states .reviewed {
-    background-color: #8dd3c7;
+  background-color: #8dd3c7;
 }
 
 .figure-list-item .image-container .summary .flex-wrapper .states .skipped {
-    background-color: #ffffb3;
+  background-color: #ffffb3;
 }
 
-@media  screen and (max-width: 1920px) {
-    .labeling-container {
-        grid-template-columns: 400px 650px 1fr;
-    }
+@media screen and (max-width: 1920px) {
+  .labeling-container {
+    grid-template-columns: 400px 650px 1fr;
+  }
 
-    .figure-list-item {
-        width: 390px;
-    }
+  .figure-list-item {
+    width: 390px;
+  }
 }
 
-@media  screen and (max-width: 1500px) {
-    .labeling-container {
-        grid-template-columns: 130px 500px 1fr;
-    }
+@media screen and (max-width: 1500px) {
+  .labeling-container {
+    grid-template-columns: 130px 500px 1fr;
+  }
 
-    .igure-list-item {
-        width: 110px;
-    }
+  .igure-list-item {
+    width: 110px;
+  }
 
-    .figure-list-item .item-content {
-        display: none;
-    }
+  .figure-list-item .item-content {
+    display: none;
+  }
 }
 
-@media  screen and (max-width: 1024px) {
-    .labeling-container {
-        grid-template-columns: 130px 400px 1fr;
-    }
+@media screen and (max-width: 1024px) {
+  .labeling-container {
+    grid-template-columns: 130px 400px 1fr;
+  }
 
-    .igure-list-item {
-        width: 110px;
-    }
+  .igure-list-item {
+    width: 110px;
+  }
 
-    .figure-list-item .item-content {
-        display: none;
-    }
+  .figure-list-item .item-content {
+    display: none;
+  }
 }
 
 /* Scrollbar */
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
-  
+  width: 10px;
+}
 
-  /* Annotation Matrix */
-  .matrix-row {
-    display: flex;
-    flex-direction: row;
-    align-items:center;
-    font-family: FreightSans, Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    min-width: 550px;
-  }
-  
-  .matrix-row > div {
-    border: 2px solid #fff;
-    padding-left: 5px;
-    padding-right: 5px;
-    height: 2rem;
-    line-height: 1.1rem;
-  }
-  
-  .matrix-header {
-    flex: none;
-    background-color: white;
-    width: 150px;
-  }
-  
-  .matrix-elem {
-    flex: 1;
-    background-color: #f3f4f7;
-    cursor: pointer;
-  }
-  
-  .matrix-elem:hover {
-    background-color: orange;
-  }
-  
-  .selected {
-    background-color: orange;
-    font-weight: bold;
-  }
-  
-  .matrix-elem span {
-    min-height: 30px;
-    display: inline-flex;
-    align-items: center;
-  }
-  
-  .matrix-header span {
-    min-height: 30px;
-    display: inline-flex;
-    align-items: center;
-    font-weight: bold;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
 
-  /* Subfigures List */
-  .subfigures-wrapper {
-    display: flex;
-    flex-direction: row;
-    background-color: black;
-    overflow: auto;
-    max-width: 870px;
-  }
-  
-  .subfigures-wrapper > div {
-      flex: 1;
-    border-top: 8px;
-    border-left: 2px;
-    border-right: 2px;
-    border-bottom: 4px;
-    border-color: #000;
-    border-style: solid;
-    border-radius: 10px;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Annotation Matrix */
+.matrix-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: FreightSans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  min-width: 550px;
+}
+
+.matrix-row > div {
+  border: 2px solid #fff;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 2rem;
+  line-height: 1.1rem;
+}
+
+.matrix-header {
+  flex: none;
+  background-color: white;
+  width: 150px;
+}
+
+.matrix-elem {
+  flex: 1;
+  background-color: #f3f4f7;
+  cursor: pointer;
+}
+
+.matrix-elem:hover {
+  background-color: orange;
+}
+
+.selected {
+  background-color: orange;
+  font-weight: bold;
+}
+
+.matrix-elem span {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.matrix-header span {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Subfigures List */
+.subfigures-wrapper {
+  display: flex;
+  flex-direction: row;
+  background-color: black;
+  overflow: auto;
+  max-width: 870px;
+}
+
+.subfigures-wrapper > div {
+  flex: 1;
+  border-top: 8px;
+  border-left: 2px;
+  border-right: 2px;
+  border-bottom: 4px;
+  border-color: #000;
+  border-style: solid;
+  border-radius: 10px;
   /*    border: 4px solid #000;  */
-  }
-  
-  .subfigures-wrapper > div:nth-child(1) {
-    border-top: 8px;
-    border-left: 8px;
-    border-right: 2px;
-    border-bottom: 0px;
-    border-color: #000;
-    border-style: solid;
-  }
-  
-  .subfigures-wrapper > div:hover {
-    border-top: 8px;
-    border-left: 8px;
-    border-right: 8px;
-    border-bottom: 4px;
-    border-color: orange;
-    border-style: solid;
-  }
-  
-  .subfigures-wrapper > div > img {
-  /*   border-radius: 10px; */
-  }
-  
-  .state {
-    height: 5px;
-  }
-  
-  .pending {
-    background-color: #fb8072;
-  }
-  
-  .reviewed {
-    background-color: #8dd3c7;
-  }
-  
-  .skipped {
-    background-color: #ffffb3;
-  }
-  
+}
 
-  /* Observations wrapper */
+.subfigures-wrapper > div:nth-child(1) {
+  border-top: 8px;
+  border-left: 8px;
+  border-right: 2px;
+  border-bottom: 0px;
+  border-color: #000;
+  border-style: solid;
+}
+
+.subfigures-wrapper > div:hover {
+  border-top: 8px;
+  border-left: 8px;
+  border-right: 8px;
+  border-bottom: 4px;
+  border-color: orange;
+  border-style: solid;
+}
+
+.subfigures-wrapper > div > img {
+  /*   border-radius: 10px; */
+}
+
+.state {
+  height: 5px;
+}
+
+.pending {
+  background-color: #fb8072;
+}
+
+.reviewed {
+  background-color: #8dd3c7;
+}
+
+.skipped {
+  background-color: #ffffb3;
+}
+
+/* Observations wrapper */
 
 .observations-wrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Figures viewer */
+.figures-viewer {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  width: 100%;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }

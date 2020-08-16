@@ -42,9 +42,8 @@ module.exports = {
           }
         ],
       }, {
-        test: /\.(woff2?|ttf|eot|svg)$/,
+        test: /\.(woff|woff2|ttf|eot|svg|png)$/,
         loader: 'url-loader?limit=10000',
-        exclude: /node_modules|SVGIcon\/icons/,
       }, {
         test: /\.(scss|css)$/,
         use: [

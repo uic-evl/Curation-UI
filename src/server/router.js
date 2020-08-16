@@ -13,7 +13,7 @@ const Figures = require('./controllers/figures');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Authentication
   app.post('/api/signin', requireSignin, Authentication.signin);
   app.patch('/api/signup', Authentication.signup);
@@ -61,4 +61,5 @@ module.exports = function(app) {
 
   // Figures
   app.get('/api/fetchFigures/:state', Figures.fetchFigures);
+  app.get('/api/searchSubfigures/', Figures.searchSubfigures);
 }
