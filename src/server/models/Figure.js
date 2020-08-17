@@ -105,6 +105,10 @@ const figureSchema = new Schema({
     default: null,
   },
   modalities: [Modality.schema],
+  flag: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const FigureModel = mongoose.model("figure", figureSchema);

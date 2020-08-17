@@ -26,6 +26,39 @@ const stateOptions = [
     }
 ]
 
+const observationOptions = [
+    {
+        key: 1,
+        value: 'isCompound',
+        text: 'Compound Image',
+    },
+    {
+        key: 2,
+        value: 'isOvercropped',
+        text: 'Overcropped',
+    },
+    {
+        key: 3,
+        value: 'isOverfragmented',
+        text: 'Overfragmented',
+    },
+    {
+        key: 4,
+        value: 'needsCropping',
+        text: 'Needs Cropping',
+    },
+    {
+        key: 5,
+        value: 'closeUp',
+        text: 'Close-up',
+    },
+    {
+        key: 6,
+        value: 'flag',
+        text: 'Flag',
+    },
+]
+
 const API_URL = process.env.API_URL;
 
 const SearchBar = ({ onSearch }) => {
@@ -33,12 +66,14 @@ const SearchBar = ({ onSearch }) => {
     const [observations, setObservations] = useState('');
     const [subfigureState, setSubfigureState] = useState('All');
     const [selectedModalities, setSelectedModalities] = useState([]);
+    const [selectedObservations, setSelectedObservations] = useState([]);
 
     const handleSearch = () => {
         const filters = {
             observations: (observations) ? observations : undefined,
             state: (subfigureState === 'All') ? undefined : subfigureState,
             modalities: (selectedModalities),
+            additionalObservations: selectedObservations,
         }
         onSearch(filters);
     };
@@ -89,6 +124,15 @@ const SearchBar = ({ onSearch }) => {
                     onChange={(e, { value }) => setSelectedModalities(value)}
                 />
             }
+
+            <Dropdown
+                placeholder='Observations'
+                fluid
+                multiple
+                selection
+                options={observationOptions}
+                onChange={(e, { value }) => setSelectedObservations(value)}
+            />
 
             <Button onClick={handleSearch}>Search</Button>
         </div>

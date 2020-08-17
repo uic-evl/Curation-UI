@@ -40,7 +40,7 @@ exports.searchSubfigures = async function (req, res) {
     }
 
     const skips = pageSize * (pageNumber - 1)
-    const { state, modalities, observations } = req.query;
+    const { state, modalities, observations, additional } = req.query;
 
     const filter = { type: 'Subfigure' };
     if (state !== undefined) {
@@ -54,6 +54,29 @@ exports.searchSubfigures = async function (req, res) {
         mods = mods.map(modality => new ObjectID(modality));
         filter['modalities._id'] = { $in: mods };
     }
+    if (additional !== undefined) {
+        const additionalObs = additional.split(',');
+        if (additionalObs.length > 0) {
+            if (additionalObs.includes('isCompound')) {
+                filter['isCompound'] = true
+            }
+            if (additionalObs.includes('isOvercropped')) {
+                filter['isOvercropped'] = true
+            }
+            if (additionalObs.includes('needsCropping')) {
+                filter['needsCropping'] = true
+            }
+            if (additionalObs.includes('closeUp')) {
+                filter['closeUp'] = true
+            }
+            if (additionalObs.includes('isOverfragmented')) {
+                filter['isOverfragmented'] = true
+            }
+            if (additionalObs.includes('flag')) {
+                filter['flag'] = true
+            }
+        }
+    }
 
     const totalSubfigures = await Figure.count(filter);
     const subfigures = await Figure.find(filter).skip(skips).limit(pageSize);
@@ -63,4 +86,24 @@ exports.searchSubfigures = async function (req, res) {
         message: `Retrieved ${subfigures.length} subfigures`,
         error: null,
     });
+}
+
+exports.flag = async function (req, res) {
+    const id = req.params.id;
+    const flag = req.body.flag;
+
+    const figure = await Figure.findById(id);
+    figure['flag'] = flag;
+
+    try {
+        const savedFigure = await figure.save()
+        res.send({
+            figure: savedFigure,
+            error: null,
+        })
+    } catch (error) {
+        res.send({
+            error,
+        });
+    }
 }
