@@ -369,7 +369,7 @@ class SubImageModList extends Component {
     return values;
   }
 
-  addToast = (text, action, autohide: true) => {
+  addToast = (text, action, autohide = true) => {
     this.setState((state) => {
       const toasts = state.toasts.slice();
       toasts.push({ text, action });
@@ -501,7 +501,7 @@ class SubImageModList extends Component {
 
     const lblNoSubpanes = isCompound ? "Number subfigures" : "Number subpanes";
 
-    let compositionRadios = '';
+    let compositionRadios = "";
 
     if (this.state.multipane) {
       compositionRadios = (
@@ -510,13 +510,16 @@ class SubImageModList extends Component {
           name="pane-composition"
           type="radio"
           value={composition}
-          controls={[{
-            label: 'Heterogeneous',
-            value: 'Heterogeneous',
-          }, {
-            label: 'Homogeneous',
-            value: 'Homogeneous',
-          }]}
+          controls={[
+            {
+              label: "Heterogeneous",
+              value: "Heterogeneous",
+            },
+            {
+              label: "Homogeneous",
+              value: "Homogeneous",
+            },
+          ]}
           onChange={this.onChangeComposition}
         />
       );

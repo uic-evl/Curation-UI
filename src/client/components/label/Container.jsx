@@ -9,9 +9,9 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   Grid,
   Cell,
@@ -23,23 +23,23 @@ import {
   SelectionControl,
   DialogContainer,
   Drawer,
-} from 'react-md';
+} from "react-md";
 import {
   fetchDocument,
   fetchModalities,
   openTask,
   finishTask,
   updateFigureMissingPanels,
-} from 'client/actions';
-import requireAuth from 'client/components/auth/requireAuth';
-import DocumentTitle from 'client/components/label/Header';
-import FigureList from 'client/components/label/FigureList';
-import SubfigureList from 'client/components/label/SubfigureList';
-import MainImage from 'client/components/label/MainImageCaption';
-import SubImage from 'client/components/label/SubImage';
-import SubImageModList from 'client/components/label/SubImageModList';
-import ModalitiesTree from 'client/components/label/Tree';
-import { parseValuesSelectField } from 'client/containers/utils/training_form';
+} from "client/actions";
+import requireAuth from "client/components/auth/requireAuth";
+import DocumentTitle from "client/components/label/Header";
+import FigureList from "client/components/label/FigureList";
+import SubfigureList from "client/components/label/SubfigureList";
+import MainImage from "client/components/label/MainImageCaption";
+import SubImage from "client/components/label/SubImage";
+import SubImageModList from "client/components/label/SubImageModList";
+import ModalitiesTree from "client/components/label/Tree";
+import { parseValuesSelectField } from "client/containers/utils/training_form";
 
 class LabelDocument extends Component {
   constructor(props) {
@@ -71,12 +71,12 @@ class LabelDocument extends Component {
       const { history, finishTask } = this.props;
 
       finishTask(task, username, userId, () => {
-        console.log('Task finished');
-        history.push('/inbox');
+        console.log("Task finished");
+        history.push("/inbox");
       });
     } else {
-      console.log('not reviewed');
-      this.toastSubmit('You need to review all the figures and subfigures');
+      console.log("not reviewed");
+      this.toastSubmit("You need to review all the figures and subfigures");
     }
   }
 
@@ -87,17 +87,17 @@ class LabelDocument extends Component {
   onChangeIsMissingPanels(value) {
     const { updateFigureMissingPanels, selectedFigure } = this.props;
     updateFigureMissingPanels(selectedFigure._id, value, () => {
-      this.toastSubmit('Figure updated');
+      this.toastSubmit("Figure updated");
     });
   }
 
   getPageUrl = (imgUrl) => {
-    const contents = imgUrl.split('/');
+    const contents = imgUrl.split("/");
     const pageNum = contents[3].split("_")[0];
     return `/images/${contents[1]}/xpdf_${contents[2]}/page${pageNum}.png`;
-  }
+  };
 
-  addToast = (text, action, autohide: true) => {
+  addToast = (text, action, autohide = true) => {
     this.setState((state) => {
       const toasts = state.toasts.slice();
       toasts.push({ text, action });
@@ -108,23 +108,23 @@ class LabelDocument extends Component {
   dismissToast = () => {
     const [, ...toasts] = this.state.toasts;
     this.setState({ toasts });
-  }
+  };
 
   toastSubmit = (message) => {
     this.addToast(message);
-  }
+  };
 
   hideDialog = () => {
     this.setState({ dialogVisible: false });
-  }
+  };
 
   showDialog = () => {
     this.setState({ dialogVisible: true });
-  }
+  };
 
   handleDrawerVisibility = (visible) => {
     this.setState({ drawerVisible: visible });
-  }
+  };
 
   closeDrawer = () => {
     this.setState({ drawerVisible: false });
@@ -132,7 +132,7 @@ class LabelDocument extends Component {
 
   validateTaskDone() {
     const { figures } = this.props;
-    const STATE_TO_REVIEW = 'To Review';
+    const STATE_TO_REVIEW = "To Review";
     let isDocReviewed = true;
 
     for (let i = 0; i < figures.length; i += 1) {
@@ -150,7 +150,7 @@ class LabelDocument extends Component {
     const { document, figures } = this.props;
     const { modalities, modalities1 } = this.props;
     if (!document || !figures || !modalities || !modalities1) {
-      return (<div />);
+      return <div />;
     }
 
     const { toasts, autohide, toastMessage } = this.state;
@@ -170,11 +170,15 @@ class LabelDocument extends Component {
       {
         onClick: this.hideDialog,
         primary: true,
-        children: 'Close',
+        children: "Close",
       },
     ];
 
-    const closeBtn = <Button icon onClick={this.closeDrawer}>close</Button>;
+    const closeBtn = (
+      <Button icon onClick={this.closeDrawer}>
+        close
+      </Button>
+    );
 
     return (
       <div className="md-grid--no-spacing">
@@ -182,25 +186,21 @@ class LabelDocument extends Component {
           <Toolbar
             themed
             className="md-cell--12"
-            title={<a target="_blank" href={pdfUri} download>{`Document ${document.name}`}</a>}
-            actions={
-              [
-                <Button
-                  raised
-                  secondary
-                  onClick={this.onClickShowPage}
-                >
-                  View PDF Page
-                </Button>,
-                <Button
-                  raised
-                  primary
-                  onClick={this.onClickFinishTask}
-                >
-                  Finish Task
-                </Button>,
-              ]
+            title={
+              <a
+                target="_blank"
+                href={pdfUri}
+                download
+              >{`Document ${document.name}`}</a>
             }
+            actions={[
+              <Button raised secondary onClick={this.onClickShowPage}>
+                View PDF Page
+              </Button>,
+              <Button raised primary onClick={this.onClickFinishTask}>
+                Finish Task
+              </Button>,
+            ]}
           />
         </Grid>
 
@@ -210,12 +210,12 @@ class LabelDocument extends Component {
           visible={this.state.drawerVisible}
           position="right"
           onVisibilityChange={this.handleDrawerVisibility}
-          header={(
+          header={
             <Toolbar
               nav={closeBtn}
               className="md-divider-border md-divider-border--bottom"
             />
-          )}
+          }
         >
           <img src={pageUrl} alt="" width="554" height="750" />
         </Drawer>
@@ -226,7 +226,11 @@ class LabelDocument extends Component {
               <Cell size={12}>
                 <div className="md-cell--12 figure-thumbnail">
                   <Media aspectRatio="1-1">
-                    <img src={figureUrl} alt={selectedFigure.name} onClick={this.showDialog} />
+                    <img
+                      src={figureUrl}
+                      alt={selectedFigure.name}
+                      onClick={this.showDialog}
+                    />
                   </Media>
                 </div>
                 <div className="md-cell--12 figure-caption-name">
@@ -257,14 +261,21 @@ class LabelDocument extends Component {
                 title={`Properties of Figure in Page ${selectedFigure.name}`}
               />
               <Grid className="md-grid">
-                <div className="caption-container">{selectedFigure.caption}</div>
+                <div className="caption-container">
+                  {selectedFigure.caption}
+                </div>
               </Grid>
               <Grid className="md-grid--no-spacing">
-                <Cell size={12}><SubfigureList /></Cell>
+                <Cell size={12}>
+                  <SubfigureList />
+                </Cell>
               </Grid>
               <Grid className="md-grid--no-spacing">
                 <Cell size={7}>
-                  <SubImageModList figure={selectedSubfigure} modalities={modalities} />
+                  <SubImageModList
+                    figure={selectedSubfigure}
+                    modalities={modalities}
+                  />
                 </Cell>
                 <Cell size={5}>
                   <img src={imageUrl} alt={selectedSubfigure.name} />
@@ -343,7 +354,9 @@ function mapStateToProps(state, ownProps) {
 
   if (state.dbmodalities && !props.modalities) {
     props.modalities = state.dbmodalities;
-    const modalities1 = [...new Set(props.modalities.map(item => item.modality1))];
+    const modalities1 = [
+      ...new Set(props.modalities.map((item) => item.modality1)),
+    ];
     props.modalities1 = parseValuesSelectField(modalities1);
   }
 
@@ -360,4 +373,4 @@ export default connect(mapStateToProps, {
   openTask,
   finishTask,
   updateFigureMissingPanels,
-})(requireAuth(LabelDocument, 'labelDocument'));
+})(requireAuth(LabelDocument, "labelDocument"));

@@ -1,15 +1,15 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import PropTypes from 'prop-types';
-import { reduxForm, Field } from 'redux-form';
-import { Button, Snackbar } from 'react-md';
-import { updatePassword } from 'client/actions';
-import textInput from 'client/components/form/textInput';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import PropTypes from "prop-types";
+import { reduxForm, Field } from "redux-form";
+import { Button, Snackbar } from "react-md";
+import { updatePassword } from "client/actions";
+import textInput from "client/components/form/textInput";
 
 class UpdatePassword extends Component {
-  state = { toasts: [], autohide: true, errorText: '' };
+  state = { toasts: [], autohide: true, errorText: "" };
 
   onSubmit = (formProps) => {
     const { updatePassword, id } = this.props;
@@ -19,7 +19,7 @@ class UpdatePassword extends Component {
     });
   };
 
-  addToast = (text, action, autohide: true) => {
+  addToast = (text, action, autohide = true) => {
     this.setState((state) => {
       const toasts = state.toasts.slice();
       toasts.push({ text, action });
@@ -30,11 +30,11 @@ class UpdatePassword extends Component {
   dismissToast = () => {
     const [, ...toasts] = this.state.toasts;
     this.setState({ toasts });
-  }
+  };
 
   toastSubmit = (message) => {
     this.addToast(message);
-  }
+  };
 
   render() {
     const { handleSubmit, errorMessage } = this.props;
@@ -63,9 +63,7 @@ class UpdatePassword extends Component {
           required
           errorText={errorText}
         />
-        <div>
-          {errorMessage}
-        </div>
+        <div>{errorMessage}</div>
         <Button flat primary type="submit" className="md-cell--right">
           `&apos;`Update Password`&apos;`
         </Button>
@@ -85,10 +83,10 @@ function isValid(val) {
     return val;
   }
   if (val.length === 0) {
-    return 'Required';
+    return "Required";
   }
   if (val.length < 5) {
-    return 'Minimum password length is 5 characters';
+    return "Minimum password length is 5 characters";
   }
   return undefined;
 }
@@ -105,7 +103,7 @@ function validate(values) {
 
   if (!errors.password && !errors.passwordConfirmation) {
     if (values.password !== values.passwordConfirmation) {
-      errors.passwordConfirmation = 'Passwords should have the same value';
+      errors.passwordConfirmation = "Passwords should have the same value";
     }
   }
 
@@ -115,7 +113,7 @@ function validate(values) {
 function mapStateToProps(state, ownProps) {
   const props = {
     id: ownProps.match.params.id,
-    errorMessage: '',
+    errorMessage: "",
   };
 
   return props;
@@ -130,5 +128,5 @@ UpdatePassword.propTypes = {
 
 export default compose(
   connect(mapStateToProps, { updatePassword }),
-  reduxForm({ form: 'updatepwd', validate })
+  reduxForm({ form: "updatepwd", validate })
 )(UpdatePassword);

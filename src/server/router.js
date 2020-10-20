@@ -63,4 +63,5 @@ module.exports = function (app) {
   app.get('/api/fetchFigures/:state', Figures.fetchFigures);
   app.get('/api/searchSubfigures/', Figures.searchSubfigures);
   app.post('/api/flag/:id', Figures.flag);
+  app.get('/api/figures/count/reviewed/', Figures.countReviewed);
 }

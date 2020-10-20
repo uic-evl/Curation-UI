@@ -12,8 +12,8 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import _ from 'lodash';
-import React, { Component } from 'react';
+import _ from "lodash";
+import React, { Component } from "react";
 import {
   Media,
   Toolbar,
@@ -24,16 +24,16 @@ import {
   SelectionControl,
   Snackbar,
   Divider,
-} from 'react-md';
-import { connect } from 'react-redux';
+} from "react-md";
+import { connect } from "react-redux";
 import {
   filterModalities2,
   filterModalities3,
   filterModalities4,
   getStateInitVals,
   resetFormValues,
-} from 'client/containers/utils/training_form';
-import { updateSubfigure } from 'client/actions';
+} from "client/containers/utils/training_form";
+import { updateSubfigure } from "client/actions";
 
 class SubImage extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class SubImage extends Component {
     this.state = getStateInitVals();
     this.state.toasts = [];
     this.state.autohide = true;
-    this.state.toastMessage = '';
+    this.state.toastMessage = "";
 
     this.onClean = this.onClean.bind(this);
     this.onChangeCompound = this.onChangeCompound.bind(this);
@@ -61,14 +61,27 @@ class SubImage extends Component {
     const { modalities, figure } = this.props;
     const { modality1, modality2 } = figure;
     const { modality3, modality4 } = figure;
-    const { modalities2, disabledModality1, disabledModality2 } = filterModalities2(modalities, modality1);
-    const { modalities3, disabledModality3 } = filterModalities3(modalities, modality1, modality2);
-    const { modalities4, disabledModality4 } = filterModalities4(modalities, modality1, modality2, modality3);
+    const {
+      modalities2,
+      disabledModality1,
+      disabledModality2,
+    } = filterModalities2(modalities, modality1);
+    const { modalities3, disabledModality3 } = filterModalities3(
+      modalities,
+      modality1,
+      modality2
+    );
+    const { modalities4, disabledModality4 } = filterModalities4(
+      modalities,
+      modality1,
+      modality2,
+      modality3
+    );
 
     // these lines are provisional, have to fix db
     let observations = figure.observations;
     if (observations === undefined) {
-      observations = '';
+      observations = "";
     }
     let needsCropping = figure.needsCropping;
     if (needsCropping === undefined) {
@@ -104,13 +117,26 @@ class SubImage extends Component {
     if (prevProps && prevProps.figure._id !== figure._id) {
       const { modality1, modality2 } = figure;
       const { modality3, modality4 } = figure;
-      const { modalities2, disabledModality1, disabledModality2 } = filterModalities2(modalities, modality1);
-      const { modalities3, disabledModality3 } = filterModalities3(modalities, modality1, modality2);
-      const { modalities4, disabledModality4 } = filterModalities4(modalities, modality1, modality2, modality3);
+      const {
+        modalities2,
+        disabledModality1,
+        disabledModality2,
+      } = filterModalities2(modalities, modality1);
+      const { modalities3, disabledModality3 } = filterModalities3(
+        modalities,
+        modality1,
+        modality2
+      );
+      const { modalities4, disabledModality4 } = filterModalities4(
+        modalities,
+        modality1,
+        modality2,
+        modality3
+      );
 
       let observations = figure.observations;
       if (observations === undefined) {
-        observations = '';
+        observations = "";
       }
       let needsCropping = figure.needsCropping;
       if (needsCropping === undefined) {
@@ -153,16 +179,20 @@ class SubImage extends Component {
 
   onChangeModality1(value) {
     const { modalities } = this.props;
-    const { modalities2, disabledModality1, disabledModality2 } = filterModalities2(modalities, value);
+    const {
+      modalities2,
+      disabledModality1,
+      disabledModality2,
+    } = filterModalities2(modalities, value);
 
     this.setState({
       modality1: value,
       modalities2,
-      modality2: '',
+      modality2: "",
       modalities3: [],
-      modality3: '',
+      modality3: "",
       modalities4: [],
-      modality4: '',
+      modality4: "",
       disabledModality1,
       disabledModality2,
       disabledModality3: true,
@@ -173,14 +203,18 @@ class SubImage extends Component {
   onChangeModality2(value) {
     const { modalities } = this.props;
     const { modality1 } = this.state;
-    const { modalities3, disabledModality3 } = filterModalities3(modalities, modality1, value);
+    const { modalities3, disabledModality3 } = filterModalities3(
+      modalities,
+      modality1,
+      value
+    );
 
     this.setState({
       modality2: value,
       modalities3,
       disabledModality3,
       modalities4: [],
-      modality4: '',
+      modality4: "",
       disabledModality4: true,
     });
   }
@@ -188,7 +222,12 @@ class SubImage extends Component {
   onChangeModality3(value) {
     const { modalities } = this.props;
     const { modality1, modality2 } = this.state;
-    const { modalities4, disabledModality4 } = filterModalities4(modalities, modality1, modality2, value);
+    const { modalities4, disabledModality4 } = filterModalities4(
+      modalities,
+      modality1,
+      modality2,
+      value
+    );
 
     this.setState({
       modality3: value,
@@ -215,33 +254,39 @@ class SubImage extends Component {
 
   onSkip() {
     const { figure, updateSubfigure } = this.props;
-    const SKIPPED = 'Skipped';
+    const SKIPPED = "Skipped";
     const values = {
-      'state': SKIPPED,
+      state: SKIPPED,
     };
     updateSubfigure(figure._id, values, () => {
-      this.toastSubmit('Subfigure updated!');
+      this.toastSubmit("Subfigure updated!");
     });
   }
 
   onSave() {
     const { figure, updateSubfigure } = this.props;
-    const values = _.pick(this.state,
-      ['modality1', 'modality2', 'modality3', 'modality4', 'observations', 'isCompound',
-        'needsCropping']);
+    const values = _.pick(this.state, [
+      "modality1",
+      "modality2",
+      "modality3",
+      "modality4",
+      "observations",
+      "isCompound",
+      "needsCropping",
+    ]);
 
     if (this.validate()) {
       updateSubfigure(figure._id, values, () => {
-        console.log('updated');
-        this.toastSubmit('Subfigure updated!');
+        console.log("updated");
+        this.toastSubmit("Subfigure updated!");
         // this.setState(resetFormValues());
       });
     } else {
-      this.toastSubmit('Fill the mandatory fields');
+      this.toastSubmit("Fill the mandatory fields");
     }
   }
 
-  addToast = (text, action, autohide: true) => {
+  addToast = (text, action, autohide = true) => {
     this.setState((state) => {
       const toasts = state.toasts.slice();
       toasts.push({ text, action });
@@ -252,20 +297,23 @@ class SubImage extends Component {
   dismissToast = () => {
     const [, ...toasts] = this.state.toasts;
     this.setState({ toasts });
-  }
+  };
 
   toastSubmit = (message) => {
     this.addToast(message);
-  }
+  };
 
   validate() {
-    if (this.props.modalities1.length > 0 && (this.state.modality1 === undefined || this.state.modality1 === '')) {
+    if (
+      this.props.modalities1.length > 0 &&
+      (this.state.modality1 === undefined || this.state.modality1 === "")
+    ) {
       return false;
     }
-    if (this.state.modalities2.length > 0 && this.state.modality2 === '') {
+    if (this.state.modalities2.length > 0 && this.state.modality2 === "") {
       return false;
     }
-    if (this.state.modalities3.length > 0 && this.state.modality3 === '') {
+    if (this.state.modalities3.length > 0 && this.state.modality3 === "") {
       return false;
     }
     return true;
@@ -284,11 +332,7 @@ class SubImage extends Component {
 
     return (
       <div>
-        <Toolbar
-          themed
-          className="properties-title"
-          title={subtitle}
-        />
+        <Toolbar themed className="properties-title" title={subtitle} />
         <div className="md-grid">
           <div className="md-cell--12">
             <Grid className="md-grid md-grid--no-spacing">
@@ -380,10 +424,14 @@ class SubImage extends Component {
           themed
           className="properties-title"
           title=""
-          actions={(
-            [<Button flat secondary onClick={this.onSkip}>Skip</Button>,
-              <Button flat secondary onClick={this.onSave}>Save</Button>]
-          )}
+          actions={[
+            <Button flat secondary onClick={this.onSkip}>
+              Skip
+            </Button>,
+            <Button flat secondary onClick={this.onSave}>
+              Save
+            </Button>,
+          ]}
         />
       </div>
     );

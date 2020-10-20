@@ -322,3 +322,15 @@ body {
   flex-direction: row;
   width: 100%;
 }
+
+.subfigures-parent {
+  display: grid;
+  grid-template-columns: minmax(250px, 15%) 1fr;
+}
+
+.FineGrainBarChart {
+  height: 450px;
+  max-width: 300px;
+  min-width: 250px;
+  width: calc(100% + 1em);
+}
