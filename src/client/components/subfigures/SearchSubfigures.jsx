@@ -13,7 +13,8 @@ const SearchSubfigures = () => {
   const [totalResults, setTotalResults] = useState(0);
   const [filters, setFilters] = useState({
     pageNumber: 1,
-    pageSize: 30,
+    pageSize: 21,
+    state: "Reviewed",
   });
 
   const buildUrl = () => {

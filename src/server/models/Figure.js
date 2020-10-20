@@ -108,7 +108,11 @@ const figureSchema = new Schema({
   flag: {
     type: Boolean,
     default: false,
-  }
+  },
+  username: {
+    type: String,
+    default: "",
+  },
 });
 
 const FigureModel = mongoose.model("figure", figureSchema);
