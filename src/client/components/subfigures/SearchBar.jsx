@@ -59,6 +59,44 @@ const observationOptions = [
   },
 ];
 
+const userOptions = [
+  {
+    key: 1,
+    value: "arighi",
+    text: "arighi",
+  },
+  {
+    key: 2,
+    value: "daniela",
+    text: "daniela",
+  },
+  {
+    key: 3,
+    value: "jtrell2",
+    text: "jtrell2",
+  },
+  {
+    key: 4,
+    value: "shatkay",
+    text: "shatkay",
+  },
+  {
+    key: 5,
+    value: "pengyuan",
+    text: "pengyuan",
+  },
+  {
+    key: 6,
+    value: "jtrelles",
+    text: "jtrelles",
+  },
+  {
+    key: 7,
+    value: "gmarai",
+    text: "gmarai",
+  },
+];
+
 const API_URL = process.env.API_URL;
 
 const SearchBar = ({ onSearch }) => {
@@ -67,6 +105,7 @@ const SearchBar = ({ onSearch }) => {
   const [subfigureState, setSubfigureState] = useState("Reviewed");
   const [selectedModalities, setSelectedModalities] = useState([]);
   const [selectedObservations, setSelectedObservations] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
 
   const handleSearch = () => {
     const filters = {
@@ -74,6 +113,7 @@ const SearchBar = ({ onSearch }) => {
       state: subfigureState === "All" ? undefined : subfigureState,
       modalities: selectedModalities,
       additionalObservations: selectedObservations,
+      username: selectedUser === "" ? undefined : selectedUser,
     };
     onSearch(filters);
   };
@@ -116,6 +156,16 @@ const SearchBar = ({ onSearch }) => {
         options={stateOptions}
         value={subfigureState}
         onChange={(e, { value }) => setSubfigureState(value)}
+        style={{ width: "200px" }}
+      />
+
+      <Dropdown
+        placeholder="User"
+        fluid
+        selection
+        options={userOptions}
+        value={selectedUser}
+        onChange={(e, { value }) => setSelectedUser(value)}
         style={{ width: "200px" }}
       />
 

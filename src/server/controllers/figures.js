@@ -1,6 +1,7 @@
+/*eslint-disable*/
 const { ObjectID } = require("mongodb");
-// const { Model } = require("mongoose");
 const Figure = require("../models/Figure");
+const Task = require("../models/Task");
 
 const STATE_REVIEWED = "Reviewed";
 const STATE_SKIPPED = "Skipped";
@@ -39,11 +40,14 @@ exports.searchSubfigures = async function (req, res) {
   }
 
   const skips = pageSize * (pageNumber - 1);
-  const { state, modalities, observations, additional } = req.query;
+  const { state, modalities, observations, additional, username } = req.query;
 
   const filter = { type: "Subfigure" };
   if (state !== undefined) {
     filter["state"] = state;
+  }
+  if (username !== undefined) {
+    filter["username"] = username;
   }
   if (observations !== undefined) {
     filter["observations"] = { $regex: new RegExp(observations, "i") };
@@ -107,6 +111,17 @@ exports.flag = async function (req, res) {
   }
 };
 
+exports.getTaskUrl = async function (req, res) {
+  const id = req.params.id;
+  const figure = await Figure.findById(id);
+  const task = await Task.findOne({ documentId: ObjectID(figure.docId) });
+
+  taskLabelingUrl = `${task["url"]}/${task._id}`;
+  res.send({
+    url: taskLabelingUrl,
+  });
+};
+
 exports.countReviewed = async function (req, res) {
   try {
     const counts = await Figure.aggregate([
@@ -145,7 +160,7 @@ exports.countReviewed = async function (req, res) {
           path: "$modality",
         },
       },
-    ]);    
+    ]);
     res.send({ counts, error: null });
   } catch (error) {
     console.log("error here");

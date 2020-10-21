@@ -26,6 +26,7 @@ const SearchSubfigures = () => {
       url = `${url}&observations=${filters.observations}`;
     if (filters.additional && filters.additional.length > 0)
       url = `${url}&additional=${filters.additional}`;
+    if (filters.username) url = `${url}&username=${filters.username}`;
 
     return url;
   };
@@ -56,6 +57,7 @@ const SearchSubfigures = () => {
       newFilters["observations"] = searchFilters.observations;
     if (searchFilters.additionalObservations.length > 0)
       newFilters["additional"] = searchFilters.additionalObservations;
+    if (searchFilters.username) newFilters["username"] = searchFilters.username;
 
     setFilters(newFilters);
   };
