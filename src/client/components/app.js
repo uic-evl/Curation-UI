@@ -37,6 +37,12 @@ const navItems = [
     exact: true,
     icon: "inbox",
   },
+  {
+    label: "Subfigures",
+    to: "/subfigures",
+    exact: true,
+    icon: "inbox",
+  },
 ];
 
 class App extends PureComponent {

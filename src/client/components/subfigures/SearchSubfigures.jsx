@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import FigureItem from "./FigureItem";
 import Summary from "./Summary";
+import UpdatePanel from "./UpdatePanel";
 import { Pagination } from "semantic-ui-react";
 import axios from "axios";
 
@@ -11,11 +12,26 @@ const API_URL = process.env.API_URL;
 const SearchSubfigures = () => {
   const [subfigures, setSubfigures] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
+  const [selectedFigures, setSelectedFigures] = useState([]);
   const [filters, setFilters] = useState({
     pageNumber: 1,
-    pageSize: 21,
+    pageSize: 18,
     state: "Reviewed",
   });
+  const [modalities, setModalities] = useState({});
+
+  useEffect(() => {
+    const getModalities = async () => {
+      const results = await axios.get(`${API_URL}modalities`);
+      const tempModalities = {};
+      const options = results.data.map((mod) => {
+        tempModalities[mod._id] = `${mod.columnLabel} ${mod.simplify}`;
+      });
+      setModalities(tempModalities);
+    };
+
+    getModalities();
+  }, []);
 
   const buildUrl = () => {
     let url = `${API_URL}searchSubfigures/?pageNumber=${filters.pageNumber}&pageSize=${filters.pageSize}`;
@@ -51,11 +67,14 @@ const SearchSubfigures = () => {
       pageSize: filters.pageSize,
     };
     if (searchFilters.state) newFilters["state"] = searchFilters.state;
-    if (searchFilters.modalities.length > 0)
+    if (searchFilters.modalities && searchFilters.modalities.length > 0)
       newFilters["modalities"] = searchFilters.modalities;
     if (searchFilters.observations)
       newFilters["observations"] = searchFilters.observations;
-    if (searchFilters.additionalObservations.length > 0)
+    if (
+      searchFilters.additionalObservations &&
+      searchFilters.additionalObservations.length > 0
+    )
       newFilters["additional"] = searchFilters.additionalObservations;
     if (searchFilters.username) newFilters["username"] = searchFilters.username;
 
@@ -71,21 +90,43 @@ const SearchSubfigures = () => {
     const fetchSubfigures = async () => {
       const url = buildUrl();
       const results = await axios.get(url);
+      console.log(results.data.subfigures);
       setSubfigures(results.data.subfigures);
       setTotalResults(results.data.total);
+      setSelectedFigures([]);
     };
 
     fetchSubfigures();
   }, [filters]);
 
+  const updateSelectedSubfigures = (figure, add) => {
+    if (add) {
+      setSelectedFigures([...selectedFigures, figure]);
+    } else {
+      setSelectedFigures(selectedFigures.filter((el) => el._id != figure._id));
+    }
+  };
+
+  const updateFigures = async (figuresToUpdate) => {
+    let url = `${API_URL}figures/updateModalities/`;
+    const results = await axios.post(url, { subfigures: figuresToUpdate });
+    setSelectedFigures([]);
+    handleSearch(filters);
+  };
+
   return (
     <div style={{ width: "100%" }} className="subfigures-parent">
       <section className="summaryArea">
         <Summary />
+        <UpdatePanel
+          selectedFigures={selectedFigures}
+          modalitiesDict={modalities}
+          updateFigures={updateFigures}
+        />
       </section>
       <section className="searchArea">
         <SearchBar onSearch={handleSearch} />
-        <div>{`${totalResults} images found`}</div>
+        <div>{`${totalResults} images found, ${selectedFigures.length} images selected`}</div>
         <div className="figures-viewer">
           {subfigures.map((sf) => (
             <FigureItem
@@ -99,6 +140,10 @@ const SearchSubfigures = () => {
               isOverfragmented={sf.isOverfragmented}
               isFlagged={sf.flag}
               onFlag={flagSubfigure}
+              onClickFigure={updateSelectedSubfigures}
+              modalitiesDict={modalities}
+              modalities={sf.modalities}
+              isSelected={false}
             />
           ))}
         </div>

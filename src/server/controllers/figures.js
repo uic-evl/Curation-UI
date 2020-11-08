@@ -122,6 +122,23 @@ exports.getTaskUrl = async function (req, res) {
   });
 };
 
+exports.updateModalities = async function (req, res) {
+  const { subfigures } = req.body;
+  console.log(subfigures);
+
+  for (const el of subfigures) {
+    const modalities = el.modalities.map((m) => ({
+      _id: typeof m === "string" ? ObjectID(m) : ObjectID(m._id),
+    }));
+    console.log(modalities);
+    subfigure = await Figure.findById(ObjectID(el._id));
+    subfigure.modalities = modalities;
+    await subfigure.save();
+  }
+
+  res.send({ message: "success" });
+};
+
 exports.countReviewed = async function (req, res) {
   try {
     const counts = await Figure.aggregate([

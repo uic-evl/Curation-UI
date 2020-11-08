@@ -74,4 +74,5 @@ module.exports = function (app) {
   app.post("/api/flag/:id", Figures.flag);
   app.get("/api/figures/count/reviewed/", Figures.countReviewed);
   app.get("/api/figure/taskUrl/:id", Figures.getTaskUrl);
+  app.post("/api/figures/updateModalities", Figures.updateModalities);
 };

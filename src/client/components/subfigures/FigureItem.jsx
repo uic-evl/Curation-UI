@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from "react";
+import React, { useState } from "react";
 import { Card, Icon, Image, Label } from "semantic-ui-react";
 import axios from "axios";
 import { useHistory } from "react-router";
@@ -14,10 +14,15 @@ const FigureItem = ({
   isOvercropped,
   isFlagged,
   onFlag,
+  onClickFigure,
+  modalitiesDict,
+  modalities,
+  isSelected,
 }) => {
   const baseUrl = "https://tinman.cis.udel.edu/images";
   const API_URL = process.env.API_URL;
   const history = useHistory();
+  const [selected, setSelected] = useState(isSelected);
 
   const showCompound = () => {
     return isCompound ? <Label>is-compound</Label> : "";
@@ -33,6 +38,16 @@ const FigureItem = ({
 
   const showOvercropped = () => {
     return isOvercropped ? <Label>over-cropped</Label> : "";
+  };
+
+  const showModalities = () => {
+    return (
+      <React.Fragment>
+        {modalities.map((mod) => {
+          return <Label key={mod._id}>{modalitiesDict[mod._id]}</Label>;
+        })}
+      </React.Fragment>
+    );
   };
 
   const showFlag = () => {
@@ -66,11 +81,24 @@ const FigureItem = ({
     history.push({ pathname: result.data.url });
   };
 
+  const handleSelectFigure = () => {
+    const status = !selected;
+    setSelected(status);
+    onClickFigure({ _id: id, modalities: modalities }, status);
+  };
+
   return (
-    <Card>
-      <Image src={baseUrl + url} size="small" wrapped ui={true}></Image>
+    <Card color={selected ? "red" : null}>
+      <Image
+        src={baseUrl + url}
+        size="small"
+        wrapped
+        ui={true}
+        onClick={handleSelectFigure}
+      ></Image>
       <Card.Content extra>
         {showCompound()}
+        {showModalities()}
         {showCropping()}
         {showOverfragmented()}
         {showOvercropped()}
